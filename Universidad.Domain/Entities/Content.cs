@@ -11,4 +11,18 @@ public class Content
     public User User { get; set; }
     public int DepartmentId { get; set; }
     public Department Department { get; set; }
+
+
+    public Content(string title, string body, string? imageUrl, int userId, int departmentId)
+    {
+        Title = title;
+        Body = body;
+        ImageUrl = imageUrl;
+        CreationDate = DateTime.UtcNow;
+        UserId = userId;
+        DepartmentId = departmentId;
+    }
+
+    public Content() { }
+
 }

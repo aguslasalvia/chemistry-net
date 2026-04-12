@@ -1,0 +1,6 @@
+.main-layout {
+    width: 100%;
+    min-height: 100dvh;
+    /* padding-top: 102px; */
+    /* 70px nav + 16px padding top + 16px margen */
+}

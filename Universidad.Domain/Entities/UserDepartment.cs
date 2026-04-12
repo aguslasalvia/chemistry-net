@@ -11,4 +11,13 @@ public class UserDepartment
     public Department Department { get; set; }
 
     public Rol DepartmentRol { get; set; }
+
+    public UserDepartment(int userId, int departmentId, Rol departmentRol)
+    {
+        UserId = userId;
+        DepartmentId = departmentId;
+        DepartmentRol = departmentRol;
+    }
+
+    public UserDepartment() { }
 }

@@ -7,6 +7,17 @@ public class Department
     public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public ICollection<UserDepartment> Users { get; set; }
-    public ICollection<Content> Content { get; set; }
+    public ICollection<UserDepartment>? Users { get; set; }
+    public ICollection<Content>? Content { get; set; }
+
+
+    public Department(string name, string description, ICollection<UserDepartment>? users, ICollection<Content>? content)
+    {
+        Name = name;
+        Description = description;
+        Users = users;
+        Content = content;
+    }
+
+    public Department() { }
 }

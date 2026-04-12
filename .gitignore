@@ -2,3 +2,7 @@ obj
 bin
 .vscode
 .fake
+publish
+wwwroot
+node_modules
+bun.lock

@@ -1,0 +1,1 @@
+namespace Universidad.Domain.Interfaces;

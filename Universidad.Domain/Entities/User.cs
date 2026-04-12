@@ -8,4 +8,15 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public ICollection<UserDepartment> Department { get; set; }
+
+    public User(string name, string lastName, string email, string passwordHash)
+    {
+        Name = name;
+        LastName = lastName;
+        Email = email;
+        PasswordHash = passwordHash;
+    }
+
+    public User() { }
+
 }
