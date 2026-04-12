@@ -6,3 +6,4 @@ publish
 wwwroot
 node_modules
 bun.lock
+*.db
