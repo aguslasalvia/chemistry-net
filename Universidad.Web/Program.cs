@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=university.db"));
@@ -30,6 +31,11 @@ using (var scope = app.Services.CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
+    builder.WebHost.UseUrls("http://0.0.0.0:5000");
+}
+else
+{
+    builder.WebHost.UseUrls("http://localhost:5000");
 }
 
 app.UseHttpsRedirection();
