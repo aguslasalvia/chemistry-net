@@ -1,0 +1,29 @@
+.panel-layout {
+    display: flex;
+    min-height: 100dvh;
+    background: var(--fq-bg);
+}
+
+.panel-layout__main {
+    flex: 1;
+    margin-left: 260px;
+    padding: 24px 32px;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+}
+
+.panel-layout__content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+body.sidebar-collapsed .panel-layout__main {
+    margin-left: 72px;
+}
+
+@media (max-width: 768px) {
+    .panel-layout__main {
+        margin-left: 72px;
+        padding: 16px;
+    }
+}

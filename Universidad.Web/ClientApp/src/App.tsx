@@ -3,10 +3,12 @@ import './App.css'
 
 // Layouts
 import MainLayout from "./layouts/MainLayout"
+import PanelLayout from "./layouts/PanelLayout"
 
 // Pages
 import Home from "./pages/Home/Home"
-import Login from "./pages/Login/Login"
+import Login from "./pages/Panel/Login/Login"
+import DashboardHomePage from "./pages/Panel/Dashboard/Dashboard"
 
 
 const App = () => {
@@ -21,6 +23,9 @@ const App = () => {
                 {/* Panel / Admin pages+routes */}
                 <Route path="/panel">
                     <Route path="login" element={<Login />} />
+                    <Route element={<PanelLayout />} >
+                        <Route index path="dashboard" element={<DashboardHomePage />} />
+                    </Route>
                 </Route>
 
                 {/* Not found route */}
