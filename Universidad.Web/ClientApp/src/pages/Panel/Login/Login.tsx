@@ -30,7 +30,7 @@ const LoginPage = () => {
                 <div className="login-card">
                     <div className="login-header">
                         <div className="login-logo">
-                            <img src="/logo.png" alt="Facultad de Química" />
+                            <img src="/logo-inverted.png" alt="Facultad de Química" />
                         </div>
                         <h1 className="login-title">Iniciar Sesión</h1>
                         <p className="login-subtitle">Accede a tu cuenta de la Facultad de Química</p>

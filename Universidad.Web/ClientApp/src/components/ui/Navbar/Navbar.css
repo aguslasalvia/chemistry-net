@@ -47,7 +47,7 @@
 /* ITEM */
 .nav-links>li {
     position: relative;
-   
+
 }
 
 /* LABEL (los <span>) */
@@ -167,8 +167,7 @@
     }
 
     .nav-links {
-        flex-direction: column;
-        width: 100%;
+        display: none;
     }
 
     .nav-links>li {
