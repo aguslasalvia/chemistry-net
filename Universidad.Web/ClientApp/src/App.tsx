@@ -7,6 +7,7 @@ import PanelLayout from "./layouts/PanelLayout"
 
 // Pages
 import Home from "./pages/Home/Home"
+import NotFound from "./pages/NotFound/NotFound"
 import Login from "./pages/Panel/Login/Login"
 import DashboardHomePage from "./pages/Panel/Dashboard/Dashboard"
 
@@ -29,7 +30,7 @@ const App = () => {
                 </Route>
 
                 {/* Not found route */}
-                <Route path="*" element={<h1>Not Found</h1>} />
+                <Route path="*" element={<NotFound />} />
 
             </Routes>
         </BrowserRouter>
