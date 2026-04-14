@@ -1,44 +1,44 @@
+namespace Universidad.Infrastructure.Persistence;
+
 using Microsoft.EntityFrameworkCore;
 using Universidad.Domain.Entities;
-
-namespace Universidad.Infrastructure.Persistence;
 
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Department> Departments { get; set; }
-    public DbSet<UserDepartment> UserDepartments { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<UserGroup> UserGroups { get; set; }
     public DbSet<Content> Contents { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasKey(u => u.Id);
-        modelBuilder.Entity<Department>().HasKey(d => d.Id);
+        modelBuilder.Entity<Group>().HasKey(d => d.Id);
         modelBuilder.Entity<Content>().HasKey(c => c.Id);
 
-        modelBuilder.Entity<UserDepartment>()
-            .HasKey(ud => new { ud.UserId, ud.DepartmentId });
+        modelBuilder.Entity<UserGroup>().HasKey(ud => new { ud.UserId, ud.GroupId });
 
-        modelBuilder.Entity<UserDepartment>()
+        modelBuilder
+            .Entity<UserGroup>()
             .HasOne(ud => ud.User)
-            .WithMany(u => u.Department)
+            .WithMany(u => u.Groups)
             .HasForeignKey(ud => ud.UserId);
 
-        modelBuilder.Entity<UserDepartment>()
-            .HasOne(ud => ud.Department)
+        modelBuilder
+            .Entity<UserGroup>()
+            .HasOne(ud => ud.Group)
             .WithMany(d => d.Users)
-            .HasForeignKey(ud => ud.DepartmentId);
+            .HasForeignKey(ud => ud.GroupId);
 
-        modelBuilder.Entity<Content>()
-            .HasOne(c => c.Department)
+        modelBuilder
+            .Entity<Content>()
+            .HasOne(c => c.Group)
             .WithMany(d => d.Content)
-            .HasForeignKey(c => c.DepartmentId);
+            .HasForeignKey(c => c.GroupId);
 
-        modelBuilder.Entity<Content>()
-            .HasOne(c => c.User)
-            .WithMany()
-            .HasForeignKey(c => c.UserId);
+        modelBuilder.Entity<Content>().HasOne(c => c.User).WithMany().HasForeignKey(c => c.UserId);
 
         base.OnModelCreating(modelBuilder);
     }
 }
+
