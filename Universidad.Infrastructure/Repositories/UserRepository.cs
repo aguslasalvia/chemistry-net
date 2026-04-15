@@ -4,6 +4,7 @@ using Universidad.Domain.Interfaces;
 // using Universidad.Application.Dto;
 using Universidad.Infrastructure.Persistence;
 using Universidad.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class UserRepository : IUserRepository
 {
@@ -14,8 +15,8 @@ public class UserRepository : IUserRepository
         this._context = context;
     }
 
-    Task<User> IUserRepository.LoginAsync(string email, string password)
+    public async Task<User?> LoginAsync(string email, string passwordHashed)
     {
-        throw new NotImplementedException();
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHashed);
     }
 }

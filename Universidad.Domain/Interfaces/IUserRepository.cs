@@ -4,6 +4,6 @@ using Universidad.Domain.Entities;
 
 public interface IUserRepository
 {
-    Task<User> LoginAsync(string email, string password);
+    Task<User?> LoginAsync(string email, string passwordHashed);
 
 }
