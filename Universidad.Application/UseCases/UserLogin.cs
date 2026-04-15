@@ -11,7 +11,6 @@ public class UserLogin : IUserLogin
 
     private readonly IUserRepository _userRepository;
 
-
     public UserLogin(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -19,18 +18,21 @@ public class UserLogin : IUserLogin
 
     public async Task<UserDto> ExecuteAsync(LoginDto loginDto)
     {
+        // Hash the password before sending it to the repository
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(loginDto.Password);
 
-        var user = await _userRepository.LoginAsync(loginDto.Email, loginDto.Password);
-        if (user == null)
-        {
-            throw new InvalidOperationException("Invalid email or password");
-        }
+        var user = await _userRepository.LoginAsync(loginDto.Email, hashedPassword)
+            ?? throw new InvalidOperationException("Invalid email or password");
 
-        return new UserDto
-        {
-            Id = user.Id,
-            UserName = user.Name,
-            Email = user.Email
-        };
+        return new UserDto(
+            Id: user.Id,
+            Name: user.Name,
+            LastName: user.LastName,
+            Email: user.Email,
+            Groups: user.Groups.Select(g => new GroupDto(
+                Id: g.Group.Id,
+                Name: g.Group.Name
+            )).ToList()
+        );
     }
 }

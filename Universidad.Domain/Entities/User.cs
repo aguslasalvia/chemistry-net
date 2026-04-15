@@ -7,7 +7,7 @@ public class User
     public string LastName { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
-    public ICollection<UserGroup> Groups { get; set; }
+    public IEnumerable<UserGroup> Groups { get; set; }
 
     public User(string name, string lastName, string email, string passwordHash, ICollection<UserGroup> groups)
     {
