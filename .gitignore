@@ -7,3 +7,4 @@ wwwroot
 node_modules
 bun.lock
 *.db
+*.db*

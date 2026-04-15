@@ -1,8 +1,8 @@
-using System.Net.Mime;
+using Universidad.Domain.Enums;
+
 
 namespace Universidad.Domain.Entities;
 
-using Universidad.Domain.Enums;
 
 public class Content
 {

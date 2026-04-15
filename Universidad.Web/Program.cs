@@ -54,7 +54,7 @@ internal class Program
         }
         else
         {
-            builder.WebHost.UseUrls("http://localhost:5000");
+            builder.WebHost.UseUrls("http://localhost:5050");
         }
 
         app.UseHttpsRedirection();
