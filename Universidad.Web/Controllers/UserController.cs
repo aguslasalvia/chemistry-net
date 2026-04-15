@@ -6,18 +6,11 @@ namespace Universidad.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UserController(
+      IUserLogin login
+        ) : ControllerBase
 {
-    private readonly IUserLogin _userLogin;
-
-    public UserController(
-          IUserLogin login
-        )
-    {
-        this._userLogin = login;
-    }
-
-
+    private readonly IUserLogin _userLogin = login;
 
     [HttpPost]
     [Route("login")]
