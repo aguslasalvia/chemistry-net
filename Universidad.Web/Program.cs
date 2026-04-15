@@ -1,12 +1,27 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+
 using Universidad.Infrastructure.Persistence;
 
+using Universidad.Infrastructure.Repositories;
+using Universidad.Domain.Interfaces;
+
+using Universidad.Application.UseCases;
+using Universidad.Application.Interfaces;
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+
+        // Repositories Injection
+        builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+        builder.Services.AddScoped(typeof(IContentRepository), typeof(ContentRepository));
+        builder.Services.AddScoped(typeof(IGroupRepository), typeof(GroupRepository));
+
+        // Use Cases Injection
+        builder.Services.AddScoped(typeof(IUserLogin), typeof(UserLogin));
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite("Data Source=university.db")
