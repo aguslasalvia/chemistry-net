@@ -6,4 +6,5 @@ public interface IUserRepository
 {
     Task<User?> LoginAsync(string email, string passwordHashed);
 
+    Task<User> RegisterAsync(User user);
 }

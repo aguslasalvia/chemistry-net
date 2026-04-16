@@ -21,7 +21,9 @@ internal class Program
         builder.Services.AddScoped(typeof(IGroupRepository), typeof(GroupRepository));
 
         // Use Cases Injection
+        //User
         builder.Services.AddScoped(typeof(IUserLogin), typeof(UserLogin));
+        builder.Services.AddScoped(typeof(IUserRegister), typeof(UserRegister));
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite("Data Source=university.db")
