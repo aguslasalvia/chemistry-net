@@ -14,8 +14,7 @@ public class UserController(
     private readonly IUserLogin _userLogin = login;
     private readonly IUserRegister _userRegister = register;
 
-    [HttpPost]
-    [Route("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto credentials)
     {
         if (credentials == null)
@@ -33,8 +32,7 @@ public class UserController(
     }
 
 
-    [HttpPost]
-    [Route("register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto registerDto)
     {
         if (registerDto == null)

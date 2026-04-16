@@ -8,30 +8,26 @@ public class GroupController()
 {
 
     [HttpPost]
-    [Route("/group")]
     public async Task<IActionResult> AddGroup()
     {
         return await Task.FromResult<IActionResult>(null);
     }
 
-    [HttpPut]
-    [Route("/group")]
-    public async Task<IActionResult> UpdateGroup()
+    [HttpPut("{groupId}")]
+    public async Task<IActionResult> UpdateGroup(string groupId)
     {
         return await Task.FromResult<IActionResult>(null);
     }
 
 
-    [HttpPost]
-    [Route("/add-user")]
-    public async Task<IActionResult> AddUserToGroup()
+    [HttpPost("{groupId}/user")]
+    public async Task<IActionResult> AddUserToGroup(string groupId)
     {
         return await Task.FromResult<IActionResult>(null);
     }
 
-    [HttpDelete]
-    [Route("/delete-user")]
-    public async Task<IActionResult> DeleteUserFromGroup()
+    [HttpDelete("{groupId}/user/{userId}")]
+    public async Task<IActionResult> DeleteUserFromGroup(string groupId, string userId)
     {
         return await Task.FromResult<IActionResult>(null);
     }

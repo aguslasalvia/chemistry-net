@@ -8,6 +8,7 @@ using Universidad.Domain.Interfaces;
 
 using Universidad.Application.UseCases;
 using Universidad.Application.Interfaces;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -21,7 +22,7 @@ internal class Program
         builder.Services.AddScoped(typeof(IGroupRepository), typeof(GroupRepository));
 
         // Use Cases Injection
-        //User
+        // User
         builder.Services.AddScoped(typeof(IUserLogin), typeof(UserLogin));
         builder.Services.AddScoped(typeof(IUserRegister), typeof(UserRegister));
 
