@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
+namespace Universidad.Web.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class GroupController()
@@ -9,14 +11,14 @@ public class GroupController()
     [Route("/group")]
     public async Task<IActionResult> AddGroup()
     {
-        return null;
+        return await Task.FromResult<IActionResult>(null);
     }
 
     [HttpPut]
     [Route("/group")]
     public async Task<IActionResult> UpdateGroup()
     {
-        return null;
+        return await Task.FromResult<IActionResult>(null);
     }
 
 
@@ -24,13 +26,13 @@ public class GroupController()
     [Route("/add-user")]
     public async Task<IActionResult> AddUserToGroup()
     {
-        return null;
+        return await Task.FromResult<IActionResult>(null);
     }
 
     [HttpDelete]
     [Route("/delete-user")]
     public async Task<IActionResult> DeleteUserFromGroup()
     {
-        return null;
+        return await Task.FromResult<IActionResult>(null);
     }
 }

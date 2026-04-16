@@ -19,4 +19,11 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHashed);
     }
+
+    public async Task<User> RegisterAsync(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
 }

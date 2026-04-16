@@ -1,5 +1,5 @@
 namespace Universidad.Application.Dto;
 
-public record GroupDto(int Id, string Name);
+public record GroupDto(int Id, string Name, string Description);
 
-public record CreateGroupDto(string Name);
+public record GroupCreateDto(string Nam, string Description);

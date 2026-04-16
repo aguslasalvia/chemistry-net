@@ -31,7 +31,8 @@ public class UserLogin : IUserLogin
             Email: user.Email,
             Groups: user.Groups.Select(g => new GroupDto(
                 Id: g.Group.Id,
-                Name: g.Group.Name
+                Name: g.Group.Name,
+                Description: g.Group.Description
             )).ToList()
         );
     }
