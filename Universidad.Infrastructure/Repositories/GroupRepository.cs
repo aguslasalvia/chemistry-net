@@ -1,35 +1,45 @@
 using Universidad.Domain.Interfaces;
 using Universidad.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Universidad.Infrastructure.Repositories;
 
-public class GroupRepository : IGroupRepository
+public class GroupRepository(AppDbContext context) : IGroupRepository
 {
-    private readonly AppDbContext _context;
-
-
-    public Task<Group?> GetGroupByIdAsync(int id)
-    {
-        // Implement logic to retrieve group by ID
-        throw new NotImplementedException();
-    }
+    private readonly AppDbContext _context = context;
 
     public async Task<Group> CreateAsync(Group group)
     {
-        _context.Groups.Add(group);
+        throw new NotImplementedException();
+    }
+
+    public async Task DeleteAsync(Group group)
+    {
+        var groupToDelete = await _context.Groups.FindAsync(group.Id);
+        if (groupToDelete == null) return;
+
+        _context.Groups.Remove(groupToDelete);
         await _context.SaveChangesAsync();
-        return group;
     }
 
-    public Task UpdateGroupAsync(Group group)
+    public async Task<IEnumerable<Group>> GetAllAsync()
     {
-        // Implement logic to update an existing group
-        throw new NotImplementedException();
+        return await _context.Groups.ToListAsync();
     }
 
-    public Task DeleteGroupAsync(Group group)
+    public async Task<Group> GetByIdAsync(int id)
     {
-        // Implement logic to delete a group
-        throw new NotImplementedException();
+        return await _context.Groups.FindAsync(id);
+    }
+
+    public async Task UpdateAsync(Group group)
+    {
+        var groupToUpdate = await _context.Groups.FindAsync(group.Id);
+        if (groupToUpdate == null) return;
+
+        groupToUpdate.Name = group.Name;
+        groupToUpdate.Description = group.Description;
+
+        await _context.SaveChangesAsync();
     }
 }

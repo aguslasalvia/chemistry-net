@@ -1,6 +1,5 @@
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
-using Universidad.Domain.Entities;
 using Universidad.Domain.Interfaces;
 
 namespace Universidad.Application.UseCases;
@@ -18,7 +17,7 @@ public class GroupCreate : IGroupCreate
     {
         var group = new Group
         {
-            Name = createDto.Nam,
+            Name = createDto.Name,
             Description = createDto.Description
         };
 
