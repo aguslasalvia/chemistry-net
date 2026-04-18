@@ -1,39 +1,17 @@
 import { useState, useEffect } from 'react';
 import {
-    Home,
-    Users,
-    BookOpen,
-    GraduationCap,
-    Building2,
-    Search,
-    FileText,
     Settings,
     Bell,
     ChevronLeft,
     ChevronRight,
     LogOut,
-    HelpCircle
+    HelpCircle,
+    LayoutDashboard,
+    FileText,
+    FolderOpen,
+    Users
 } from 'lucide-react';
 import './PanelSidebar.css';
-
-interface SidebarItem {
-    icon: React.ElementType;
-    label: string;
-    href?: string;
-    children?: SidebarItem[];
-}
-
-const sidebarItems: SidebarItem[] = [
-    { icon: Home, label: 'Inicio', href: '/' },
-    { icon: Users, label: 'Estudiantes', href: '/estudiantes' },
-    { icon: GraduationCap, label: 'Docentes', href: '/docentes' },
-    { icon: BookOpen, label: 'Cursos', href: '/cursos' },
-    { icon: Building2, label: 'Departamentos', href: '/departamentos' },
-    { icon: FileText, label: 'Documentos', href: '/documentos' },
-    { icon: Search, label: 'Investigación', href: '/investigacion' },
-    { icon: Bell, label: 'Notificaciones', href: '/notificaciones' },
-    { icon: Settings, label: 'Configuración', href: '/configuracion' },
-];
 
 interface PanelSidebarProps {
     defaultCollapsed?: boolean;
@@ -41,7 +19,6 @@ interface PanelSidebarProps {
 
 const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = false }) => {
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
-    const [activeItem, setActiveItem] = useState<string>('Inicio');
 
     useEffect(() => {
         document.body.classList.toggle('sidebar-collapsed', collapsed);
@@ -70,44 +47,56 @@ const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = false })
 
             <nav className="panel-sidebar__nav">
                 <ul className="panel-sidebar__menu">
-                    {sidebarItems.map((item) => {
-                        const Icon = item.icon;
-                        const isActive = activeItem === item.label;
+                    <li>
+                        <a href="/panel/dashboard" className="panel-sidebar__item" title={collapsed ? 'Dashboard' : undefined}>
+                            <LayoutDashboard size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Dashboard</span>}
+                        </a>
+                    </li>
 
-                        return (
-                            <li key={item.label}>
-                                <a
-                                    href={item.href || '#'}
-                                    className={`panel-sidebar__item ${isActive ? 'panel-sidebar__item--active' : ''}`}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setActiveItem(item.label);
-                                    }}
-                                    title={collapsed ? item.label : undefined}
-                                >
-                                    <Icon size={20} className="panel-sidebar__icon" />
-                                    {!collapsed && <span>{item.label}</span>}
-                                </a>
-                            </li>
-                        );
-                    })}
+                    <li>
+                        <a href="/panel/contenido" className="panel-sidebar__item" title={collapsed ? 'Contenido' : undefined}>
+                            <FileText size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Contenido</span>}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/usuarios" className="panel-sidebar__item" title={collapsed ? 'Usuarios' : undefined}>
+                            <Users size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Usuarios</span>}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/panel/grupos" className="panel-sidebar__item" title={collapsed ? 'Grupos' : undefined}>
+                            <FolderOpen size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Grupos</span>}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/panel/notificaciones" className="panel-sidebar__item" title={collapsed ? 'Notificaciones' : undefined}>
+                            <Bell size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Notificaciones</span>}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/panel/configuracion" className="panel-sidebar__item" title={collapsed ? 'Configuración' : undefined}>
+                            <Settings size={20} className="panel-sidebar__icon" />
+                            {!collapsed && <span>Configuración</span>}
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
             <div className="panel-sidebar__footer">
-                <a
-                    href="/ayuda"
-                    className="panel-sidebar__item"
-                    title={collapsed ? 'Ayuda' : undefined}
-                >
+                <a href="/panel/ayuda" className="panel-sidebar__item" title={collapsed ? 'Ayuda' : undefined}>
                     <HelpCircle size={20} className="panel-sidebar__icon" />
                     {!collapsed && <span>Ayuda</span>}
                 </a>
-                <a
-                    href="/logout"
-                    className="panel-sidebar__item panel-sidebar__item--logout"
-                    title={collapsed ? 'Cerrar sesión' : undefined}
-                >
+                <a href="/panel/cerrar-sesion" className="panel-sidebar__item panel-sidebar__item--logout" title={collapsed ? 'Cerrar sesión' : undefined}>
                     <LogOut size={20} className="panel-sidebar__icon" />
                     {!collapsed && <span>Cerrar sesión</span>}
                 </a>
