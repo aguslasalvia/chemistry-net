@@ -4,5 +4,5 @@ using Universidad.Application.Dto;
 
 public interface IUserLogin
 {
-    Task<UserDto> ExecuteAsync(LoginDto loginDto);
+    Task<UserDto> ExecuteAsync(LoginDto dto);
 }

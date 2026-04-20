@@ -1,6 +1,5 @@
 // Universidad.Domain/Entities/Area.cs
-
-using Universidad.Domain.Entities;
+namespace Universidad.Domain.Entities;
 
 public class Group
 {

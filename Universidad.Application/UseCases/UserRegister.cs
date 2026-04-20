@@ -5,25 +5,20 @@ using Universidad.Domain.Interfaces;
 
 namespace Universidad.Application.UseCases;
 
-public class UserRegister : IUserRegister
+public class UserRegister(IUserRepository repository) : IUserRegister
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepository _userRepository = repository;
 
-    public UserRegister(IUserRepository userRepository)
-    {
-        _userRepository = userRepository;
-    }
-
-    public async Task<UserDto> ExecuteAsync(UserRegisterDto registerDto)
+    public async Task<UserDto> ExecuteAsync(UserRegisterDto dto)
     {
         // Hash the password before sending it to the repository
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
         var user = new User
         {
-            Name = registerDto.Name,
-            LastName = registerDto.LastName,
-            Email = registerDto.Email,
+            Name = dto.Name,
+            LastName = dto.LastName,
+            Email = dto.Email,
             PasswordHash = hashedPassword
         };
 

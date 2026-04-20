@@ -1,24 +1,20 @@
 using Universidad.Application.Interfaces;
+using Universidad.Domain.Entities;
 using Universidad.Application.Dto;
 using Universidad.Domain.Interfaces;
 
 namespace Universidad.Application.UseCases;
 
-public class GroupCreate : IGroupCreate
+public class GroupCreate(IGroupRepository repository) : IGroupCreate
 {
-    private readonly IGroupRepository _groupRepository;
+    private readonly IGroupRepository _groupRepository = repository;
 
-    public GroupCreate(IGroupRepository groupRepository)
-    {
-        _groupRepository = groupRepository;
-    }
-
-    public async Task<GroupDto> ExecuteAsync(GroupCreateDto createDto)
+    public async Task<GroupDto> ExecuteAsync(GroupCreateDto dto)
     {
         var group = new Group
         {
-            Name = createDto.Name,
-            Description = createDto.Description
+            Name = dto.Name,
+            Description = dto.Description
         };
 
         var createdGroup = await _groupRepository.CreateAsync(group);

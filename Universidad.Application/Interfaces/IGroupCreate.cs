@@ -4,5 +4,5 @@ namespace Universidad.Application.Interfaces;
 
 public interface IGroupCreate
 {
-    Task<GroupDto> ExecuteAsync(GroupCreateDto createDto);
+    Task<GroupDto> ExecuteAsync(GroupCreateDto dto);
 }

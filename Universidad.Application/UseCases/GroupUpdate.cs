@@ -3,9 +3,9 @@ namespace Universidad.Application.UseCases;
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
 using Universidad.Domain.Interfaces;
-public class GroupUpdate(IGroupRepository groupRepository) : IGroupUpdate
+public class GroupUpdate(IGroupRepository repository) : IGroupUpdate
 {
-    private readonly IGroupRepository _groupRepository = groupRepository;
+    private readonly IGroupRepository _groupRepository = repository;
 
     public async Task ExecuteAsync(int id, GroupUpdateDto dto)
     {

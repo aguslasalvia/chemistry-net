@@ -1,4 +1,5 @@
 using Universidad.Domain.Interfaces;
+using Universidad.Domain.Entities;
 using Universidad.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 

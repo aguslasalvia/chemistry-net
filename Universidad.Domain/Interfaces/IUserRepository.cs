@@ -1,6 +1,6 @@
-namespace Universidad.Domain.Interfaces;
-
 using Universidad.Domain.Entities;
+
+namespace Universidad.Domain.Interfaces;
 
 public interface IUserRepository
 {

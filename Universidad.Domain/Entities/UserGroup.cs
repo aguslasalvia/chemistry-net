@@ -1,6 +1,6 @@
-namespace Universidad.Domain.Entities;
-
 using Universidad.Domain.enums;
+
+namespace Universidad.Domain.Entities;
 
 public class UserGroup
 {

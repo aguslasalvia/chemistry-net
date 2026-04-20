@@ -1,5 +1,7 @@
 namespace Universidad.Domain.Interfaces;
 
+using Universidad.Domain.Entities;
+
 public interface IGroupRepository
 {
     Task<IEnumerable<Group>> GetAllAsync();
