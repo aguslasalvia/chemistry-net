@@ -7,7 +7,7 @@ namespace Universidad.Infrastructure.Repositories;
 
 public class GroupRepository(AppDbContext context) : IGroupRepository
 {
-    private readonly AppDbContext _context = context;
+    private readonly AppDbContext _ctx = context;
 
     public async Task<Group> CreateAsync(Group group)
     {
@@ -16,31 +16,31 @@ public class GroupRepository(AppDbContext context) : IGroupRepository
 
     public async Task DeleteAsync(Group group)
     {
-        var groupToDelete = await _context.Groups.FindAsync(group.Id);
+        var groupToDelete = await _ctx.Groups.FindAsync(group.Id);
         if (groupToDelete == null) return;
 
-        _context.Groups.Remove(groupToDelete);
-        await _context.SaveChangesAsync();
+        _ctx.Groups.Remove(groupToDelete);
+        await _ctx.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Group>> GetAllAsync()
     {
-        return await _context.Groups.ToListAsync();
+        return await _ctx.Groups.ToListAsync();
     }
 
     public async Task<Group> GetByIdAsync(int id)
     {
-        return await _context.Groups.FindAsync(id);
+        return await _ctx.Groups.FindAsync(id);
     }
 
     public async Task UpdateAsync(Group group)
     {
-        var groupToUpdate = await _context.Groups.FindAsync(group.Id);
+        var groupToUpdate = await _ctx.Groups.FindAsync(group.Id);
         if (groupToUpdate == null) return;
 
         groupToUpdate.Name = group.Name;
         groupToUpdate.Description = group.Description;
 
-        await _context.SaveChangesAsync();
+        await _ctx.SaveChangesAsync();
     }
 }

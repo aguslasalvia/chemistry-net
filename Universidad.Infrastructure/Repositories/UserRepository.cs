@@ -6,24 +6,21 @@ using Universidad.Infrastructure.Persistence;
 using Universidad.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-public class UserRepository : IUserRepository
+public class UserRepository(AppDbContext context) : IUserRepository
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext _ctx = context;
 
-    public UserRepository(AppDbContext context)
-    {
-        this._context = context;
-    }
 
     public async Task<User?> LoginAsync(string email, string passwordHashed)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHashed);
+        return await _ctx.Users.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHashed);
     }
+
 
     public async Task<User> RegisterAsync(User user)
     {
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        _ctx.Users.Add(user);
+        await _ctx.SaveChangesAsync();
         return user;
     }
 }

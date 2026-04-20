@@ -17,7 +17,7 @@ interface PanelSidebarProps {
     defaultCollapsed?: boolean;
 }
 
-const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = false }) => {
+const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = true }) => {
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
     useEffect(() => {
