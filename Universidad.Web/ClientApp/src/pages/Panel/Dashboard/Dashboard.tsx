@@ -1,5 +1,5 @@
-import DashboardCard from '../../../components/ui/DashboardCard/DashboardCard';
-import ContentHistory from '../../../components/ui/ContentHistory/ContentHistory';
+import DashboardCard from '@components/ui/DashboardCard/DashboardCard';
+import ContentHistory from '@components/ui/ContentHistory/ContentHistory';
 import './Dashboard.css';
 
 const mockHistory = [

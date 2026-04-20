@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    tsconfigPaths: true
+  },
   build: {
     outDir: '../wwwroot',  // build va a wwwroot de ASP.NET
     emptyOutDir: true

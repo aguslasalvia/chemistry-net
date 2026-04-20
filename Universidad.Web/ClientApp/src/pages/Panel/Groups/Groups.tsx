@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
-import GroupForm from '../../../components/ui/GroupForm/GroupForm';
-import GroupList, { type Group } from '../../../components/ui/GroupList/GroupList';
-import GroupEditModal from '../../../components/ui/GroupEditModal/GroupEditModal';
-import Modal from '../../../components/ui/Modal/Modal';
+import GroupForm from '@components/ui/GroupForm/GroupForm';
+import GroupList, { type Group } from '@components/ui/GroupList/GroupList';
+import GroupEditModal from '@components/ui/GroupEditModal/GroupEditModal';
+import Modal from '@components/ui/Modal/Modal';
 import './Groups.css';
 
 const mockGroups: Group[] = [
