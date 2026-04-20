@@ -55,21 +55,21 @@ const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = false })
                     </li>
 
                     <li>
-                        <a href="/panel/contenido" className="panel-sidebar__item" title={collapsed ? 'Contenido' : undefined}>
+                        <a href="/panel/content" className="panel-sidebar__item" title={collapsed ? 'Contenido' : undefined}>
                             <FileText size={20} className="panel-sidebar__icon" />
                             {!collapsed && <span>Contenido</span>}
                         </a>
                     </li>
 
                     <li>
-                        <a href="/usuarios" className="panel-sidebar__item" title={collapsed ? 'Usuarios' : undefined}>
+                        <a href="/users" className="panel-sidebar__item" title={collapsed ? 'Usuarios' : undefined}>
                             <Users size={20} className="panel-sidebar__icon" />
                             {!collapsed && <span>Usuarios</span>}
                         </a>
                     </li>
 
                     <li>
-                        <a href="/panel/grupos" className="panel-sidebar__item" title={collapsed ? 'Grupos' : undefined}>
+                        <a href="/panel/groups" className="panel-sidebar__item" title={collapsed ? 'Grupos' : undefined}>
                             <FolderOpen size={20} className="panel-sidebar__icon" />
                             {!collapsed && <span>Grupos</span>}
                         </a>

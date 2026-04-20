@@ -6,10 +6,14 @@ import MainLayout from "./layouts/MainLayout"
 import PanelLayout from "./layouts/PanelLayout"
 
 // Pages
+// Landing
 import Home from "./pages/Home/Home"
 import NotFound from "./pages/NotFound/NotFound"
+
+// Panel/Administration
 import Login from "./pages/Panel/Login/Login"
 import DashboardHomePage from "./pages/Panel/Dashboard/Dashboard"
+import GroupPage from "./pages/Panel/Groups/Groups"
 
 
 const App = () => {
@@ -26,6 +30,7 @@ const App = () => {
                     <Route path="login" element={<Login />} />
                     <Route element={<PanelLayout />} >
                         <Route index path="dashboard" element={<DashboardHomePage />} />
+                        <Route path="groups" element={<GroupPage />} />
                     </Route>
                 </Route>
 

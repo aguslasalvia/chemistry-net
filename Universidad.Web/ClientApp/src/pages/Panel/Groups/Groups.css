@@ -1,0 +1,54 @@
+.groups-page {
+    padding: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.groups-page__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.groups-page__header-text h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fq-text);
+    margin-bottom: 4px;
+}
+
+.groups-page__header-text p {
+    font-size: 1rem;
+    color: var(--fq-muted);
+}
+
+.groups-page__add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--fq-primary);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.25);
+}
+
+.groups-page__add-btn:hover {
+    background: var(--fq-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 111, 33, 0.35);
+}
+
+.groups-page__table {
+    background: var(--fq-bg);
+    border: 1px solid var(--fq-border);
+    border-radius: 16px;
+    padding: 24px;
+    min-height: 400px;
+}

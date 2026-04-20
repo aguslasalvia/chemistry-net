@@ -1,0 +1,197 @@
+.group-edit-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.group-edit-modal__section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.group-edit-modal__section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--fq-text);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--fq-border);
+}
+
+.group-edit-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.group-edit-modal__field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--fq-text);
+}
+
+.group-edit-modal__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+
+.group-edit-modal__input-icon {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: var(--fq-muted);
+    pointer-events: none;
+}
+
+.group-edit-modal__input-wrapper input,
+.group-edit-modal__input-wrapper textarea {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    background: var(--fq-bg-secondary);
+    border: 1px solid var(--fq-border);
+    border-radius: 10px;
+    color: var(--fq-text);
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    resize: none;
+}
+
+.group-edit-modal__input-wrapper input:focus,
+.group-edit-modal__input-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--fq-primary);
+    box-shadow: 0 0 0 3px rgba(243, 111, 33, 0.12);
+}
+
+.group-edit-modal__empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--fq-muted);
+    font-size: 0.9rem;
+    background: var(--fq-bg-secondary);
+    border-radius: 8px;
+}
+
+.group-edit-modal__users {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--fq-border);
+    border-radius: 8px;
+}
+
+.group-edit-modal__users table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.group-edit-modal__users th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--fq-bg);
+    color: var(--fq-muted);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+}
+
+.group-edit-modal__users td {
+    padding: 10px 12px;
+    color: var(--fq-text);
+    border-bottom: 1px solid var(--fq-border);
+}
+
+.group-edit-modal__users tr:last-child td {
+    border-bottom: none;
+}
+
+.group-edit-modal__user-email {
+    color: var(--fq-muted);
+    font-size: 0.8rem;
+}
+
+.group-edit-modal__remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid var(--fq-border);
+    border-radius: 6px;
+    color: var(--fq-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.group-edit-modal__remove-btn:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: white;
+}
+
+.group-edit-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--fq-border);
+}
+
+.group-edit-modal__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.group-edit-modal__btn--cancel {
+    background: transparent;
+    border: 1px solid var(--fq-border);
+    color: var(--fq-text);
+}
+
+.group-edit-modal__btn--cancel:hover {
+    background: var(--fq-bg-secondary);
+}
+
+.group-edit-modal__btn--submit {
+    background: var(--fq-primary);
+    border: none;
+    color: white;
+}
+
+.group-edit-modal__btn--submit:hover:not(:disabled) {
+    background: var(--fq-primary-hover);
+}
+
+.group-edit-modal__btn--submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

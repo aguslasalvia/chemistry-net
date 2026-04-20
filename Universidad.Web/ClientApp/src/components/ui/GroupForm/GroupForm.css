@@ -1,0 +1,123 @@
+.group-form-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.group-form-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.group-form-modal__field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fq-text);
+}
+
+.group-form-modal__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+
+.group-form-modal__input-icon {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    color: var(--fq-muted);
+    pointer-events: none;
+}
+
+.group-form-modal__input-wrapper input,
+.group-form-modal__input-wrapper textarea {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    background: var(--fq-bg-secondary);
+    border: 1px solid var(--fq-border);
+    border-radius: 12px;
+    color: var(--fq-text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.25s ease;
+    resize: none;
+}
+
+.group-form-modal__input-wrapper input::placeholder,
+.group-form-modal__input-wrapper textarea::placeholder {
+    color: var(--fq-muted);
+    opacity: 0.7;
+}
+
+.group-form-modal__input-wrapper input:focus,
+.group-form-modal__input-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--fq-primary);
+    box-shadow: 0 0 0 4px rgba(243, 111, 33, 0.12);
+    background: var(--fq-bg);
+}
+
+.group-form-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.group-form-modal__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.group-form-modal__btn--cancel {
+    background: transparent;
+    border: 1px solid var(--fq-border);
+    color: var(--fq-text);
+}
+
+.group-form-modal__btn--cancel:hover {
+    background: var(--fq-bg-secondary);
+    border-color: var(--fq-muted);
+}
+
+.group-form-modal__btn--submit {
+    background: var(--fq-primary);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.25);
+}
+
+.group-form-modal__btn--submit:hover:not(:disabled) {
+    background: var(--fq-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(243, 111, 33, 0.35);
+}
+
+.group-form-modal__btn--submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.loading-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

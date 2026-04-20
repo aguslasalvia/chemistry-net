@@ -66,7 +66,7 @@ const DashboardHomePage = () => {
                     icon="groups"
                     title="Grupos"
                     description="Gestionar grupos del sistema"
-                    href="/grupos"
+                    href="/panel/groups"
                 />
             </div>
 
