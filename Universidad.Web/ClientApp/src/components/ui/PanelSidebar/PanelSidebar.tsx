@@ -9,7 +9,8 @@ import {
     LayoutDashboard,
     FileText,
     FolderOpen,
-    Users
+    Users,
+    User
 } from 'lucide-react';
 import './PanelSidebar.css';
 
@@ -62,7 +63,7 @@ const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = true }) 
                     </li>
 
                     <li>
-                        <a href="/users" className="panel-sidebar__item" title={collapsed ? 'Usuarios' : undefined}>
+                        <a href="/panel/users" className="panel-sidebar__item" title={collapsed ? 'Usuarios' : undefined}>
                             <Users size={20} className="panel-sidebar__icon" />
                             {!collapsed && <span>Usuarios</span>}
                         </a>
@@ -83,7 +84,7 @@ const PanelSidebar: React.FC<PanelSidebarProps> = ({ defaultCollapsed = true }) 
                     </li>
 
                     <li>
-                        <a href="/panel/configuracion" className="panel-sidebar__item" title={collapsed ? 'Configuración' : undefined}>
+                        <a href="/panel/settings" className="panel-sidebar__item" title={collapsed ? 'Configuración' : undefined}>
                             <Settings size={20} className="panel-sidebar__icon" />
                             {!collapsed && <span>Configuración</span>}
                         </a>

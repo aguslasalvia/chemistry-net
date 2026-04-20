@@ -1,0 +1,104 @@
+.content-page {
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-page__header {
+    margin-bottom: 28px;
+}
+
+.content-page__header-text h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fq-text);
+    margin-bottom: 4px;
+}
+
+.content-page__header-text p {
+    font-size: 1rem;
+    color: var(--fq-muted);
+}
+
+.content-page__filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--fq-bg);
+    border: 1px solid var(--fq-border);
+    border-radius: 12px;
+}
+
+.content-page__filter-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(243, 111, 33, 0.1);
+    border-radius: 8px;
+    color: var(--fq-primary);
+    flex-shrink: 0;
+}
+
+.content-page__filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.content-page__chip {
+    padding: 8px 16px;
+    background: var(--fq-bg-secondary);
+    border: 1px solid var(--fq-border);
+    border-radius: 100px;
+    color: var(--fq-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.content-page__chip:hover {
+    background: var(--fq-bg);
+    border-color: var(--fq-primary);
+    color: var(--fq-primary);
+}
+
+.content-page__chip--active {
+    background: var(--fq-primary);
+    border-color: var(--fq-primary);
+    color: white;
+}
+
+.content-page__chip--active:hover {
+    background: var(--fq-primary-hover);
+    border-color: var(--fq-primary-hover);
+    color: white;
+}
+
+.content-page__stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.content-page__stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(243, 111, 33, 0.1);
+    border-radius: 8px;
+    color: var(--fq-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.content-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}

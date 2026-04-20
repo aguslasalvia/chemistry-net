@@ -42,31 +42,25 @@ const DashboardHomePage = () => {
                     icon="myGroups"
                     title="Mis Grupos"
                     description="Ver los grupos a los que perteneces"
-                    href="/mis-grupos"
+                    href="/panel/groups"
                 />
                 <DashboardCard
                     icon="content"
                     title="Ver Todo el Contenido"
                     description="Ver todo el contenido del sitio"
-                    href="/contenido"
+                    href="/panel/content"
                 />
                 <DashboardCard
                     icon="user"
                     title="Mi Perfil"
                     description="Ver y editar tu información"
-                    href="/perfil"
+                    href="/panel/settings"
                 />
                 <DashboardCard
                     icon="users"
                     title="Usuarios"
                     description="Gestionar usuarios del sistema"
-                    href="/usuarios"
-                />
-                <DashboardCard
-                    icon="groups"
-                    title="Grupos"
-                    description="Gestionar grupos del sistema"
-                    href="/panel/groups"
+                    href="/panel/users"
                 />
             </div>
 
