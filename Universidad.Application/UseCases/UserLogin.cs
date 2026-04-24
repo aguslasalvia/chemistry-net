@@ -8,7 +8,7 @@ using Universidad.Application.Dto;
 
 public class UserLogin(IUserRepository repository) : IUserLogin
 {
-    private readonly IUserRepository _userRepository = repository;
+    private readonly IUserRepository _repository = repository;
 
 
     public async Task<UserDto> ExecuteAsync(LoginDto dto)
@@ -16,7 +16,7 @@ public class UserLogin(IUserRepository repository) : IUserLogin
         // Hash the password before sending it to the repository
         string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
-        var user = await _userRepository.LoginAsync(dto.Email, hashedPassword)
+        var user = await _repository.LoginAsync(dto.Email, hashedPassword)
             ?? throw new InvalidOperationException("Invalid email or password");
 
         return new UserDto(

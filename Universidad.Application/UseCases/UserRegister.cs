@@ -7,7 +7,7 @@ namespace Universidad.Application.UseCases;
 
 public class UserRegister(IUserRepository repository) : IUserRegister
 {
-    private readonly IUserRepository _userRepository = repository;
+    private readonly IUserRepository _repository = repository;
 
     public async Task<UserDto> ExecuteAsync(UserRegisterDto dto)
     {
@@ -22,7 +22,7 @@ public class UserRegister(IUserRepository repository) : IUserRegister
             PasswordHash = hashedPassword
         };
 
-        var createdUser = await _userRepository.RegisterAsync(user);
+        var createdUser = await _repository.RegisterAsync(user);
 
         return new UserDto(
             Id: createdUser.Id,

@@ -23,4 +23,12 @@ public class UserRepository(AppDbContext context) : IUserRepository
         await _ctx.SaveChangesAsync();
         return user;
     }
+
+    public async Task<IEnumerable<User>> GetAllAsync()
+    {
+        return await _ctx.Users
+            .Include(u => u.Groups)
+                .ThenInclude(ug => ug.Group)
+            .ToListAsync();
+    }
 }

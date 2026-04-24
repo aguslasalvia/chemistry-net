@@ -21,6 +21,7 @@ internal class Program
         // User
         builder.Services.AddScoped(typeof(IUserLogin), typeof(UserLogin));
         builder.Services.AddScoped(typeof(IUserRegister), typeof(UserRegister));
+        builder.Services.AddScoped(typeof(IUserGetAll), typeof(UserGetAll));
 
         // Group
         builder.Services.AddScoped(typeof(IGroupCreate), typeof(GroupCreate));

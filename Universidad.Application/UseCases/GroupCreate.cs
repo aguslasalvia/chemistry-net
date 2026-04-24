@@ -7,7 +7,7 @@ namespace Universidad.Application.UseCases;
 
 public class GroupCreate(IGroupRepository repository) : IGroupCreate
 {
-    private readonly IGroupRepository _groupRepository = repository;
+    private readonly IGroupRepository _repository = repository;
 
     public async Task<GroupDto> ExecuteAsync(GroupCreateDto dto)
     {
@@ -17,7 +17,7 @@ public class GroupCreate(IGroupRepository repository) : IGroupCreate
             Description = dto.Description
         };
 
-        var createdGroup = await _groupRepository.CreateAsync(group);
+        var createdGroup = await _repository.CreateAsync(group);
 
         return new GroupDto(
             Id: createdGroup.Id,
