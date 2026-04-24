@@ -9,8 +9,7 @@ import {
     LayoutDashboard,
     FileText,
     FolderOpen,
-    Users,
-    User
+    Users
 } from 'lucide-react';
 import './PanelSidebar.css';
 

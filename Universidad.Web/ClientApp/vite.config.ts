@@ -12,7 +12,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:5231'  // proxy a ASP.NET en dev
+      '/api': 'http://localhost:5050'  // proxy a ASP.NET en dev
     }
   }
 })

@@ -34,9 +34,10 @@ public class UserController(
     }
 
 
-    [HttpPost("register")]
+    [HttpPost("users")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto registerDto)
     {
+        Console.WriteLine("Received registration request for: " + registerDto?.Email);
         if (registerDto == null)
             return BadRequest();
         try
@@ -61,8 +62,11 @@ public class UserController(
         }
         catch (Exception e)
         {
+            Console.WriteLine("Error fetching users: " + e.Message);
             return BadRequest(e.Message);
         }
     }
+
+
 }
 
