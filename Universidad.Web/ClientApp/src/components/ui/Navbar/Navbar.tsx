@@ -4,7 +4,7 @@ const Navbar = () => {
         <header className="header-floating">
             <nav className="navbar-floating">
                 <a className="nav-brand" href="/">
-                    <img src="/logo.png" alt="Facultad de Química" style={{ height: "60px", width: "auto" }} />
+                    <img src="/logo.png" alt="Facultad de Química" />
                 </a>
                 <ul className="nav-links">
                     <li>

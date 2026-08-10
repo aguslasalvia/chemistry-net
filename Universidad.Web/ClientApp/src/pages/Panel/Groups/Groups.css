@@ -12,6 +12,7 @@
 }
 
 .groups-page__header-text h1 {
+    font-family: var(--fq-font-display);
     font-size: 2rem;
     font-weight: 700;
     color: var(--fq-text);
@@ -30,25 +31,25 @@
     padding: 12px 20px;
     background: var(--fq-primary);
     border: none;
-    border-radius: 12px;
+    border-radius: 4px;
     color: white;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.25);
+    box-shadow: none;
 }
 
 .groups-page__add-btn:hover {
     background: var(--fq-primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(243, 111, 33, 0.35);
+    box-shadow: none;
 }
 
 .groups-page__table {
     background: var(--fq-bg);
     border: 1px solid var(--fq-border);
-    border-radius: 16px;
+    border-radius: 4px;
     padding: 24px;
     min-height: 400px;
 }

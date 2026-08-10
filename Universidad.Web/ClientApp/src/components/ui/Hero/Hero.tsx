@@ -1,110 +1,68 @@
-import { FlaskConical, GraduationCap, Users, MapPin, ArrowRight, Search, BookOpen, Microscope, Trophy } from 'lucide-react';
+import { ArrowRight, MapPin, GraduationCap } from 'lucide-react';
 import './Hero.css';
+
+const elements = [
+    { number: 12, symbol: 'Cg', label: 'Carreras de grado' },
+    { number: 40, symbol: 'Gi', label: 'Grupos de investigación' },
+    { number: 25, symbol: 'Lb', label: 'Laboratorios' },
+    { number: 5000, symbol: 'Eg', label: 'Egresados' },
+];
+
+const formatNumber = (n: number) => n >= 1000 ? `${Math.round(n / 1000)}K+` : `${n}+`;
+const atomicNumber = (i: number) => String(i + 1).padStart(2, '0');
 
 const Hero = () => {
     return (
         <section className="hero">
-            <div className="hero-noise"></div>
-            <div className="hero-grid"></div>
-            <div className="hero-glow"></div>
-            <div className="hero-glow-2"></div>
-
             <div className="hero-container">
-                <div className="hero-content">
-                    <div className="hero-tag">
-                        <span className="hero-tag-dot"></span>
-                        Universidad de la República · Uruguay
+                <div className="hero-top">
+                    <div className="hero-intro">
+                        <p className="hero-eyebrow">Universidad de la República · Uruguay</p>
+
+                        <h1 className="hero-title">
+                            Formamos
+                            <br />
+                            química
+                            <br />
+                            <span className="hero-title-highlight">desde 1908.</span>
+                        </h1>
+
+                        <p className="hero-description">
+                            Facultad de Química: formación académica de excelencia, investigación
+                            de frontera y compromiso social con el país.
+                        </p>
+
+                        <div className="hero-actions">
+                            <a href="#carreras" className="hero-cta">
+                                Explorar carreras
+                                <ArrowRight size={18} />
+                            </a>
+                            <div className="hero-facts">
+                                <span><MapPin size={14} /> Montevideo</span>
+                                <span><GraduationCap size={14} /> Desde 1908</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <h1 className="hero-title">
-                        <span className="hero-title-line">Facultad de</span>
-                        <span className="hero-title-line">Química</span>
-                    </h1>
-
-                    <p className="hero-description">
-                        Formación académica de excelencia, investigación de frontera y compromiso social. 
-                        Más de 70 años formando profesionales en las ciencias químicas.
-                    </p>
-
-                    <div className="hero-actions">
-                        <a href="#carreras" className="btn-hero-primary">
-                            Explorar Carreras
-                            <ArrowRight />
-                        </a>
-                        <a href="#investigacion" className="btn-hero-secondary">
-                            <Search />
-                            Investigación
-                        </a>
-                    </div>
-
-                    <div className="hero-meta">
-                        <div className="hero-meta-item">
-                            <MapPin />
-                            Montevideo
-                        </div>
-                        <div className="hero-meta-item">
-                            <GraduationCap />
-                            Desde 1947
-                        </div>
-                        <div className="hero-meta-item">
-                            <Users />
-                            2000+ Estudiantes
-                        </div>
+                    <div className="hero-photo">
+                        <div className="hero-photo__block" aria-hidden="true"></div>
+                        <img
+                            src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1000&q=80"
+                            alt="Estudiantes trabajando en el laboratorio de la Facultad de Química"
+                        />
                     </div>
                 </div>
 
-                <div className="hero-visual">
-                    <div className="hero-floating-badge">
-                        <Trophy />
-                        <span>#1 en Uruguay</span>
-                    </div>
-
-                    <div className="hero-cards">
-                        <div className="hero-card">
-                            <div className="hero-card-icon">
-                                <BookOpen />
-                            </div>
-                            <div className="hero-card-content">
-                                <h4>Carreras de Grado</h4>
-                                <p>Licenciaturas, ingenierías y profesorados</p>
-                            </div>
-                            <div className="hero-card-number">12</div>
-                        </div>
-
-                        <div className="hero-card">
-                            <div className="hero-card-icon">
-                                <Microscope />
-                            </div>
-                            <div className="hero-card-content">
-                                <h4>Grupos de Investigación</h4>
-                                <p>Proyectos de frontera en química</p>
-                            </div>
-                            <div className="hero-card-number">40+</div>
-                        </div>
-
-                        <div className="hero-card">
-                            <div className="hero-card-icon">
-                                <FlaskConical />
-                            </div>
-                            <div className="hero-card-content">
-                                <h4>Laboratorios</h4>
-                                <p>Infraestructura de primer nivel</p>
-                            </div>
-                            <div className="hero-card-number">25</div>
-                        </div>
-
-                        <div className="hero-card">
-                            <div className="hero-card-icon">
-                                <Users />
-                            </div>
-                            <div className="hero-card-content">
-                                <h4>Comunidad</h4>
-                                <p>Egresados en todo el país</p>
-                            </div>
-                            <div className="hero-card-number">5K+</div>
-                        </div>
-                    </div>
-                </div>
+                <ul className="hero-elements">
+                    {elements.map((el, i) => (
+                        <li className="hero-element" key={el.symbol}>
+                            <span className="hero-element__atomic">{atomicNumber(i)}</span>
+                            <span className="hero-element__symbol">{el.symbol}</span>
+                            <span className="hero-element__number">{formatNumber(el.number)}</span>
+                            <span className="hero-element__label">{el.label}</span>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </section>
     )

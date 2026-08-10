@@ -76,78 +76,71 @@ const UserList: React.FC<UserListProps> = ({
           </span>
         </div>
       ) : (
-        <div className="user-list__table-wrapper">
-          <table className="user-list__table">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Grupos</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map((user) => (
-                <tr key={user.id}>
-                  <td>
-                    <div className="user-list__name-cell">
-                      <div className="user-list__name-icon">
-                        <User size={14} />
-                      </div>
-                      <div className="user-list__name-info">
-                        <span className="user-list__fullname">
-                          {user.name} {user.lastName}
-                        </span>
-                        <span className="user-list__email">{user.email}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="user-list__groups">
-                    {user.groups && user.groups.length > 0 ? (
-                      <div className="user-list__groups-tags">
-                        {user.groups.slice(0, 3).map((group) => (
-                          <span key={group.id} className="user-list__group-tag">
-                            {group.name}
-                          </span>
-                        ))}
-                        {user.groups.length > 3 && (
-                          <span className="user-list__group-more">
-                            +{user.groups.length - 3}
-                          </span>
-                        )}
-                      </div>
-                    ) : (
-                      <span className="user-list__no-groups">Sin grupos</span>
+        <div className="user-list__rows">
+          <div className="user-list__row-header">
+            <span>Usuario</span>
+            <span>Grupos</span>
+            <span>Acciones</span>
+          </div>
+
+          {filteredUsers.map((user) => (
+            <div className="user-list__row" key={user.id}>
+              <div className="user-list__name-cell">
+                <span className="user-list__name-icon fq-hex">
+                  <User size={14} />
+                </span>
+                <div className="user-list__name-info">
+                  <span className="user-list__fullname">
+                    {user.name} {user.lastName}
+                  </span>
+                  <span className="user-list__email">{user.email}</span>
+                </div>
+              </div>
+
+              <div className="user-list__groups">
+                {user.groups && user.groups.length > 0 ? (
+                  <div className="user-list__groups-tags">
+                    {user.groups.slice(0, 3).map((group) => (
+                      <span key={group.id} className="user-list__group-tag">
+                        {group.name}
+                      </span>
+                    ))}
+                    {user.groups.length > 3 && (
+                      <span className="user-list__group-more">
+                        +{user.groups.length - 3}
+                      </span>
                     )}
-                  </td>
-                  <td>
-                    <div className="user-list__actions">
-                      <button
-                        className="user-list__action-btn user-list__action-btn--password"
-                        onClick={() => onChangePassword?.(user)}
-                        title="Cambiar contraseña"
-                      >
-                        <Key size={14} />
-                      </button>
-                      <button
-                        className="user-list__action-btn user-list__action-btn--edit"
-                        onClick={() => onEdit?.(user)}
-                        title="Editar"
-                      >
-                        <Pencil size={14} />
-                      </button>
-                      <button
-                        className="user-list__action-btn user-list__action-btn--delete"
-                        onClick={() => onDelete?.(user)}
-                        title="Eliminar"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                ) : (
+                  <span className="user-list__no-groups">Sin grupos</span>
+                )}
+              </div>
+
+              <div className="user-list__actions">
+                <button
+                  className="user-list__action-btn user-list__action-btn--password"
+                  onClick={() => onChangePassword?.(user)}
+                  title="Cambiar contraseña"
+                >
+                  <Key size={14} />
+                </button>
+                <button
+                  className="user-list__action-btn user-list__action-btn--edit"
+                  onClick={() => onEdit?.(user)}
+                  title="Editar"
+                >
+                  <Pencil size={14} />
+                </button>
+                <button
+                  className="user-list__action-btn user-list__action-btn--delete"
+                  onClick={() => onDelete?.(user)}
+                  title="Eliminar"
+                >
+                  <Trash2 size={14} />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

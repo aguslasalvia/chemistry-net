@@ -1,73 +1,135 @@
 .login-page {
-    position: relative;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
 }
 
-.login-glow {
-    position: absolute;
-    width: 100%;
-    height: 600px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(243, 111, 33, 0.1) 0%, transparent 60%);
-    pointer-events: none;
-}
+/* ============ Brand pane ============ */
 
-.login-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
-}
-
-.login-container {
+.login-brand {
     position: relative;
-    z-index: 10;
-    width: 100%;
-    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px;
+    background: var(--fq-text);
+    overflow: hidden;
 }
 
-.login-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 48px 40px;
+.login-molecule {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: 8%;
+    right: -60px;
+    opacity: 0.9;
 }
 
-.login-header {
-    text-align: center;
-    margin-bottom: 32px;
+.login-molecule__hex {
+    position: absolute;
+    left: 160px;
+    top: 160px;
+    width: 84px;
+    height: 73px;
+    transform: translate(-50%, -50%);
+    background: var(--fq-primary);
 }
 
-.login-logo {
+.login-molecule__hex--center {
+    width: 96px;
+    height: 84px;
+    background: var(--fq-primary);
+}
+
+.login-molecule__hex--n { top: 77px; background: rgba(255, 248, 243, 0.12); }
+.login-molecule__hex--s { top: 243px; background: var(--fq-secondary); }
+.login-molecule__hex--nw { left: 97px; top: 118.5px; background: var(--fq-secondary); }
+.login-molecule__hex--ne { left: 223px; top: 118.5px; background: rgba(255, 248, 243, 0.12); }
+.login-molecule__hex--sw { left: 97px; top: 201.5px; background: rgba(255, 248, 243, 0.12); }
+.login-molecule__hex--se { left: 223px; top: 201.5px; background: var(--fq-primary-hover); }
+
+.login-molecule__bond {
+    position: absolute;
+    left: 160px;
+    top: 160px;
+    height: 2px;
+    background: rgba(255, 248, 243, 0.25);
+    transform-origin: 0 50%;
+}
+
+.login-molecule__bond--1 { width: 83px; transform: rotate(-90deg); }
+.login-molecule__bond--2 { width: 83px; transform: rotate(90deg); }
+.login-molecule__bond--3 { width: 75.4px; transform: rotate(-146.6deg); }
+.login-molecule__bond--4 { width: 75.4px; transform: rotate(-33.4deg); }
+.login-molecule__bond--5 { width: 75.4px; transform: rotate(146.6deg); }
+.login-molecule__bond--6 { width: 75.4px; transform: rotate(33.4deg); }
+
+.login-brand__content {
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+}
+
+.login-brand__logo {
+    height: 48px;
+    width: auto;
+    margin-bottom: 40px;
+}
+
+.login-brand__eyebrow {
+    font-family: var(--fq-font-utility);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fq-primary);
+    margin-bottom: 16px;
+}
+
+.login-brand__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #fff;
     margin-bottom: 20px;
 }
 
-.login-logo img {
-    height: 70px;
-    width: auto;
+.login-brand__text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 248, 243, 0.65);
+}
+
+/* ============ Form pane ============ */
+
+.login-form-pane {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fq-bg);
+    padding: 24px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-header {
+    margin-bottom: 32px;
 }
 
 .login-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: white;
+    font-family: var(--fq-font-display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--fq-text);
     margin-bottom: 8px;
 }
 
 .login-subtitle {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+    color: var(--fq-muted);
 }
 
 .login-error {
@@ -75,11 +137,11 @@
     align-items: center;
     gap: 10px;
     padding: 14px 16px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 12px;
-    color: #f87171;
-    font-size: 0.875rem;
+    background: var(--fq-danger-tint);
+    border: 1px solid rgba(192, 57, 43, 0.25);
+    border-radius: var(--fq-radius-sm);
+    color: var(--fq-danger);
+    font-size: 0.9rem;
     margin-bottom: 24px;
 }
 
@@ -96,9 +158,9 @@
 }
 
 .form-group label {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--fq-text);
 }
 
 .input-wrapper {
@@ -110,30 +172,28 @@
 .input-icon {
     position: absolute;
     left: 16px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--fq-muted);
     pointer-events: none;
 }
 
 .input-wrapper input {
     width: 100%;
     padding: 14px 16px 14px 48px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: white;
-    font-size: 0.95rem;
-    transition: all 0.25s ease;
+    background: var(--fq-panel);
+    border: 1px solid var(--fq-border);
+    border-radius: var(--fq-radius-sm);
+    color: var(--fq-text);
+    font-size: 1rem;
+    box-shadow: var(--fq-shadow-clay-pressed);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-wrapper input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--fq-muted);
 }
 
 .input-wrapper input:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.08);
     border-color: var(--fq-primary);
-    box-shadow: 0 0 0 3px rgba(243, 111, 33, 0.15);
 }
 
 .form-options {
@@ -147,13 +207,13 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    color: var(--fq-muted);
 }
 
 .remember-me input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--fq-primary);
 }
 
@@ -162,14 +222,14 @@
 }
 
 .forgot-password {
-    font-size: 0.875rem;
-    color: var(--fq-accent);
+    font-size: 0.9rem;
+    color: var(--fq-primary-text);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .forgot-password:hover {
-    color: var(--fq-primary);
+    color: var(--fq-primary-hover);
 }
 
 .btn-login {
@@ -178,21 +238,20 @@
     justify-content: center;
     gap: 10px;
     padding: 16px 24px;
+    min-height: 44px;
     background: var(--fq-primary);
     color: white;
     font-size: 1rem;
     font-weight: 600;
     border: none;
-    border-radius: 12px;
+    border-radius: var(--fq-radius-sm);
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background 0.15s ease;
     margin-top: 8px;
 }
 
 .btn-login:hover:not(:disabled) {
     background: var(--fq-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(243, 111, 33, 0.4);
 }
 
 .btn-login:disabled {
@@ -203,7 +262,7 @@
 .loading-spinner {
     width: 20px;
     height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-top-color: white;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -218,34 +277,54 @@
 .login-footer {
     margin-top: 28px;
     padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--fq-border);
     text-align: center;
 }
 
 .login-footer p {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    color: var(--fq-muted);
 }
 
 .login-footer a {
-    color: var(--fq-accent);
+    color: var(--fq-primary-text);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
 .login-footer a:hover {
-    color: var(--fq-primary);
+    color: var(--fq-primary-hover);
+}
+
+@media (max-width: 900px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-brand {
+        padding: 40px 32px;
+        min-height: 280px;
+    }
+
+    .login-molecule {
+        width: 220px;
+        height: 220px;
+        top: -20px;
+        right: -40px;
+    }
+
+    .login-brand__title {
+        font-size: 1.6rem;
+    }
+
+    .login-brand__text {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
-    .login-card {
-        padding: 36px 24px;
-    }
-
-    .form-options {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
+    .login-form-pane {
+        padding: 32px 20px;
     }
 }

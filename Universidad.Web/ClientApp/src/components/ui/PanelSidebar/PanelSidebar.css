@@ -4,8 +4,9 @@
     top: 0;
     height: 100dvh;
     width: 260px;
-    background: var(--fq-bg);
+    background: var(--fq-panel);
     border-right: 1px solid var(--fq-border);
+    box-shadow: 4px 0 16px rgba(43, 38, 34, 0.04);
     display: flex;
     flex-direction: column;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -40,8 +41,9 @@
 }
 
 .panel-sidebar__brand span {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--fq-font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
     color: var(--fq-primary);
     white-space: nowrap;
 }
@@ -50,27 +52,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border: none;
-    border-radius: 8px;
-    background: transparent;
+    border-radius: var(--fq-radius-sm);
+    background: var(--fq-surface);
     color: var(--fq-muted);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s var(--fq-ease-clay);
     flex-shrink: 0;
 }
 
 .panel-sidebar__toggle:hover {
-    background: var(--fq-border);
-    color: var(--fq-text);
+    background: var(--fq-primary-tint);
+    color: var(--fq-primary);
+}
+
+.panel-sidebar__toggle:active {
+    transform: scale(0.92);
 }
 
 .panel-sidebar__nav {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 12px 8px;
+    padding: 16px 10px;
 }
 
 .panel-sidebar__nav::-webkit-scrollbar {
@@ -90,32 +96,50 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .panel-sidebar__item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 14px;
-    border-radius: 10px;
+    padding: 10px 12px;
+    border-radius: var(--fq-radius-sm);
     text-decoration: none;
     color: var(--fq-text);
     font-weight: 500;
     font-size: 0.95rem;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     white-space: nowrap;
     cursor: pointer;
 }
 
 .panel-sidebar__item:hover {
-    background: rgba(243, 111, 33, 0.08);
-    color: var(--fq-primary);
+    background: var(--fq-surface);
 }
 
 .panel-sidebar__item--active {
-    background: rgba(243, 111, 33, 0.12);
-    color: var(--fq-primary);
+    color: var(--fq-primary-text);
+    font-weight: 600;
+}
+
+.panel-sidebar__item--active::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 34px;
+    height: 30px;
+    transform: translateY(-50%);
+    background: var(--fq-primary-tint);
+    clip-path: var(--fq-hex-clip);
+}
+
+.panel-sidebar__item--active .panel-sidebar__icon,
+.panel-sidebar__item--active span {
+    position: relative;
+    z-index: 1;
 }
 
 .panel-sidebar__item--active .panel-sidebar__icon {
@@ -125,7 +149,7 @@
 .panel-sidebar__icon {
     flex-shrink: 0;
     color: var(--fq-muted);
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
 }
 
 .panel-sidebar__item:hover .panel-sidebar__icon {
@@ -147,7 +171,7 @@
 }
 
 .panel-sidebar__footer {
-    padding: 12px 8px;
+    padding: 12px 10px;
     border-top: 1px solid var(--fq-border);
     display: flex;
     flex-direction: column;
@@ -159,17 +183,22 @@
 }
 
 .panel-sidebar__item--logout:hover {
-    background: rgba(239, 68, 68, 0.08);
-    color: #ef4444;
+    background: var(--fq-danger-tint);
+    color: var(--fq-danger);
 }
 
 .panel-sidebar__item--logout:hover .panel-sidebar__icon {
-    color: #ef4444;
+    color: var(--fq-danger);
 }
 
 .panel-sidebar--collapsed .panel-sidebar__item {
     justify-content: center;
     padding: 12px;
+}
+
+.panel-sidebar--collapsed .panel-sidebar__item--active::before {
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .panel-sidebar--collapsed .panel-sidebar__header {
@@ -179,9 +208,9 @@
 }
 
 .panel-sidebar--collapsed .panel-sidebar__toggle {
-    background: var(--fq-bg);
+    background: var(--fq-panel);
     border: 1px solid var(--fq-border);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--fq-shadow-clay-sm);
 }
 
 @media (max-width: 768px) {

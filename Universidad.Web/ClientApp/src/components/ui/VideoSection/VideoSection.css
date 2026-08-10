@@ -1,23 +1,11 @@
 .video-section {
     position: relative;
     padding: 100px 0;
-    background: white;
+    background: var(--fq-surface);
 }
 
 .video-background {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-}
-
-.video-background::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
+    display: none;
 }
 
 .video-container {
@@ -40,12 +28,12 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: rgba(243, 111, 33, 0.2);
-    border: 1px solid rgba(243, 111, 33, 0.3);
-    border-radius: 100px;
+    background: var(--fq-primary-tint);
+    border: 1px solid var(--fq-border);
+    border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--fq-accent);
+    color: var(--fq-primary);
     margin-bottom: 20px;
 }
 
@@ -55,23 +43,21 @@
 }
 
 .video-title {
+    font-family: var(--fq-font-display);
     font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
+    font-weight: 600;
+    color: var(--fq-text);
     margin-bottom: 16px;
     line-height: 1.2;
 }
 
 .video-title-accent {
-    background: linear-gradient(135deg, var(--fq-primary) 0%, var(--fq-accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--fq-primary);
 }
 
 .video-description {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--fq-muted);
     line-height: 1.7;
 }
 
@@ -82,18 +68,17 @@
 }
 
 .video-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    background: var(--fq-bg);
+    border: 1px solid var(--fq-border);
+    border-radius: 4px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
 }
 
 .video-card:hover {
-    border-color: rgba(243, 111, 33, 0.4);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--fq-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .video-wrapper {
@@ -117,15 +102,16 @@
 }
 
 .video-info h3 {
+    font-family: var(--fq-font-display);
     font-size: 1.25rem;
-    font-weight: 700;
-    color: white;
+    font-weight: 600;
+    color: var(--fq-text);
     margin-bottom: 8px;
 }
 
 .video-info p {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--fq-muted);
     line-height: 1.6;
 }
 

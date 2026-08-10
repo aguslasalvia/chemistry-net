@@ -1,4 +1,3 @@
-import { Film } from 'lucide-react';
 import './VideoSection.css';
 
 const VideoSection = () => {
@@ -7,10 +6,7 @@ const VideoSection = () => {
             <div className="video-background"></div>
             <div className="video-container">
                 <div className="video-header">
-                    <div className="video-tag">
-                        <Film />
-                        <span>Videos</span>
-                    </div>
+                    <p className="video-eyebrow">Videos</p>
                     <h2 className="video-title">
                         Conocé la
                         <span className="video-title-accent"> Facultad de Química</span>

@@ -1,12 +1,10 @@
-/* === HEADER FLOATING === */
+/* === HEADER === */
 .header-floating {
-    position: fixed;
-    top: 20px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    position: sticky;
+    top: 0;
     z-index: 1000;
+    background: var(--fq-bg);
+    border-bottom: 1px solid var(--fq-border);
 }
 
 /* === NAVBAR === */
@@ -15,24 +13,17 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 95%;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
 
-    padding: 10px 16px;
-
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 1px solid var(--border);
-    border-radius: 16px;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 16px 48px;
 }
 
 /* === LOGO === */
 .nav-brand img {
     height: 36px;
+    width: auto;
     display: block;
 }
 
@@ -40,34 +31,26 @@
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 32px;
     list-style: none;
 }
 
-/* ITEM */
 .nav-links>li {
     position: relative;
-
 }
 
 /* LABEL (los <span>) */
 .nav-links>li>span {
-    display: flex;
-    align-items: center;
-    align-items: center;
     display: block;
-    padding: 8px 12px;
+    padding: 8px 0;
+    font-size: 0.95rem;
     font-weight: 500;
-    text-align: center;
-    color: var(--text);
-    border-radius: 10px;
+    color: var(--fq-text);
     cursor: pointer;
-    transition: all 0.2s ease;
 }
 
 .nav-links>li>span:hover {
-    background: #fef3c7;
-    color: #000;
+    color: var(--fq-primary-text);
 }
 
 /* === DROPDOWN === */
@@ -76,26 +59,22 @@
     top: 100%;
     left: 0;
 
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 14px;
-    padding: 6px;
+    background: var(--fq-panel);
+    border: 1px solid var(--fq-border);
+    box-shadow: var(--fq-shadow-clay);
+    padding: 8px;
     min-width: 220px;
 
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-
     opacity: 0;
-    transform: translateY(10px) scale(0.98);
+    transform: translateY(4px);
     pointer-events: none;
-    transition: all 0.2s ease;
+    transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 /* SHOW */
 .nav-links>li:hover .dropdown-menu {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -105,56 +84,34 @@
 }
 
 .dropdown-menu a {
-    display: flex;
-    align-items: center;
-    padding: 10px 12px;
-    border-radius: 10px;
+    display: block;
+    padding: 8px 12px;
     text-decoration: none;
-    color: var(--text);
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
+    color: var(--fq-text);
+    font-size: 0.9rem;
 }
 
 /* hover items */
 .dropdown-menu a:hover {
-    background: #fff7ed;
-    color: var(--fq-primary);
-    transform: translateX(3px);
+    background: var(--fq-surface);
+    color: var(--fq-primary-text);
 }
 
-/* === CTA BUTTON === */
+/* === CTA BUTTON — the one accent in the bar === */
 .btn-cta {
+    display: inline-flex;
+    align-items: center;
     background: var(--fq-primary);
     color: #fff;
-    padding: 8px 16px;
-    border-radius: 12px;
+    padding: 10px 20px;
     text-decoration: none;
     font-weight: 600;
-    margin-left: 8px;
-
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 14px rgba(243, 111, 33, 0.25);
+    font-size: 0.9rem;
+    transition: background 0.15s ease;
 }
 
 .btn-cta:hover {
     background: var(--fq-primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(243, 111, 33, 0.35);
-}
-
-/* === HOVER UNDERLINE (detalle pro) === */
-.nav-links>li>span::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 0%;
-    background: var(--fq-primary);
-    transition: width 0.25s ease;
-    margin-top: 3px;
-}
-
-.nav-links>li:hover>span::after {
-    width: 100%;
 }
 
 /* === RESPONSIVE === */
@@ -163,10 +120,15 @@
     .navbar-floating {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 12px;
+        padding: 16px 24px;
     }
 
     .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        width: 100%;
         display: none;
     }
 
@@ -186,11 +148,11 @@
         pointer-events: auto;
         box-shadow: none;
         border: none;
-        padding-left: 10px;
+        padding-left: 12px;
     }
 
     .btn-cta {
         width: 100%;
-        text-align: center;
+        justify-content: center;
     }
 }

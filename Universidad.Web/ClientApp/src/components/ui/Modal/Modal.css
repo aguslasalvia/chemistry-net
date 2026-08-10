@@ -24,12 +24,13 @@
     width: 100%;
     max-width: 500px;
     max-height: calc(100vh - 48px);
-    background: var(--fq-bg);
+    background: var(--fq-panel);
     border: 1px solid var(--fq-border);
-    border-radius: 20px;
+    border-radius: var(--fq-radius-lg);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: var(--fq-shadow-clay);
     animation: slideUp 0.3s ease;
 }
 
@@ -54,8 +55,9 @@
 }
 
 .modal__title {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--fq-font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
     color: var(--fq-text);
 }
 
@@ -67,10 +69,10 @@
     height: 36px;
     background: transparent;
     border: 1px solid var(--fq-border);
-    border-radius: 10px;
+    border-radius: var(--fq-radius-sm);
     color: var(--fq-muted);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
 }
 
 .modal__close:hover {

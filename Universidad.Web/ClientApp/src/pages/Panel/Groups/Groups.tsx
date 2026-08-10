@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
 import GroupForm from '@components/ui/GroupForm/GroupForm';
@@ -6,62 +6,52 @@ import GroupList, { type Group } from '@components/ui/GroupList/GroupList';
 import GroupEditModal from '@components/ui/GroupEditModal/GroupEditModal';
 import Modal from '@components/ui/Modal/Modal';
 import './Groups.css';
-
-const mockGroups: Group[] = [
-    {
-        id: 1,
-        name: 'News',
-        description: 'Grupo de noticias y comunicaciones',
-        users: [
-            { id: 1, name: 'Juan Perez', email: 'juan@fq.edu.uy' },
-            { id: 2, name: 'Maria Garcia', email: 'maria@fq.edu.uy' }
-        ]
-    },
-    {
-        id: 2,
-        name: 'Events',
-        description: 'Gestión de eventos académicos',
-        users: [
-            { id: 3, name: 'Carlos Rodriguez', email: 'carlos@fq.edu.uy' }
-        ]
-    },
-    { id: 3, name: 'Academic', description: 'Contenido académico y posgrados', users: [] },
-    { id: 4, name: 'Investigacion', description: 'Proyectos de investigación actuales', users: [] },
-    { id: 5, name: 'Extensión', description: 'Actividades de extensión universitaria', users: [] },
-];
+import { createGroup, deleteGroup, getGroups, removeUserFromGroup, updateGroup } from '@services/group.service';
 
 const GroupsPage = () => {
     const [loading, setLoading] = useState(false);
-    const [groups, setGroups] = useState<Group[]>(mockGroups);
+    const [groups, setGroups] = useState<Group[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingGroup, setEditingGroup] = useState<Group | null>(null);
 
-    const handleSubmit = (name: string, description: string) => {
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                const groupsData = await getGroups();
+                setGroups(groupsData);
+            } catch {
+                toast.error('Error al obtener los grupos');
+            }
+        };
+
+        fetchGroups();
+    }, []);
+
+    const handleSubmit = async (name: string, description: string) => {
         setLoading(true);
 
-        setTimeout(() => {
-            const newGroup: Group = {
-                id: Date.now(),
-                name,
-                description,
-                users: []
-            };
+        try {
+            const newGroup = await createGroup(name, description);
             setGroups([...groups, newGroup]);
             setLoading(false);
             setIsModalOpen(false);
             toast.success('Grupo creado exitosamente');
-        }, 1000);
+        } catch {
+            setLoading(false);
+            toast.error('Error al crear el grupo');
+        }
     };
 
     const handleEdit = (group: Group) => {
         setEditingGroup(group);
     };
 
-    const handleEditSave = (name: string, description: string) => {
+    const handleEditSave = async (name: string, description: string) => {
         if (!editingGroup) return;
 
         setLoading(true);
-        setTimeout(() => {
+        try {
+            await updateGroup(editingGroup.id, name, description);
             setGroups(groups.map(g =>
                 g.id === editingGroup.id
                     ? { ...g, name, description }
@@ -70,24 +60,38 @@ const GroupsPage = () => {
             setLoading(false);
             setEditingGroup(null);
             toast.success('Grupo actualizado exitosamente');
-        }, 1000);
+        } catch {
+            setLoading(false);
+            toast.error('Error al actualizar el grupo');
+        }
     };
 
-    const handleRemoveUser = (userId: number) => {
+    const handleRemoveUser = async (userId: number) => {
         if (!editingGroup) return;
 
-        const updatedUsers = editingGroup.users?.filter(u => u.id !== userId) || [];
-        setEditingGroup({ ...editingGroup, users: updatedUsers });
-        setGroups(groups.map(g =>
-            g.id === editingGroup.id
-                ? { ...g, users: updatedUsers }
-                : g
-        ));
+        try {
+            await removeUserFromGroup(editingGroup.id, userId);
+            const updatedUsers = editingGroup.users?.filter(u => u.id !== userId) || [];
+            setEditingGroup({ ...editingGroup, users: updatedUsers });
+            setGroups(groups.map(g =>
+                g.id === editingGroup.id
+                    ? { ...g, users: updatedUsers }
+                    : g
+            ));
+            toast.success('Usuario removido del grupo');
+        } catch {
+            toast.error('Error al remover el usuario');
+        }
     };
 
-    const handleDelete = (group: Group) => {
-        setGroups(groups.filter(g => g.id !== group.id));
-        toast.success('Grupo eliminado');
+    const handleDelete = async (group: Group) => {
+        try {
+            await deleteGroup(group.id);
+            setGroups(groups.filter(g => g.id !== group.id));
+            toast.success('Grupo eliminado');
+        } catch {
+            toast.error('Error al eliminar el grupo');
+        }
     };
 
     return (

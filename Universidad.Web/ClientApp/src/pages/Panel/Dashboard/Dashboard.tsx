@@ -33,8 +33,9 @@ const DashboardHomePage = () => {
     return (
         <div className="dashboard">
             <div className="dashboard__welcome">
-                <h1>Bienvenido al Panel de Administración</h1>
-                <p>Desde aquí puedes gestionar el contenido de la facultad</p>
+                <span>Facultad de Química · UdelaR</span>
+                <h1>Panel de Administración</h1>
+                <p>Desde aquí podés gestionar el contenido, los grupos y los usuarios de la facultad</p>
             </div>
 
             <div className="dashboard__actions">

@@ -16,13 +16,13 @@
     text-align: center;
     background: var(--fq-bg);
     border: 1px solid var(--fq-border);
-    border-radius: 12px;
+    border-radius: 4px;
 }
 
 .content-history__table-wrapper {
     overflow-x: auto;
     border: 1px solid var(--fq-border);
-    border-radius: 12px;
+    border-radius: 4px;
 }
 
 .content-history__table {
@@ -53,7 +53,7 @@
 .content-history__type {
     display: inline-block;
     padding: 4px 8px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: capitalize;
@@ -70,7 +70,7 @@
 }
 
 .content-history__type--academic {
-    background: rgba(243, 111, 33, 0.1);
+    background: var(--fq-primary-tint);
     color: var(--fq-primary);
 }
 
@@ -94,7 +94,7 @@
     padding: 6px 12px;
     background: transparent;
     border: 1px solid var(--fq-border);
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--fq-text);
     font-size: 0.75rem;
     font-weight: 500;

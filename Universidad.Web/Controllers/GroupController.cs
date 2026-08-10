@@ -6,24 +6,45 @@ namespace Universidad.Web.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class GroupController(
+    IGroupGetAll groupGetAll,
+    IGroupGetById groupGetById,
     IGroupCreate groupCreate,
-    IGroupUpdate groupUpdate
+    IGroupUpdate groupUpdate,
+    IGroupDelete groupDelete,
+    IGroupAddUser groupAddUser,
+    IGroupRemoveUser groupRemoveUser,
+    IGroupUpdateUserRole groupUpdateUserRole
 ) : ControllerBase
 {
+    private readonly IGroupGetAll _groupGetAll = groupGetAll;
+    private readonly IGroupGetById _groupGetById = groupGetById;
     private readonly IGroupCreate _groupCreate = groupCreate;
     private readonly IGroupUpdate _groupUpdate = groupUpdate;
+    private readonly IGroupDelete _groupDelete = groupDelete;
+    private readonly IGroupAddUser _groupAddUser = groupAddUser;
+    private readonly IGroupRemoveUser _groupRemoveUser = groupRemoveUser;
+    private readonly IGroupUpdateUserRole _groupUpdateUserRole = groupUpdateUserRole;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return await Task.FromResult<IActionResult>(null);
+        var groups = await _groupGetAll.ExecuteAsync();
+        return Ok(new { Groups = groups });
     }
 
 
     [HttpGet("{groupId}")]
-    public async Task<IActionResult> GetById(string groupId)
+    public async Task<IActionResult> GetById(int groupId)
     {
-        return await Task.FromResult<IActionResult>(null);
+        try
+        {
+            var group = await _groupGetById.ExecuteAsync(groupId);
+            return Ok(new { Group = group });
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPost]
@@ -54,22 +75,59 @@ public class GroupController(
         }
     }
 
+    [HttpDelete("{groupId}")]
+    public async Task<IActionResult> Delete(int groupId)
+    {
+        try
+        {
+            await _groupDelete.ExecuteAsync(groupId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpPost("{groupId}/users")]
-    public async Task<IActionResult> AddUser(string groupId)
+    public async Task<IActionResult> AddUser(int groupId, [FromBody] GroupAddUserDto addUserDto)
     {
-        return await Task.FromResult<IActionResult>(null);
+        try
+        {
+            await _groupAddUser.ExecuteAsync(groupId, addUserDto);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{groupId}/users/{userId}")]
-    public async Task<IActionResult> RemoveUser(string groupId, string userId)
+    public async Task<IActionResult> RemoveUser(int groupId, int userId)
     {
-        return await Task.FromResult<IActionResult>(null);
+        try
+        {
+            await _groupRemoveUser.ExecuteAsync(groupId, userId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPatch("{groupId}/users/{userId}/role")]
-    public async Task<IActionResult> UpdateUserRole(string groupId, string userId)
+    public async Task<IActionResult> UpdateUserRole(int groupId, int userId, [FromBody] GroupUpdateUserRoleDto roleDto)
     {
-        return await Task.FromResult<IActionResult>(null);
+        try
+        {
+            await _groupUpdateUserRole.ExecuteAsync(groupId, userId, roleDto);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

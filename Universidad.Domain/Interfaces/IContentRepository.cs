@@ -1,8 +1,12 @@
 namespace Universidad.Domain.Interfaces;
 
+using Universidad.Domain.Entities;
+
 public interface IContentRepository
 {
-    public Task<string> GetContentAsync(int contentId);
-    public Task SaveContentAsync(int contentId, string content);
-
+    Task<IEnumerable<Content>> GetAllAsync();
+    Task<Content?> GetByIdAsync(int id);
+    Task<Content> CreateAsync(Content content);
+    Task UpdateAsync(Content content);
+    Task DeleteAsync(Content content);
 }

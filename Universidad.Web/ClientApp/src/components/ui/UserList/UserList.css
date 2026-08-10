@@ -1,4 +1,4 @@
-e.user-list {
+.user-list {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -17,15 +17,16 @@ e.user-list {
     align-items: center;
     justify-content: center;
     width: 44px;
-    height: 44px;
-    background: rgba(243, 111, 33, 0.1);
-    border-radius: 12px;
+    height: 38px;
+    background: var(--fq-primary-tint);
     color: var(--fq-primary);
+    clip-path: var(--fq-hex-clip);
 }
 
 .user-list__header-text h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--fq-font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
     color: var(--fq-text);
     margin-bottom: 2px;
 }
@@ -40,9 +41,9 @@ e.user-list {
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: var(--fq-bg-secondary);
+    background: var(--fq-surface);
     border: 1px solid var(--fq-border);
-    border-radius: 10px;
+    border-radius: var(--fq-radius-sm);
     margin-bottom: 16px;
     flex-shrink: 0;
     color: var(--fq-muted);
@@ -64,9 +65,9 @@ e.user-list {
 .user-list__empty {
     padding: 48px 24px;
     text-align: center;
-    background: var(--fq-bg);
+    background: var(--fq-panel);
     border: 2px dashed var(--fq-border);
-    border-radius: 12px;
+    border-radius: var(--fq-radius-md);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -86,53 +87,58 @@ e.user-list {
     color: var(--fq-muted);
 }
 
-.user-list__table-wrapper {
+/* ============ Specimen rows — replaces the generic admin table ============ */
+
+.user-list__rows {
     flex: 1;
     overflow-y: auto;
-    border: 1px solid var(--fq-border);
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 4px;
 }
 
-.user-list__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-}
-
-.user-list__table th {
-    position: sticky;
-    top: 0;
-    text-align: left;
-    padding: 12px 16px;
-    background: var(--fq-bg);
-    color: var(--fq-muted);
+.user-list__row-header {
+    display: grid;
+    grid-template-columns: 2fr 1.4fr auto;
+    gap: 16px;
+    padding: 0 18px;
+    font-family: var(--fq-font-utility);
+    font-size: 0.72rem;
     font-weight: 600;
-    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--fq-border);
-    z-index: 1;
+    letter-spacing: 0.06em;
+    color: var(--fq-muted);
 }
 
-.user-list__table td {
-    padding: 14px 16px;
-    color: var(--fq-text);
-    border-bottom: 1px solid var(--fq-border);
-    vertical-align: middle;
+.user-list__row-header span:last-child {
+    text-align: right;
 }
 
-.user-list__table tr:last-child td {
-    border-bottom: none;
+.user-list__row {
+    display: grid;
+    grid-template-columns: 2fr 1.4fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: var(--fq-panel);
+    border: 1px solid var(--fq-border);
+    border-left: 3px solid var(--fq-border);
+    border-radius: var(--fq-radius-sm);
+    transition: all 0.15s ease;
 }
 
-.user-list__table tr:hover td {
-    background: rgba(243, 111, 33, 0.03);
+.user-list__row:hover {
+    border-color: var(--fq-primary);
+    border-left-color: var(--fq-primary);
+    box-shadow: var(--fq-shadow-clay-sm);
 }
 
 .user-list__name-cell {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
 }
 
 .user-list__name-icon {
@@ -140,9 +146,8 @@ e.user-list {
     align-items: center;
     justify-content: center;
     width: 36px;
-    height: 36px;
-    background: rgba(243, 111, 33, 0.1);
-    border-radius: 8px;
+    height: 31px;
+    background: var(--fq-primary-tint);
     color: var(--fq-primary);
     flex-shrink: 0;
 }
@@ -150,6 +155,7 @@ e.user-list {
 .user-list__name-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .user-list__fullname {
@@ -158,12 +164,12 @@ e.user-list {
 }
 
 .user-list__email {
-    font-size: 0.8rem;
+    font-family: var(--fq-font-utility);
+    font-size: 0.78rem;
     color: var(--fq-muted);
-}
-
-.user-list__groups {
-    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .user-list__groups-tags {
@@ -174,18 +180,18 @@ e.user-list {
 
 .user-list__group-tag {
     padding: 2px 8px;
-    background: rgba(243, 111, 33, 0.1);
-    color: var(--fq-primary);
-    border-radius: 4px;
+    background: var(--fq-primary-tint);
+    color: var(--fq-primary-text);
+    border-radius: var(--fq-radius-sm);
     font-size: 0.75rem;
     font-weight: 500;
 }
 
 .user-list__group-more {
     padding: 2px 8px;
-    background: var(--fq-border);
+    background: var(--fq-surface);
     color: var(--fq-muted);
-    border-radius: 4px;
+    border-radius: var(--fq-radius-sm);
     font-size: 0.75rem;
 }
 
@@ -197,8 +203,8 @@ e.user-list {
 
 .user-list__actions {
     display: flex;
-    justify-content: center;
-    gap: 8px;
+    justify-content: flex-end;
+    gap: 6px;
 }
 
 .user-list__action-btn {
@@ -209,10 +215,10 @@ e.user-list {
     height: 32px;
     background: transparent;
     border: 1px solid var(--fq-border);
-    border-radius: 8px;
+    border-radius: var(--fq-radius-sm);
     color: var(--fq-muted);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s var(--fq-ease-clay);
 }
 
 .user-list__action-btn:hover {
@@ -220,8 +226,8 @@ e.user-list {
 }
 
 .user-list__action-btn--password:hover {
-    background: #f59e0b;
-    border-color: #f59e0b;
+    background: var(--fq-warning);
+    border-color: var(--fq-warning);
     color: white;
 }
 
@@ -232,7 +238,22 @@ e.user-list {
 }
 
 .user-list__action-btn--delete:hover {
-    background: #ef4444;
-    border-color: #ef4444;
+    background: var(--fq-danger);
+    border-color: var(--fq-danger);
     color: white;
+}
+
+@media (max-width: 640px) {
+    .user-list__row-header {
+        display: none;
+    }
+
+    .user-list__row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .user-list__actions {
+        justify-content: flex-start;
+    }
 }

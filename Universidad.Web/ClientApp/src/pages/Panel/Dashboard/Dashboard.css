@@ -8,9 +8,21 @@
     margin-bottom: 40px;
 }
 
+.dashboard__welcome span {
+    display: inline-block;
+    font-family: var(--fq-font-utility);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fq-primary-text);
+    margin-bottom: 10px;
+}
+
 .dashboard__welcome h1 {
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: var(--fq-font-display);
+    font-size: 2.1rem;
+    font-weight: 600;
     color: var(--fq-text);
     margin-bottom: 8px;
 }

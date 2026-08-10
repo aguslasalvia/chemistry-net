@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
+import { loginUser } from '@services/user.service';
 import './Login.css';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,26 +21,55 @@ const LoginPage = () => {
         }
 
         setLoading(true);
-        console.log('Login attempt:', { email });
+        try {
+            await loginUser(email, password);
+            navigate('/panel/dashboard');
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'No se pudo iniciar sesión');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="login-page">
-            <div className="login-glow"></div>
-            <div className="login-grid"></div>
+            <aside className="login-brand">
+                <div className="login-molecule" aria-hidden="true">
+                    <span className="login-molecule__bond login-molecule__bond--1"></span>
+                    <span className="login-molecule__bond login-molecule__bond--2"></span>
+                    <span className="login-molecule__bond login-molecule__bond--3"></span>
+                    <span className="login-molecule__bond login-molecule__bond--4"></span>
+                    <span className="login-molecule__bond login-molecule__bond--5"></span>
+                    <span className="login-molecule__bond login-molecule__bond--6"></span>
+                    <span className="login-molecule__hex login-molecule__hex--center fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--n fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--s fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--nw fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--ne fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--sw fq-hex"></span>
+                    <span className="login-molecule__hex login-molecule__hex--se fq-hex"></span>
+                </div>
 
-            <div className="login-container">
-                <div className="login-card">
+                <div className="login-brand__content">
+                    <img src="/logo-inverted.png" alt="" className="login-brand__logo" />
+                    <p className="login-brand__eyebrow">Universidad de la República</p>
+                    <h1 className="login-brand__title">Panel de la Facultad de Química</h1>
+                    <p className="login-brand__text">
+                        Un lugar para administrar el contenido, los grupos y las personas
+                        detrás del sitio de la facultad.
+                    </p>
+                </div>
+            </aside>
+
+            <main className="login-form-pane">
+                <div className="login-container">
                     <div className="login-header">
-                        <div className="login-logo">
-                            <img src="/logo-inverted.png" alt="Facultad de Química" />
-                        </div>
-                        <h1 className="login-title">Iniciar Sesión</h1>
-                        <p className="login-subtitle">Accede a tu cuenta de la Facultad de Química</p>
+                        <h2 className="login-title">Iniciar sesión</h2>
+                        <p className="login-subtitle">Accedé con tu cuenta de la Facultad de Química</p>
                     </div>
 
                     {error && (
-                        <div className="login-error">
+                        <div className="login-error" role="alert">
                             <AlertCircle size={18} />
                             <span>{error}</span>
                         </div>
@@ -97,10 +129,10 @@ const LoginPage = () => {
                     </form>
 
                     <div className="login-footer">
-                        <p>¿No tienes cuenta? <a href="/registro">Solicitar acceso</a></p>
+                        <p>¿No tenés cuenta? <a href="/registro">Solicitar acceso</a></p>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 };

@@ -6,7 +6,13 @@ import UserEditModal from "@components/ui/UserEditModal/UserEditModal";
 import UserForm from "@components/ui/UserForm/UserForm";
 import Modal from "@components/ui/Modal/Modal";
 import "./Users.css";
-import { createUser, getUsers } from "@services/user.service";
+import {
+  changeUserPassword,
+  createUser,
+  deleteUser,
+  getUsers,
+  updateUser,
+} from "@services/user.service";
 
 const UsersPage = () => {
   const [loading, setLoading] = useState(false);
@@ -22,7 +28,7 @@ const UsersPage = () => {
       try {
         const usersData = await getUsers();
         setUsers(usersData);
-      } catch (error) {
+      } catch {
         toast.error("Error al obtener los usuarios");
       }
     };
@@ -30,36 +36,34 @@ const UsersPage = () => {
     fetchUsers();
   }, []);
 
-  const handleSubmit = (name: string, lastName: string, email: string) => {
+  const handleSubmit = async (name: string, lastName: string, email: string) => {
     setLoading(true);
 
-    setTimeout(async () => {
-      const newUser: User = {
-        id: Date.now(),
-        name,
-        lastName,
-        email,
-        groups: [],
-      };
+    const newUser: User = {
+      id: Date.now(),
+      name,
+      lastName,
+      email,
+      groups: [],
+    };
 
-      try {
-        await createUser(newUser);
-        setUsers([...users, newUser]);
-        setLoading(false);
-        setIsModalOpen(false);
-        toast.success("Usuario creado exitosamente");
-      } catch (error) {
-        setLoading(false);
-        toast.error("Error al crear el usuario");
-      }
-    }, 1000);
+    try {
+      await createUser(newUser);
+      setUsers([...users, newUser]);
+      setLoading(false);
+      setIsModalOpen(false);
+      toast.success("Usuario creado exitosamente");
+    } catch {
+      setLoading(false);
+      toast.error("Error al crear el usuario");
+    }
   };
 
   const handleEdit = (user: User) => {
     setEditingUser(user);
   };
 
-  const handleEditSave = (
+  const handleEditSave = async (
     name: string,
     lastName: string,
     email: string,
@@ -67,7 +71,8 @@ const UsersPage = () => {
     if (!editingUser) return;
 
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await updateUser(editingUser.id, name, lastName, email);
       setUsers(
         users.map((u) =>
           u.id === editingUser.id ? { ...u, name, lastName, email } : u,
@@ -76,27 +81,39 @@ const UsersPage = () => {
       setLoading(false);
       setEditingUser(null);
       toast.success("Usuario actualizado exitosamente");
-    }, 1000);
+    } catch {
+      setLoading(false);
+      toast.error("Error al actualizar el usuario");
+    }
   };
 
   const handleChangePassword = (user: User) => {
     setChangingPasswordUser(user);
   };
 
-  const handlePasswordSave = (_newPassword: string) => {
+  const handlePasswordSave = async (newPassword: string) => {
     if (!changingPasswordUser) return;
 
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await changeUserPassword(changingPasswordUser.id, newPassword);
       setLoading(false);
       setChangingPasswordUser(null);
       toast.success("Contraseña actualizada exitosamente");
-    }, 1000);
+    } catch {
+      setLoading(false);
+      toast.error("Error al actualizar la contraseña");
+    }
   };
 
-  const handleDelete = (user: User) => {
-    setUsers(users.filter((u) => u.id !== user.id));
-    toast.success("Usuario eliminado");
+  const handleDelete = async (user: User) => {
+    try {
+      await deleteUser(user.id);
+      setUsers(users.filter((u) => u.id !== user.id));
+      toast.success("Usuario eliminado");
+    } catch {
+      toast.error("Error al eliminar el usuario");
+    }
   };
 
   return (

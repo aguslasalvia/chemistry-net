@@ -1,27 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600;700&display=swap');
 
 
 :root {
-  --fq-primary: #f36f21;
-  --fq-primary-hover: #f7941d;
-  --fq-accent: #fbb040;
+  /* Swiss Modernism 2.0: black/white/grey base, ONE vibrant accent (the real FQ orange) */
+  --fq-primary: #FF3B01;
+  --fq-primary-hover: #E03400;
+  --fq-primary-active: #C22D00;
+  --fq-primary-tint: #FFE4D9;
+  --fq-primary-text: #9C2400;    /* WCAG AAA — 7:1+ on both white and --fq-surface */
 
-  --fq-text: #1f2933;
-  --fq-muted: #6b7280;
-  --fq-border: #e5e7eb;
-  --fq-bg: #ffffff;
+  --fq-success: #1F7A45;
+  --fq-success-tint: #E3F3E9;
+  --fq-danger: #A6291B;          /* darkened for 7:1 AAA text contrast */
+  --fq-danger-tint: #FBEAE8;
+  --fq-warning: #7A4B00;
+  --fq-warning-tint: #FBF0DC;
+
+  /* Neutrals */
+  --fq-text: #171310;
+  --fq-muted: #5A5148;           /* 7.76:1 on white — AAA */
+  --fq-border: #D8D2C8;
+  --fq-surface: #F5F5F3;
+  --fq-bg: #FFFFFF;
+  --fq-panel: #FFFFFF;
+
+  /* Typography: Inter for the system, serif reserved for headings only (skill's own nuance
+     for "Research Lab / University Department") */
+  --fq-font-display: "EB Garamond", serif;
+  --fq-font-utility: "Inter", sans-serif;
+  --fq-font-body: "Inter", sans-serif;
+
+  /* Signature shape — flat-top hexagon, the benzene ring. Flat fill, no shadow/gradient. */
+  --fq-hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+
+  /* Swiss Modernism 2.0 grid + spacing */
+  --fq-grid-columns: 12;
+  --fq-space: 8px;
+
+  /* Minimal decoration: small/no radius, one subtle professional shadow (Trust & Authority) */
+  --fq-radius-sm: 2px;
+  --fq-radius-md: 4px;
+  --fq-radius-lg: 4px;
+  --fq-ease-clay: ease;
+  --fq-shadow-clay: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --fq-shadow-clay-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --fq-shadow-clay-pressed: none;
+  --fq-drop-hex: none;
 }
 
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: var(--fq-font-body);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--fq-font-display);
+  font-weight: 600;
 }
 
 body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  color: var(--fq-text);
+  font-size: 16px;
+  background: var(--fq-bg);
+}
+
+/* Signature — flat-top hexagon container (the benzene ring), used for every icon badge */
+.fq-hex {
+  clip-path: var(--fq-hex-clip);
+  filter: var(--fq-drop-hex);
+}
+
+/* Accessible & Ethical: visible keyboard focus everywhere, no exceptions */
+:focus-visible {
+  outline: 3px solid var(--fq-primary);
+  outline-offset: 2px;
+}
+
+/* Accessible & Ethical: respect the user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

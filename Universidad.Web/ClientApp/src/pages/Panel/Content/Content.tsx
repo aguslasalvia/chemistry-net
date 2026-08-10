@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { FileText, Filter } from 'lucide-react';
 import ContentCard from '@components/ui/ContentCard/ContentCard';
 import './Content.css';
+import { getContent } from '@services/content.service';
+import { getGroups } from '@services/group.service';
 
 export interface ContentItem {
     id: number;
@@ -15,86 +18,24 @@ export interface ContentItem {
     type: 'News' | 'Events' | 'Academic' | 'Default';
 }
 
-const mockGroups = [
-    { id: 1, name: 'News' },
-    { id: 2, name: 'Events' },
-    { id: 3, name: 'Academic' },
-    { id: 4, name: 'Investigacion' },
-    { id: 5, name: 'Extensión' },
-];
-
-const mockContent: ContentItem[] = [
-    {
-        id: 1,
-        title: 'Conferencia sobre Química Verde',
-        body: '<p>Se realizará una conferencia sobre los avances en química verde y sostenibilidad ambiental...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800',
-        creationDate: new Date('2026-04-18'),
-        groupId: 1,
-        groupName: 'News',
-        userName: 'Juan Pérez',
-        type: 'News'
-    },
-    {
-        id: 2,
-        title: 'Jornada de Puertas Abiertas 2026',
-        body: '<p>Invitamos a todos los estudiantes de secundaria a conocer nuestras instalaciones...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800',
-        creationDate: new Date('2026-04-17'),
-        groupId: 2,
-        groupName: 'Events',
-        userName: 'María García',
-        type: 'Events'
-    },
-    {
-        id: 3,
-        title: 'Nuevo Curso de Posgrado: Química Computacional',
-        body: '<p>Abriremos inscripciones para el nuevo curso de posgrado en química computacional...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800',
-        creationDate: new Date('2026-04-15'),
-        groupId: 3,
-        groupName: 'Academic',
-        userName: 'Carlos Rodríguez',
-        type: 'Academic'
-    },
-    {
-        id: 4,
-        title: 'Proyecto de Investigación en Energías Renovables',
-        body: '<p>Nuestro equipo de investigación inicia un nuevo proyecto sobre celdas solares orgánicas...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1509391366360-2e959784a65a?w=800',
-        creationDate: new Date('2026-04-14'),
-        groupId: 4,
-        groupName: 'Investigacion',
-        userName: 'Ana López',
-        type: 'News'
-    },
-    {
-        id: 5,
-        title: 'Taller de extensión comunitaria',
-        body: '<p>Se realizará un taller de química básica para escuelas secundarias de la zona...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1533047672418-903977fc7fc6?w=800',
-        creationDate: new Date('2026-04-12'),
-        groupId: 5,
-        groupName: 'Extensión',
-        userName: 'Pedro Martínez',
-        type: 'Events'
-    },
-    {
-        id: 6,
-        title: 'Premio Nacional de Química',
-        body: '<p>Felicidades a nuestro egresado por obtener el Premio Nacional de Química 2026...</p>',
-        imageUrl: 'https://images.unsplash.com/photo-1564325724739-aeae29d5d8bb?w=800',
-        creationDate: new Date('2026-04-10'),
-        groupId: 1,
-        groupName: 'News',
-        userName: 'Juan Pérez',
-        type: 'News'
-    },
-];
-
 const ContentPage = () => {
     const [selectedGroup, setSelectedGroup] = useState<number | 'all'>('all');
-    const [contents] = useState<ContentItem[]>(mockContent);
+    const [contents, setContents] = useState<ContentItem[]>([]);
+    const [groups, setGroups] = useState<{ id: number; name: string }[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [contentData, groupData] = await Promise.all([getContent(), getGroups()]);
+                setContents(contentData.map(c => ({ ...c, creationDate: new Date(c.creationDate) })));
+                setGroups(groupData);
+            } catch {
+                toast.error('Error al obtener el contenido');
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const filteredContent = selectedGroup === 'all'
         ? contents
@@ -124,7 +65,7 @@ const ContentPage = () => {
                     >
                         Todos
                     </button>
-                    {mockGroups.map(group => (
+                    {groups.map(group => (
                         <button
                             key={group.id}
                             className={`content-page__chip ${selectedGroup === group.id ? 'content-page__chip--active' : ''}`}

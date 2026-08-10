@@ -63,53 +63,44 @@ const GroupList: React.FC<GroupListProps> = ({ groups, onEdit, onDelete }) => {
                     </span>
                 </div>
             ) : (
-                <div className="group-list__table-wrapper">
-                    <table className="group-list__table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Usuarios</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredGroups.map((group) => (
-                                <tr key={group.id}>
-                                    <td>
-                                        <div className="group-list__name-cell">
-                                            <div className="group-list__name-icon">
-                                                <Users size={14} />
-                                            </div>
-                                            <span>{group.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="group-list__desc">{group.description}</td>
-                                    <td className="group-list__users-count">
-                                        {group.users?.length || 0}
-                                    </td>
-                                    <td>
-                                        <div className="group-list__actions">
-                                            <button
-                                                className="group-list__action-btn group-list__action-btn--edit"
-                                                onClick={() => onEdit?.(group)}
-                                                title="Editar"
-                                            >
-                                                <Pencil size={14} />
-                                            </button>
-                                            <button
-                                                className="group-list__action-btn group-list__action-btn--delete"
-                                                onClick={() => onDelete?.(group)}
-                                                title="Eliminar"
-                                            >
-                                                <Trash2 size={14} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <div className="group-list__rows">
+                    <div className="group-list__row-header">
+                        <span>Grupo</span>
+                        <span>Descripción</span>
+                        <span>Usuarios</span>
+                        <span>Acciones</span>
+                    </div>
+
+                    {filteredGroups.map((group) => (
+                        <div className="group-list__row" key={group.id}>
+                            <div className="group-list__name-cell">
+                                <span className="group-list__name-icon fq-hex">
+                                    <Users size={13} />
+                                </span>
+                                <span>{group.name}</span>
+                            </div>
+                            <div className="group-list__desc">{group.description}</div>
+                            <div className="group-list__users-count">
+                                {group.users?.length || 0}
+                            </div>
+                            <div className="group-list__actions">
+                                <button
+                                    className="group-list__action-btn group-list__action-btn--edit"
+                                    onClick={() => onEdit?.(group)}
+                                    title="Editar"
+                                >
+                                    <Pencil size={14} />
+                                </button>
+                                <button
+                                    className="group-list__action-btn group-list__action-btn--delete"
+                                    onClick={() => onDelete?.(group)}
+                                    title="Eliminar"
+                                >
+                                    <Trash2 size={14} />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

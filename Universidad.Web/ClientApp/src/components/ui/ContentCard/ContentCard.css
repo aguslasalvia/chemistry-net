@@ -1,7 +1,7 @@
 .content-card {
     background: var(--fq-bg);
     border: 1px solid var(--fq-border);
-    border-radius: 12px;
+    border-radius: 4px;
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(243, 111, 33, 0.1);
+    background: var(--fq-primary-tint);
     color: var(--fq-primary);
     font-size: 2rem;
     font-weight: 700;
@@ -53,7 +53,7 @@
     color: white;
     font-size: 0.7rem;
     font-weight: 600;
-    border-radius: 100px;
+    border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -131,7 +131,7 @@
     height: 30px;
     background: transparent;
     border: 1px solid var(--fq-border);
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--fq-muted);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -145,6 +145,6 @@
 }
 
 .content-card__action-btn--delete:hover {
-    background: #ef4444;
-    border-color: #ef4444;
+    background: var(--fq-danger);
+    border-color: var(--fq-danger);
 }

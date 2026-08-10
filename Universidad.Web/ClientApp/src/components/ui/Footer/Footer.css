@@ -16,25 +16,33 @@
     grid-template-columns: 1fr 2fr;
     gap: 80px;
     padding-bottom: 48px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .footer-logo {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
-.footer-logo svg {
-    width: 28px;
-    height: 28px;
-    color: var(--fq-primary);
-}
-
-.footer-logo span {
-    font-size: 1.1rem;
+.footer-logo__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 35px;
+    background: var(--fq-primary);
+    color: white;
+    font-family: var(--fq-font-utility);
     font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.footer-logo span:last-child {
+    font-family: var(--fq-font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .footer-description {
@@ -49,10 +57,11 @@
 }
 
 .footer-column h4 {
-    font-size: 0.85rem;
+    font-family: var(--fq-font-utility);
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
     color: var(--fq-primary);
     margin-bottom: 16px;
 }
@@ -69,7 +78,7 @@
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
 }
 
 .footer-column a:hover {
@@ -87,18 +96,71 @@
 .footer-contact-item svg {
     width: 16px;
     height: 16px;
-    color: var(--fq-accent);
+    color: var(--fq-primary);
     flex-shrink: 0;
+}
+
+/* ============ Sedes reales ============ */
+
+.footer-locations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-location h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.footer-location p {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.footer-location svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--fq-primary);
 }
 
 .footer-bottom {
     padding: 24px 0;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .footer-bottom p {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-social {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-social a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.footer-social a:hover {
+    color: var(--fq-primary);
 }
 
 @media (max-width: 1024px) {
@@ -109,6 +171,11 @@
 
     .footer-links {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-locations {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
 }
 
@@ -135,5 +202,10 @@
 
     .footer {
         padding: 48px 0 0;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
     }
 }

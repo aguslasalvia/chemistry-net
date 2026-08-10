@@ -13,11 +13,10 @@ public class UserLogin(IUserRepository repository) : IUserLogin
 
     public async Task<UserDto> ExecuteAsync(LoginDto dto)
     {
-        // Hash the password before sending it to the repository
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+        var user = await _repository.GetByEmailAsync(dto.Email);
 
-        var user = await _repository.LoginAsync(dto.Email, hashedPassword)
-            ?? throw new InvalidOperationException("Invalid email or password");
+        if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+            throw new UnauthorizedAccessException("Invalid email or password");
 
         return new UserDto(
             Id: user.Id,

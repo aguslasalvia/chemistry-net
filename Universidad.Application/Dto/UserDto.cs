@@ -6,3 +6,7 @@ public record UserRegisterDto(string Name, string LastName, string Email, string
 
 public record LoginDto(string Email, string Password);
 
+public record UserUpdateDto(string Name, string LastName, string Email);
+
+public record UserChangePasswordDto(string NewPassword);
+
