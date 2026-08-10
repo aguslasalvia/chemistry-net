@@ -10,6 +10,7 @@ import NotFound from "@pages/NotFound/NotFound"
 import Login from "@pages/Panel/Login/Login"
 import DashboardHomePage from "@pages/Panel/Dashboard/Dashboard"
 import UsersPage from "@pages/Panel/Users/Users"
+import GroupPage from "@pages/Panel/Groups/Groups"
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     <Route element={<PanelLayout />}>
                         <Route index path="dashboard" element={<DashboardHomePage />} />
                         <Route path="users" element={<UsersPage />} />
+                        <Route path="groups" element={<GroupPage />} />
                     </Route>
                 </Route>
 
