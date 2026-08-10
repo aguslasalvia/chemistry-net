@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { User, Mail, Plus } from 'lucide-react';
-import './UserForm.css';
+import { User, Mail, Plus, Loader2 } from 'lucide-react';
 
 interface UserFormProps {
     onSubmit: (firstName: string, lastName: string, email: string) => void;
     loading?: boolean;
     onCancel?: () => void;
 }
+
+const inputClasses =
+    'w-full rounded-fq border border-fq-border bg-fq-surface py-3.5 pr-4 pl-11 text-sm text-fq-text placeholder:text-fq-muted/70 transition-colors focus:border-fq-primary focus:bg-fq-bg';
 
 const UserForm: React.FC<UserFormProps> = ({
     onSubmit,
@@ -33,11 +35,11 @@ const UserForm: React.FC<UserFormProps> = ({
     };
 
     return (
-        <form className="user-form-modal" onSubmit={handleSubmit}>
-            <div className="user-form-modal__field">
-                <label htmlFor="firstName">Nombre</label>
-                <div className="user-form-modal__input-wrapper">
-                    <User className="user-form-modal__input-icon" size={18} />
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="firstName" className="text-sm font-semibold text-fq-text">Nombre</label>
+                <div className="relative flex items-start">
+                    <User className="pointer-events-none absolute left-3.5 top-3.5 text-fq-muted" size={18} />
                     <input
                         id="firstName"
                         type="text"
@@ -45,14 +47,15 @@ const UserForm: React.FC<UserFormProps> = ({
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         autoComplete="off"
+                        className={inputClasses}
                     />
                 </div>
             </div>
 
-            <div className="user-form-modal__field">
-                <label htmlFor="lastName">Apellido</label>
-                <div className="user-form-modal__input-wrapper">
-                    <User className="user-form-modal__input-icon" size={18} />
+            <div className="flex flex-col gap-2">
+                <label htmlFor="lastName" className="text-sm font-semibold text-fq-text">Apellido</label>
+                <div className="relative flex items-start">
+                    <User className="pointer-events-none absolute left-3.5 top-3.5 text-fq-muted" size={18} />
                     <input
                         id="lastName"
                         type="text"
@@ -60,14 +63,15 @@ const UserForm: React.FC<UserFormProps> = ({
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         autoComplete="off"
+                        className={inputClasses}
                     />
                 </div>
             </div>
 
-            <div className="user-form-modal__field">
-                <label htmlFor="email">Email</label>
-                <div className="user-form-modal__input-wrapper">
-                    <Mail className="user-form-modal__input-icon" size={18} />
+            <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-sm font-semibold text-fq-text">Email</label>
+                <div className="relative flex items-start">
+                    <Mail className="pointer-events-none absolute left-3.5 top-3.5 text-fq-muted" size={18} />
                     <input
                         id="email"
                         type="email"
@@ -75,19 +79,28 @@ const UserForm: React.FC<UserFormProps> = ({
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         autoComplete="off"
+                        className={inputClasses}
                     />
                 </div>
             </div>
 
-            <div className="user-form-modal__actions">
+            <div className="mt-2 flex justify-end gap-3">
                 {onCancel && (
-                    <button type="button" className="user-form-modal__btn user-form-modal__btn--cancel" onClick={onCancel}>
+                    <button
+                        type="button"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-fq border border-fq-border bg-transparent px-6 py-3 text-sm font-semibold text-fq-text transition-colors hover:border-fq-muted hover:bg-fq-surface"
+                        onClick={onCancel}
+                    >
                         Cancelar
                     </button>
                 )}
-                <button type="submit" className="user-form-modal__btn user-form-modal__btn--submit" disabled={loading}>
+                <button
+                    type="submit"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-fq bg-fq-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-fq-primary-hover disabled:cursor-not-allowed disabled:opacity-70"
+                    disabled={loading}
+                >
                     {loading ? (
-                        <span className="loading-spinner"></span>
+                        <Loader2 size={18} className="animate-spin" />
                     ) : (
                         <>
                             <Plus size={18} />
