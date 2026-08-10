@@ -9,6 +9,7 @@ import Home from "@pages/Home/Home"
 import NotFound from "@pages/NotFound/NotFound"
 import Login from "@pages/Panel/Login/Login"
 import DashboardHomePage from "@pages/Panel/Dashboard/Dashboard"
+import UsersPage from "@pages/Panel/Users/Users"
 
 const App = () => {
     return (
@@ -22,6 +23,7 @@ const App = () => {
                     <Route path="login" element={<Login />} />
                     <Route element={<PanelLayout />}>
                         <Route index path="dashboard" element={<DashboardHomePage />} />
+                        <Route path="users" element={<UsersPage />} />
                     </Route>
                 </Route>
 
