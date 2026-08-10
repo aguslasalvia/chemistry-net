@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Logo from '@components/ui/Logo/Logo';
 import { logoutUser } from '@services/user.service';
+import { clearCurrentUserId } from '@utils/session';
 
 const NAV_ITEMS = [
     { to: '/panel/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
@@ -30,6 +31,7 @@ const PanelSidebar: React.FC<PanelSidebarProps> = ({ collapsed, onToggle }) => {
 
     const handleLogout = async () => {
         await logoutUser();
+        clearCurrentUserId();
         navigate('/panel/login', { replace: true });
     };
 

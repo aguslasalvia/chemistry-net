@@ -11,6 +11,8 @@ import Login from "@pages/Panel/Login/Login"
 import DashboardHomePage from "@pages/Panel/Dashboard/Dashboard"
 import UsersPage from "@pages/Panel/Users/Users"
 import GroupPage from "@pages/Panel/Groups/Groups"
+import ContentPage from "@pages/Panel/Content/Content"
+import ProfilePage from "@pages/Panel/Profile/Profile"
 
 const App = () => {
     return (
@@ -26,6 +28,8 @@ const App = () => {
                         <Route index path="dashboard" element={<DashboardHomePage />} />
                         <Route path="users" element={<UsersPage />} />
                         <Route path="groups" element={<GroupPage />} />
+                        <Route path="content" element={<ContentPage />} />
+                        <Route path="settings" element={<ProfilePage />} />
                     </Route>
                 </Route>
 
