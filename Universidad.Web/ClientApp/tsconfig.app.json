@@ -39,7 +39,7 @@
       "@services/*": [
         "./src/services/*"
       ],
-      "@types/*": [
+      "@models/*": [
         "./src/types/*"
       ],
       "@pages/*": [

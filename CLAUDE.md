@@ -66,7 +66,7 @@ Cookie-based auth is configured in `Program.cs` (`AddAuthentication` + `AddCooki
 - `components/ui/*` — one folder per component, each with its own `.tsx` (no `.css` file — styling is Tailwind utility classes directly in JSX; no CSS modules/styled-components either). `components/sections/*` holds the public-landing sections (Hero, Stats, Institucion, Carreras, Novedades, Contacto).
 - `services/*` — `fetch`-based API clients (`user.service.ts`, `group.service.ts`, `content.service.ts`); Login, Users, Groups and Content (read) are wired to the backend.
 - `data/home.ts` — static content for the landing (stats, carreras, noticias) transcribed from the mockup; not fetched from the backend.
-- Path aliases (`@components`, `@services`, `@hooks`, `@utils`, `@types`, `@pages`) are defined in `tsconfig.app.json` — use them instead of relative `../../..` imports.
+- Path aliases (`@components`, `@services`, `@hooks`, `@utils`, `@models`, `@pages`, `@data`) are defined in `tsconfig.app.json` — use them instead of relative `../../..` imports. Note: the alias is `@models` (not `@types`) — TypeScript's compiler special-cases any path alias literally named `@types/*`, so it was renamed to avoid `TS6137` build errors.
 
 ## Design System
 
