@@ -1,22 +1,21 @@
-import Hero from "@components/ui/Hero/Hero";
-import QuickLinks from "@components/ui/QuickLinks/QuickLinks";
-import News from "@components/ui/News/News";
-import Programs from "@components/ui/Programs/Programs";
-import Events from "@components/ui/Events/Events";
-import VideoSection from "@components/ui/VideoSection/VideoSection";
-
+import Hero from '@components/sections/Hero';
+import Stats from '@components/sections/Stats';
+import Institucion from '@components/sections/Institucion';
+import Carreras from '@components/sections/Carreras';
+import Novedades from '@components/sections/Novedades';
+import Contacto from '@components/sections/Contacto';
 
 const Home = () => {
     return (
         <>
             <Hero />
-            <QuickLinks />
-            <News />
-            <Programs />
-            <Events />
-            <VideoSection />
+            <Stats />
+            <Institucion />
+            <Carreras />
+            <Novedades />
+            <Contacto />
         </>
-    )
-}
+    );
+};
 
 export default Home;

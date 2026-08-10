@@ -1,42 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* Swiss Modernism 2.0: black/white/grey base, ONE vibrant accent (the real FQ orange) */
+  /* Brand — locked, never changes regardless of any other redesign */
   --color-fq-primary: #FF3B01;
   --color-fq-primary-hover: #E03400;
   --color-fq-primary-active: #C22D00;
   --color-fq-primary-tint: #FFE4D9;
-  --color-fq-primary-text: #9C2400;    /* WCAG AAA — 7:1+ on both white and --color-fq-surface */
+  --color-fq-primary-text: #9C2400;   /* AAA on white and on the tint */
+  --color-fq-primary-light: #FF9166;  /* orange text on dark surfaces — 7.7:1 on fq-dark */
 
+  /* Neutrals — warm palette from the landing mockup */
+  --color-fq-text: #1E1712;    /* headings, strong text — 16.9:1 on white */
+  --color-fq-body: #4A3B30;    /* paragraph copy — 10.7:1 on white */
+  --color-fq-muted: #665648;   /* secondary/meta text — 7.02:1 on white (AAA) */
+  --color-fq-border: #EDE6DF;
+  --color-fq-surface: #FBF6F1;
+  --color-fq-dark: #241A14;    /* stats bar, login side panel */
+  --color-fq-bg: #FFFFFF;
+
+  /* Status — unchanged, used by panel forms/badges */
   --color-fq-success: #1F7A45;
   --color-fq-success-tint: #E3F3E9;
-  --color-fq-danger: #A6291B;          /* darkened for 7:1 AAA text contrast */
+  --color-fq-danger: #A6291B;
   --color-fq-danger-tint: #FBEAE8;
   --color-fq-warning: #7A4B00;
   --color-fq-warning-tint: #FBF0DC;
 
-  /* Neutrals */
-  --color-fq-text: #171310;
-  --color-fq-muted: #5A5148;           /* 7.76:1 on white — AAA */
-  --color-fq-border: #D8D2C8;
-  --color-fq-surface: #F5F5F3;
-  --color-fq-bg: #FFFFFF;
-  --color-fq-panel: #FFFFFF;
+  /* Typography */
+  --font-display: "Lexend", sans-serif;      /* headings, buttons, large numbers */
+  --font-sans: "Source Sans 3", sans-serif;  /* body */
 
-  /* Typography: Inter for the system, serif reserved for headings only (skill's own nuance
-     for "Research Lab / University Department") */
-  --font-sans: "Inter", sans-serif;
-  --font-display: "EB Garamond", serif;
+  /* Shape */
+  --radius-fq: 8px;      /* controls: buttons, inputs, logo mark */
+  --radius-fq-lg: 16px;  /* surfaces: cards, modals */
+  --radius-fq-xl: 20px;  /* large media */
 
-  /* Shape: soft radius scale — controls vs. surfaces */
-  --radius-fq: 8px;
-  --radius-fq-lg: 12px;
+  /* Shadow */
+  --shadow-fq: 0 8px 24px rgba(36, 26, 20, 0.08);        /* floating header */
+  --shadow-fq-hover: 0 12px 28px rgba(36, 26, 20, 0.10); /* card hover lift */
 
-  /* One subtle, professional shadow (Trust & Authority) — no gradients, no glassmorphism */
-  --shadow-fq: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-fq-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  /* Fluid rhythm — reused across landing sections (py-section, text-display, etc.) */
+  --spacing-section: clamp(56px, 8vw, 88px);
+  --spacing-gutter: clamp(20px, 5vw, 64px);
+  --text-display: clamp(36px, 5.6vw, 60px);
+  --text-h2: clamp(28px, 3.4vw, 40px);
+  --text-h2-lg: clamp(28px, 4vw, 44px);
 
-  /* Minimal motion — state feedback only (Accessible & Ethical) */
+  /* Minimal motion — state feedback only */
   --animate-fade-in: fade-in 0.2s ease;
   --animate-slide-up: slide-up 0.3s ease;
 }
@@ -51,24 +61,19 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Signature shape — flat-top hexagon (the benzene ring). Flat fill, no shadow/gradient. */
-@utility fq-hex {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-}
-
 @layer base {
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 600;
-  }
-
   body {
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    color: var(--color-fq-text);
+    color: var(--color-fq-body);
     font-size: 16px;
     background: var(--color-fq-bg);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-fq-text);
   }
 
   /* Accessible & Ethical: visible keyboard focus everywhere, no exceptions */
@@ -88,38 +93,4 @@
       scroll-behavior: auto !important;
     }
   }
-}
-
-/* TEMPORARY coexistence aliases for components not yet migrated to Tailwind utilities.
-   Deleted once every component's own .css file is gone (see FRONTEND.md). */
-:root {
-  --fq-primary: var(--color-fq-primary);
-  --fq-primary-hover: var(--color-fq-primary-hover);
-  --fq-primary-active: var(--color-fq-primary-active);
-  --fq-primary-tint: var(--color-fq-primary-tint);
-  --fq-primary-text: var(--color-fq-primary-text);
-  --fq-success: var(--color-fq-success);
-  --fq-success-tint: var(--color-fq-success-tint);
-  --fq-danger: var(--color-fq-danger);
-  --fq-danger-tint: var(--color-fq-danger-tint);
-  --fq-warning: var(--color-fq-warning);
-  --fq-warning-tint: var(--color-fq-warning-tint);
-  --fq-text: var(--color-fq-text);
-  --fq-muted: var(--color-fq-muted);
-  --fq-border: var(--color-fq-border);
-  --fq-surface: var(--color-fq-surface);
-  --fq-bg: var(--color-fq-bg);
-  --fq-panel: var(--color-fq-panel);
-  --fq-font-display: var(--font-display);
-  --fq-font-utility: var(--font-sans);
-  --fq-font-body: var(--font-sans);
-  --fq-hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  --fq-grid-columns: 12;
-  --fq-space: 8px;
-  --fq-radius-sm: var(--radius-fq);
-  --fq-radius-md: var(--radius-fq-lg);
-  --fq-radius-lg: var(--radius-fq-lg);
-  --fq-shadow-clay: var(--shadow-fq);
-  --fq-shadow-clay-sm: var(--shadow-fq-sm);
-  --fq-shadow-clay-pressed: none;
 }

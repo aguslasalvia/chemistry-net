@@ -1,18 +1,17 @@
-import './MainLayout.css';
-import { Outlet } from "react-router";
-import Navbar from "../components/ui/Navbar/Navbar";
-import Footer from '../components/ui/Footer/Footer';
+import { Outlet } from 'react-router';
+import SiteHeader from '@components/ui/SiteHeader/SiteHeader';
+import SiteFooter from '@components/ui/SiteFooter/SiteFooter';
 
 const MainLayout = () => {
     return (
-        <>
-            <Navbar />
-            <main className="main-layout">
+        <div className="flex min-h-dvh flex-col overflow-x-hidden bg-fq-bg text-fq-text">
+            <SiteHeader />
+            <main className="flex-1">
                 <Outlet />
             </main>
-            <Footer />
-        </>
-    )
-}
+            <SiteFooter />
+        </div>
+    );
+};
 
 export default MainLayout;
