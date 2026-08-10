@@ -63,32 +63,52 @@ Cookie-based auth is configured in `Program.cs` (`AddAuthentication` + `AddCooki
 ### Frontend structure (`ClientApp/src`)
 - `pages/Panel/*` — the admin panel (Dashboard, Users, Groups, Content, Login, Profile), routed inside `layouts/PanelLayout.tsx`.
 - `pages/Home` — public site, inside `layouts/MainLayout.tsx`.
-- `components/ui/*` — one folder per component, each with its own `.tsx` + `.css` (no CSS modules/styled-components — plain scoped-by-convention CSS files, follow this for new components).
-- `services/*` — `fetch`-based API clients (see `user.service.ts`); only the Users flow is currently wired to the backend.
+- `components/ui/*` — one folder per component, each with its own `.tsx` (no `.css` file — styling is Tailwind utility classes directly in JSX; no CSS modules/styled-components either). `components/sections/*` holds the public-landing sections (Hero, Stats, Institucion, Carreras, Novedades, Contacto).
+- `services/*` — `fetch`-based API clients (`user.service.ts`, `group.service.ts`, `content.service.ts`); Login, Users, Groups and Content (read) are wired to the backend.
+- `data/home.ts` — static content for the landing (stats, carreras, noticias) transcribed from the mockup; not fetched from the backend.
 - Path aliases (`@components`, `@services`, `@hooks`, `@utils`, `@types`, `@pages`) are defined in `tsconfig.app.json` — use them instead of relative `../../..` imports.
 
 ## Design System
 
-The frontend's visual language is **Swiss Modernism 2.0 + Minimalism** (primary) with
-**Trust & Authority** and **Accessible & Ethical** as secondary influences — chosen from the
-`ui-ux-pro-max` skill's own product-type catalog (`data/products.csv`, row 185:
-"Research Lab / University Department"), not improvised per-component. Do not introduce a
-different visual paradigm (glassmorphism, claymorphism, brutalism, etc.) without updating this
-section first — past sessions drifted between styles component-by-component and it read as
-inconsistent/generic.
+**v2 (current).** The frontend was rebuilt against a concrete HTML mockup for the public
+landing (`Landing Facultad de Quimica`, provided directly by the project owner), which now
+overrides several rules from the original `ui-ux-pro-max`-derived system below. Do not drift
+back to the v1 rules (serif headings, 0–4px radius, no gradients/glassmorphism, hexagon motif)
+without the owner explicitly asking for it — that reversion has happened by accident before.
 
 | Aspect | Rule |
 |---|---|
-| Grid | 12 columns, `gap: 1rem`, 8px base spacing unit — keep spacing values multiples of 8 |
-| Color | Black/white/`#F5F5F5` base with **one** vibrant accent: the real FQ orange `#FF3B01` (from prueba.fq.edu.uy). No decorative multi-color palette |
-| Decoration | Minimal. No gradients, no glassmorphism, no soft "clay" double-shadows. Border radius small or none (0–4px) |
-| Shadow | One subtle, professional shadow: `0 4px 6px rgba(0,0,0,0.1)` — not a hard offset (brutalist), not soft/doubled (claymorphism) |
-| Typography | Inter (or equivalent grotesque) for body/UI. A serif is reserved for headings only (`--fq-font-display`) — the product-row's own nuance for academic/research sites |
-| Hexagon motif | The benzene-ring hexagon badge is a brand signature (from the real chemistry subject matter, not the skill) — flat fill, no shadow/gradient, consistent with "minimal decoration" |
-| Accessibility | 7:1 text contrast (WCAG AAA, per Accessible & Ethical), 16px+ base font, 3–4px focus rings, 44×44px touch targets, `prefers-reduced-motion` respected |
-| Motion | Minimal — only what conveys state feedback, no bounce/spring easing |
+| Grid | 12 columns, 8px base spacing unit; sections use fluid `clamp()` padding (`clamp(56px,8vw,88px)` vertical) rather than fixed breakpoints |
+| Color — brand | **Locked, never changes**: `#FF3B01` (primary) / `#E03400` (hover) / `#C22D00` (active) / `#FFE4D9` (tint) / `#9C2400` (AAA text-on-tint) / `#FF9166` (orange text on dark surfaces) |
+| Color — neutrals | Warm palette (replaces the old black/white/`#F5F5F5`): `#1E1712` ink, `#4A3B30` body text, `#665648` muted (corrected from the mockup's `#6B5A4C`/`#7A6A5C` — those measure 6.58:1/5.19:1, below the AAA bar below), `#EDE6DF` border, `#FBF6F1` surface, `#241A14` dark surfaces (stats bar, login panel), `#FFFFFF` bg |
+| Decoration | Gradients and `backdrop-filter: blur()` are **allowed**, but only where the mockup specifies them (hero photo scrim, floating header) — not a general license, don't add them elsewhere on a whim |
+| Border radius | 8px controls (buttons/inputs/logo mark) · 16px surfaces (cards/modals) · 20px large media (the Institución photo) · `rounded-full` for pills (header, badges, CTA buttons) |
+| Shadow | Two: `0 8px 24px rgba(36,26,20,0.08)` (floating header) and `0 12px 28px rgba(36,26,20,0.10)` (card hover lift) |
+| Typography | **Lexend** (500/600/700/800) for headings, buttons, and large numbers; **Source Sans 3** (400–700) for body text. Replaces the old EB Garamond + Inter pairing |
+| Hexagon motif | **Removed.** The mockup's logo (rounded-square "Fq" mark) replaced it as the sole brand mark — do not reintroduce the benzene-ring clip-path |
+| Accessibility | 7:1 text contrast (WCAG AAA) on body copy, 16px+ base font, 3px focus rings, 44×44px touch targets, `prefers-reduced-motion` respected. Known exception: white text on `#FF3B01` is 3.57:1 (fails AA) — small CTAs use dark ink (`#1E1712`, 8.6:1) on orange instead of white |
+| Motion | Minimal — hover lifts, fades, state feedback only, no bounce/spring easing |
 
-Tokens live in `Universidad.Web/ClientApp/src/index.css` (`--fq-*` custom properties).
+Photos: the mockup calls for ~12 real photos (hero, institución, 6 carreras, 4 noticias, mapa)
+that don't exist in the repo yet. Until real assets are provided, `components/ui/ImageSlot`
+renders a dashed-border placeholder using the image's alt text — swap in a real `src` later
+without touching layout.
+
+Tokens live in `Universidad.Web/ClientApp/src/index.css` as a Tailwind v4 `@theme` block
+(`--color-fq-*`, `--font-*`, `--radius-fq*`, `--shadow-fq*`). Styling is Tailwind utility
+classes in JSX — the project no longer uses one `.css` file per component (see Frontend
+structure below).
+
+<details>
+<summary>v1 (superseded) — Swiss Modernism 2.0 + Minimalism, for historical context</summary>
+
+The original system (chosen from the `ui-ux-pro-max` skill's product-type catalog,
+`data/products.csv` row 185: "Research Lab / University Department") was black/white/`#F5F5F5`
+with the FQ orange as the only accent, 0–4px radius, no gradients/glassmorphism, EB Garamond
+headings, and the hexagon (benzene ring) as a recurring brand badge. It's fully replaced by v2
+above — kept here only so past commit messages/history make sense.
+
+</details>
 
 ### Current implementation state (important — avoid "fixing" what's intentionally scaffolded vs. what's actually broken)
 - `ContentController`/`ContentRepository` and most of `GroupController`/`GroupRepository` are stubs (`NotImplementedException` or `Task.FromResult<IActionResult>(null)`), per the TODOs in `BACKEND.md`.
