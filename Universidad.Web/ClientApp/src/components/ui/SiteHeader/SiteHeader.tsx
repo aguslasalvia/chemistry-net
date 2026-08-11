@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Landmark, GraduationCap, Briefcase, Award, Building2, type LucideIcon } from 'lucide-react';
 import Logo from '@components/ui/Logo/Logo';
 
 interface NavLink {
@@ -9,12 +9,14 @@ interface NavLink {
 
 interface NavSection {
     label: string;
+    icon: LucideIcon;
     links: NavLink[];
 }
 
 const NAV_SECTIONS: NavSection[] = [
     {
         label: 'Facultad',
+        icon: Landmark,
         links: [
             { label: 'Institución', href: '/Facultad/Institucion' },
             { label: 'Departamentos', href: '/Facultad/Departamentos' },
@@ -26,6 +28,7 @@ const NAV_SECTIONS: NavSection[] = [
     },
     {
         label: 'Estudiantes',
+        icon: GraduationCap,
         links: [
             { label: 'Bedelía', href: '/Estudiantes/Bedelia' },
             { label: 'Carreras', href: '/Estudiantes/Carreras' },
@@ -40,6 +43,7 @@ const NAV_SECTIONS: NavSection[] = [
     },
     {
         label: 'Funcionarios',
+        icon: Briefcase,
         links: [
             { label: 'Docentes', href: '/Funcionarios/Docentes' },
             { label: 'Funcionarios TAS', href: '/Funcionarios/FuncionariosTas' },
@@ -48,6 +52,7 @@ const NAV_SECTIONS: NavSection[] = [
     },
     {
         label: 'Egresados',
+        icon: Award,
         links: [
             { label: 'Educación permanente', href: '/Egresados/EducacionPermanente' },
             { label: 'Unidad de inserción laboral', href: '/Egresados/InsercionLaboral' },
@@ -55,6 +60,7 @@ const NAV_SECTIONS: NavSection[] = [
     },
     {
         label: 'Empresas',
+        icon: Building2,
         links: [
             { label: 'Educación permanente', href: '/Empresas/EducacionPermanente' },
             { label: 'Asesoramiento', href: '/Empresas/Asesoramiento' },
@@ -84,7 +90,7 @@ const SiteHeader = () => {
                     </span>
                 </a>
 
-                <nav className="hidden items-center gap-[clamp(10px,2vw,20px)] md:flex">
+                <nav className="hidden items-center gap-[clamp(10px,2vw,20px)] lg:flex">
                     {NAV_SECTIONS.map((section) => (
                         <div key={section.label} className="group relative">
                             <button
@@ -126,7 +132,7 @@ const SiteHeader = () => {
 
                 <button
                     type="button"
-                    className="flex size-11 items-center justify-center rounded-full text-fq-text md:hidden"
+                    className="flex size-11 items-center justify-center rounded-full text-fq-text lg:hidden"
                     onClick={() => setMenuOpen((v) => !v)}
                     aria-expanded={menuOpen}
                     aria-controls="mobile-menu"
@@ -139,7 +145,7 @@ const SiteHeader = () => {
             {menuOpen && (
                 <nav
                     id="mobile-menu"
-                    className="animate-slide-down absolute inset-x-0 top-full mt-2 flex max-h-[70vh] flex-col gap-1 overflow-y-auto rounded-fq-lg border border-fq-border bg-white p-4 shadow-fq md:hidden"
+                    className="animate-slide-down absolute inset-x-0 top-full mt-2 flex max-h-[70vh] flex-col gap-1 overflow-y-auto rounded-fq-lg border border-fq-border bg-white p-4 shadow-fq lg:hidden"
                 >
                     {NAV_SECTIONS.map((section) => (
                         <div key={section.label} className="border-b border-fq-border last:border-0">
@@ -149,7 +155,10 @@ const SiteHeader = () => {
                                 aria-expanded={openSection === section.label}
                                 className="flex min-h-11 w-full items-center justify-between rounded-fq px-3 text-sm font-semibold text-fq-text hover:bg-fq-surface"
                             >
-                                {section.label}
+                                <span className="flex items-center gap-2.5">
+                                    <section.icon size={18} className="text-fq-primary" />
+                                    {section.label}
+                                </span>
                                 <ChevronDown
                                     size={16}
                                     className={`transition-transform ${openSection === section.label ? 'rotate-180' : ''}`}

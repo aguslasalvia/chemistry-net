@@ -74,6 +74,13 @@
 }
 
 @layer base {
+  /* Clip stray horizontal overflow at the true viewport level (html), not on a nested
+     div — overflow-x on a React-rendered wrapper turns it into its own scroll
+     container and breaks position:sticky for descendants like the floating header. */
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     min-height: 100dvh;
     display: flex;

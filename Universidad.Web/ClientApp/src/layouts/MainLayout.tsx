@@ -4,7 +4,7 @@ import SiteFooter from '@components/ui/SiteFooter/SiteFooter';
 
 const MainLayout = () => {
     return (
-        <div className="flex min-h-dvh flex-col overflow-x-hidden bg-fq-bg text-fq-text">
+        <div className="flex min-h-dvh flex-col bg-fq-bg text-fq-text">
             <SiteHeader />
             <main className="flex-1">
                 <Outlet />
