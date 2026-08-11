@@ -10,7 +10,7 @@ public class ContentDelete(IContentRepository repository) : IContentDelete
     public async Task ExecuteAsync(int id)
     {
         var content = await _repository.GetByIdAsync(id);
-        if (content == null) throw new InvalidOperationException("Content not found");
+        if (content == null) throw new InvalidOperationException("Contenido no encontrado");
 
         await _repository.DeleteAsync(content);
     }

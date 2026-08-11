@@ -10,7 +10,7 @@ public class GroupUpdate(IGroupRepository repository) : IGroupUpdate
     public async Task ExecuteAsync(int id, GroupUpdateDto dto)
     {
         var group = await _repository.GetByIdAsync(id);
-        if (group == null) throw new InvalidOperationException("Group not found");
+        if (group == null) throw new InvalidOperationException("Grupo no encontrado");
 
         group.Name = dto.Name;
         group.Description = dto.Description;

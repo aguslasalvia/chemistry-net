@@ -16,7 +16,7 @@ public class UserLogin(IUserRepository repository) : IUserLogin
         var user = await _repository.GetByEmailAsync(dto.Email);
 
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            throw new UnauthorizedAccessException("Invalid email or password");
+            throw new UnauthorizedAccessException("Correo electrónico o contraseña inválidos");
 
         return new UserDto(
             Id: user.Id,

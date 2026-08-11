@@ -11,7 +11,7 @@ public class UserUpdate(IUserRepository repository) : IUserUpdate
     public async Task<UserDto> ExecuteAsync(int id, UserUpdateDto dto)
     {
         var user = await _repository.GetByIdAsync(id);
-        if (user == null) throw new InvalidOperationException("User not found");
+        if (user == null) throw new InvalidOperationException("Usuario no encontrado");
 
         user.Name = dto.Name;
         user.LastName = dto.LastName;

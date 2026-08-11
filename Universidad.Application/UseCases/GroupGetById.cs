@@ -11,7 +11,7 @@ public class GroupGetById(IGroupRepository repository) : IGroupGetById
     public async Task<GroupDto> ExecuteAsync(int id)
     {
         var group = await _repository.GetByIdAsync(id);
-        if (group == null) throw new InvalidOperationException("Group not found");
+        if (group == null) throw new InvalidOperationException("Grupo no encontrado");
 
         return new GroupDto(
             Id: group.Id,

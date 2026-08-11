@@ -11,7 +11,7 @@ public class UserGetById(IUserRepository repository) : IUserGetById
     public async Task<UserDto> ExecuteAsync(int id)
     {
         var user = await _repository.GetByIdAsync(id);
-        if (user == null) throw new InvalidOperationException("User not found");
+        if (user == null) throw new InvalidOperationException("Usuario no encontrado");
 
         return new UserDto(
             Id: user.Id,

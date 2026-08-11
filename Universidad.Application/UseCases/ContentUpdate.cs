@@ -11,7 +11,7 @@ public class ContentUpdate(IContentRepository repository) : IContentUpdate
     public async Task ExecuteAsync(int id, ContentUpdateDto dto)
     {
         var content = await _repository.GetByIdAsync(id);
-        if (content == null) throw new InvalidOperationException("Content not found");
+        if (content == null) throw new InvalidOperationException("Contenido no encontrado");
 
         content.Title = dto.Title;
         content.Body = dto.Body;

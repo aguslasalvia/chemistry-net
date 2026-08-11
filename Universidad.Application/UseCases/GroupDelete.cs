@@ -10,7 +10,7 @@ public class GroupDelete(IGroupRepository repository) : IGroupDelete
     public async Task ExecuteAsync(int id)
     {
         var group = await _repository.GetByIdAsync(id);
-        if (group == null) throw new InvalidOperationException("Group not found");
+        if (group == null) throw new InvalidOperationException("Grupo no encontrado");
 
         await _repository.DeleteAsync(group);
     }

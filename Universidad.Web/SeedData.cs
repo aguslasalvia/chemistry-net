@@ -20,7 +20,14 @@ internal static class SeedData
             Email = "admin@fq.edu.uy",
             PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
         };
-        db.Users.Add(admin);
+        var agustin = new User
+        {
+            Name = "Agustín",
+            LastName = "Lasalvia",
+            Email = "agustin@fq.edu.uy",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("agustin"),
+        };
+        db.Users.AddRange(admin, agustin);
 
         var noticiasGroup = new Group { Name = "Noticias", Description = "Novedades y comunicados de la facultad" };
         var eventosGroup = new Group { Name = "Eventos", Description = "Agenda de actividades de la facultad" };
