@@ -61,12 +61,20 @@ SQLite, file `university.db` at the Web project root (gitignored). No EF migrati
 Cookie-based auth is configured in `Program.cs` (`AddAuthentication` + `AddCookie`, 8h sliding expiration) but no controller currently applies `[Authorize]` — all endpoints are open. Password hashing uses `BCrypt.Net`.
 
 ### Frontend structure (`ClientApp/src`)
-- `pages/Panel/*` — the admin panel (Dashboard, Users, Groups, Content, Login, Profile), routed inside `layouts/PanelLayout.tsx`.
-- `pages/Home` — public site, inside `layouts/MainLayout.tsx`.
-- `components/ui/*` — one folder per component, each with its own `.tsx` (no `.css` file — styling is Tailwind utility classes directly in JSX; no CSS modules/styled-components either). `components/sections/*` holds the public-landing sections (Hero, Stats, Institucion, Carreras, Novedades, Contacto).
+- **File/folder naming: kebab-case, always** — `site-header.tsx`, not `SiteHeader.tsx`; `not-found/not-found.tsx`, not `NotFound/NotFound.tsx`. Component/type names inside the file stay PascalCase as normal TS/React identifiers (`const SiteHeader = () => ...`); only the filesystem path is kebab-case. This applies to every file under `src/` — pages, layouts, hooks, sections, `ui/*`.
+- `pages/panel/*` — the admin panel (dashboard, users, groups, content, login, profile), routed inside `layouts/panel-layout.tsx`.
+- `pages/home` — public site, inside `layouts/main-layout.tsx`.
+- `components/ui/*` — one folder per component, each with its own `.tsx` (no `.css` file — styling is Tailwind utility classes directly in JSX; no CSS modules/styled-components either — `map/map.css` is the sole exception, since Leaflet injects its own DOM that can't be reached with Tailwind classes). `components/sections/*` holds the public-landing sections (hero, stats, institucion, carreras, novedades, contacto).
 - `services/*` — `fetch`-based API clients (`user.service.ts`, `group.service.ts`, `content.service.ts`); Login, Users, Groups and Content (read) are wired to the backend.
 - `data/home.ts` — static content for the landing (stats, carreras, noticias) transcribed from the mockup; not fetched from the backend.
 - Path aliases (`@components`, `@services`, `@hooks`, `@utils`, `@models`, `@pages`, `@data`) are defined in `tsconfig.app.json` — use them instead of relative `../../..` imports. Note: the alias is `@models` (not `@types`) — TypeScript's compiler special-cases any path alias literally named `@types/*`, so it was renamed to avoid `TS6137` build errors.
+
+#### Adding a new page or component (the established pattern)
+1. Create `src/pages/<section>/<name>/<name>.tsx` (or `src/components/ui/<name>/<name>.tsx` for a reusable piece) — kebab-case folder and file, `export default` a PascalCase component of the same name.
+2. Reuse existing primitives before writing new ones — `Modal`, `ImageSlot`, form-field patterns in `user-form.tsx`/`group-form.tsx`, the `useInView` scroll-reveal hook — check `components/ui/*` and `hooks/*` first.
+3. Fetch data via a `services/*.service.ts` function (add one, matching the existing fetch-based style, if the backend endpoint doesn't have a client yet) — don't call `fetch` directly from a page component.
+4. Register the route in `app.tsx` under the right layout (`MainLayout` for public pages, `PanelLayout` for admin pages).
+5. Style with Tailwind utility classes only, using the `--color-fq-*`/`--radius-fq*`/`--shadow-fq*` tokens from `index.css` — no new `.css` file, no hardcoded hex colors.
 
 ## Design System
 
@@ -89,10 +97,12 @@ without the owner explicitly asking for it — that reversion has happened by ac
 | Accessibility | 7:1 text contrast (WCAG AAA) on body copy, 16px+ base font, 3px focus rings, 44×44px touch targets, `prefers-reduced-motion` respected. Known exception: white text on `#FF3B01` is 3.57:1 (fails AA) — small CTAs use dark ink (`#1E1712`, 8.6:1) on orange instead of white |
 | Motion | Minimal — hover lifts, fades, state feedback only, no bounce/spring easing |
 
-Photos: the mockup calls for ~12 real photos (hero, institución, 6 carreras, 4 noticias, mapa)
-that don't exist in the repo yet. Until real assets are provided, `components/ui/ImageSlot`
+Photos: the mockup calls for ~12 real photos (hero, institución, 6 carreras, 4 noticias, mapa).
+`public/hero.webp` and `public/university.webp` exist and are wired in (Hero, Institución); the
+rest don't exist yet. Until a real asset is provided, `components/ui/image-slot/image-slot.tsx`
 renders a dashed-border placeholder using the image's alt text — swap in a real `src` later
-without touching layout.
+without touching layout. Contacto's map isn't a placeholder — it's a real Leaflet map
+(`components/ui/map/map.tsx`).
 
 Tokens live in `Universidad.Web/ClientApp/src/index.css` as a Tailwind v4 `@theme` block
 (`--color-fq-*`, `--font-*`, `--radius-fq*`, `--shadow-fq*`). Styling is Tailwind utility
