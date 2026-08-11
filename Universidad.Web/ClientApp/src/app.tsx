@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router"
+import { Toaster } from "react-hot-toast"
 
 // Layouts
 import MainLayout from "./layouts/main-layout"
@@ -17,6 +18,7 @@ import ProfilePage from "@pages/panel/profile/profile"
 const App = () => {
     return (
         <BrowserRouter>
+            <Toaster position="top-right" />
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route index path="/" element={<Home />} />

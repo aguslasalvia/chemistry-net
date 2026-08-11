@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router';
-import { Toaster } from 'react-hot-toast';
 import PanelSidebar from '@components/ui/panel-sidebar/panel-sidebar';
 import { getCurrentUser } from '@services/user.service';
 import type { User } from '@models/user';
@@ -33,7 +32,6 @@ const PanelLayout = () => {
             >
                 <Outlet context={user} />
             </main>
-            <Toaster position="top-right" />
         </div>
     );
 };
