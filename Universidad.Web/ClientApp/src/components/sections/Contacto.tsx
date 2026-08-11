@@ -1,9 +1,15 @@
-import ImageSlot from '@components/ui/ImageSlot/ImageSlot';
+import Map from '@components/ui/Map/Map';
+import { useInView } from '@hooks/useInView';
 
 const Contacto = () => {
+    const { ref, inView } = useInView<HTMLDivElement>();
+
     return (
         <section id="contacto" className="bg-fq-primary px-[clamp(20px,5vw,64px)] py-section">
-            <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 md:grid-cols-2">
+            <div
+                ref={ref}
+                className={`mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 transition-all duration-500 md:grid-cols-2 ${inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'}`}
+            >
                 <div>
                     <h2 className="mb-6 text-h2-lg leading-[1.1] font-extrabold text-white">
                         ¿Vamos a estudiar química?
@@ -29,10 +35,7 @@ const Contacto = () => {
                         Contactar a la facultad
                     </a>
                 </div>
-                <ImageSlot
-                    alt="Mapa o foto de la entrada de la facultad"
-                    className="aspect-[4/3] w-full rounded-fq-lg"
-                />
+                <Map className="border border-white/20" />
             </div>
         </section>
     );

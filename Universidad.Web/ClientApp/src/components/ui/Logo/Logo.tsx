@@ -3,15 +3,17 @@ interface LogoProps {
     className?: string;
 }
 
-/** The "Fq" mark — sole brand signature (replaces the old hexagon motif). */
+/** The real Facultad de Química mark (same image as the favicon). */
 const Logo: React.FC<LogoProps> = ({ size = 34, className = '' }) => {
     return (
-        <span
-            className={`inline-flex shrink-0 items-center justify-center bg-fq-primary font-display font-bold text-white ${className}`}
-            style={{ width: size, height: size, fontSize: size * 0.41, borderRadius: size * 0.235 }}
-        >
-            Fq
-        </span>
+        <img
+            src="/favicon.png"
+            alt="Facultad de Química"
+            width={size}
+            height={size}
+            className={`shrink-0 ${className}`}
+            style={{ width: size, height: size }}
+        />
     );
 };
 

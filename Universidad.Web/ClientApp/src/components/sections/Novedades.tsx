@@ -1,10 +1,16 @@
 import { noticias } from '@data/home';
 import ImageSlot from '@components/ui/ImageSlot/ImageSlot';
+import { useInView } from '@hooks/useInView';
 
 const Novedades = () => {
+    const { ref, inView } = useInView<HTMLDivElement>();
+
     return (
         <section id="novedades" className="px-[clamp(20px,5vw,64px)] py-section">
-            <div className="mx-auto max-w-[1240px]">
+            <div
+                ref={ref}
+                className={`mx-auto max-w-[1240px] transition-all duration-500 ${inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'}`}
+            >
                 <div className="mb-2.5 text-[13px] font-bold tracking-wide text-fq-primary-text uppercase">
                     Novedades
                 </div>

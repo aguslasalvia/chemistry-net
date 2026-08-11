@@ -1,4 +1,5 @@
 import ImageSlot from '@components/ui/ImageSlot/ImageSlot';
+import { useInView } from '@hooks/useInView';
 
 const FEATURES = [
     { title: 'Pública y gratuita', desc: 'Sin costo de matrícula.' },
@@ -6,9 +7,14 @@ const FEATURES = [
 ];
 
 const Institucion = () => {
+    const { ref, inView } = useInView<HTMLDivElement>();
+
     return (
         <section id="institucion" className="px-[clamp(20px,5vw,64px)] py-section">
-            <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 md:grid-cols-2">
+            <div
+                ref={ref}
+                className={`mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 transition-all duration-500 md:grid-cols-2 ${inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'}`}
+            >
                 <ImageSlot
                     alt="Foto del edificio o laboratorios de la facultad"
                     className="aspect-[4/3] w-full rounded-fq-xl"

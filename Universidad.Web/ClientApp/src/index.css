@@ -49,6 +49,8 @@
   /* Minimal motion — state feedback only */
   --animate-fade-in: fade-in 0.2s ease;
   --animate-slide-up: slide-up 0.3s ease;
+  --animate-slide-down: slide-down 0.2s ease;
+  --animate-fade-up: fade-up 0.5s ease;
 }
 
 @keyframes fade-in {
@@ -59,6 +61,16 @@
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(20px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @layer base {

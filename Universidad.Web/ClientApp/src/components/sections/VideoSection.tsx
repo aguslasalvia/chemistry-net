@@ -1,28 +1,28 @@
-import { Play } from 'lucide-react';
-import ImageSlot from '@components/ui/ImageSlot/ImageSlot';
+import { useInView } from '@hooks/useInView';
 
 const VideoSection = () => {
+    const { ref, inView } = useInView<HTMLDivElement>();
+
     return (
         <section className="px-[clamp(20px,5vw,64px)] py-section text-center">
-            <div className="mx-auto max-w-[1240px]">
+            <div
+                ref={ref}
+                className={`mx-auto max-w-[1240px] transition-all duration-500 ${inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'}`}
+            >
                 <div className="mb-2.5 text-[13px] font-bold tracking-wide text-fq-primary-text uppercase">
                     Conocé la facultad
                 </div>
                 <h2 className="mx-auto mb-9 max-w-2xl text-h2 font-bold">
                     Un recorrido por nuestros laboratorios y aulas
                 </h2>
-                <div className="relative mx-auto max-w-[860px]">
-                    <ImageSlot
-                        alt="Video institucional de la Facultad de Química"
-                        className="aspect-video w-full rounded-fq-lg"
+                <div className="relative mx-auto aspect-video w-full max-w-[860px] overflow-hidden rounded-fq-lg border border-fq-border shadow-fq">
+                    <iframe
+                        className="absolute inset-0 h-full w-full"
+                        src="https://www.youtube.com/embed/hXMPTbijEIM"
+                        title="Video institucional de la Facultad de Química"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        loading="lazy"
                     />
-                    <button
-                        type="button"
-                        className="absolute inset-0 m-auto flex size-16 items-center justify-center rounded-full bg-fq-primary text-white shadow-fq-hover transition-colors hover:bg-fq-primary-hover"
-                        aria-label="Reproducir video"
-                    >
-                        <Play size={26} fill="currentColor" />
-                    </button>
                 </div>
             </div>
         </section>

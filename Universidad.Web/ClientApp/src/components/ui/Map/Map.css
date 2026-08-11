@@ -1,0 +1,97 @@
+/* Leaflet theme overrides — match the FQ design system.
+   Leaflet injects its own DOM (controls, popup, tiles), so it can't be styled
+   with Tailwind classes in JSX; these overrides are scoped to the map only. */
+
+.fq-marker {
+    background: transparent;
+    border: none;
+    filter: drop-shadow(0 8px 12px rgba(36, 26, 20, 0.25));
+}
+
+.leaflet-container {
+    font-family: var(--font-sans);
+    background: var(--color-fq-surface);
+}
+
+/* Popup */
+.leaflet-popup-content-wrapper {
+    border: 1px solid var(--color-fq-border);
+    border-radius: var(--radius-fq-lg);
+    box-shadow: var(--shadow-fq);
+}
+
+.leaflet-popup-tip {
+    border: 1px solid var(--color-fq-border);
+    box-shadow: var(--shadow-fq);
+}
+
+.leaflet-popup-content {
+    margin: 14px 18px;
+}
+
+.leaflet-popup-close-button {
+    color: var(--color-fq-muted) !important;
+    font-family: var(--font-sans);
+}
+
+.leaflet-popup-close-button:hover {
+    color: var(--color-fq-primary) !important;
+}
+
+.fq-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fq-popup strong {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-fq-text);
+}
+
+.fq-popup span {
+    font-size: 14px;
+    color: var(--color-fq-body);
+}
+
+/* Zoom controls */
+.leaflet-bar {
+    border: 1px solid var(--color-fq-border) !important;
+    border-radius: var(--radius-fq) !important;
+    box-shadow: var(--shadow-fq) !important;
+}
+
+.leaflet-bar a {
+    background: var(--color-fq-bg);
+    border-bottom: 1px solid var(--color-fq-border);
+    color: var(--color-fq-text);
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+
+.leaflet-bar a:hover {
+    background: var(--color-fq-surface);
+    color: var(--color-fq-primary);
+}
+
+.leaflet-bar a.leaflet-disabled {
+    background: var(--color-fq-surface);
+    color: var(--color-fq-muted);
+}
+
+.leaflet-bar a:last-child {
+    border-bottom: none;
+}
+
+/* Attribution */
+.leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: var(--color-fq-muted);
+    font-size: 10px;
+}
+
+.leaflet-control-attribution a {
+    color: var(--color-fq-primary-text);
+}

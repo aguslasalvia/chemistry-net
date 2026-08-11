@@ -5,6 +5,7 @@ const Hero = () => {
         <section className="relative -mt-[72px] flex h-[clamp(480px,80vh,720px)]">
             <ImageSlot
                 alt="Foto de estudiantes/laboratorio de la facultad"
+                src="/hero.webp"
                 className="absolute inset-0 z-0 h-full w-full"
             />
             <div

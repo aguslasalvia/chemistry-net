@@ -1,16 +1,75 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import Logo from '@components/ui/Logo/Logo';
 
-const NAV_LINKS = [
-    { href: '#carreras', label: 'Carreras' },
-    { href: '#institucion', label: 'Institución' },
-    { href: '#novedades', label: 'Novedades' },
-    { href: '#contacto', label: 'Contacto' },
+interface NavLink {
+    label: string;
+    href: string;
+}
+
+interface NavSection {
+    label: string;
+    links: NavLink[];
+}
+
+const NAV_SECTIONS: NavSection[] = [
+    {
+        label: 'Facultad',
+        links: [
+            { label: 'Institución', href: '/Facultad/Institucion' },
+            { label: 'Departamentos', href: '/Facultad/Departamentos' },
+            { label: 'Administración', href: '/Facultad/Administracion' },
+            { label: 'Investigación', href: '/Facultad/Investigacion' },
+            { label: 'Extensión', href: '/Facultad/Extension' },
+            { label: 'Enseñanza', href: '/Facultad/Ensenanza' },
+        ],
+    },
+    {
+        label: 'Estudiantes',
+        links: [
+            { label: 'Bedelía', href: '/Estudiantes/Bedelia' },
+            { label: 'Carreras', href: '/Estudiantes/Carreras' },
+            { label: 'Futuros estudiantes', href: '/Estudiantes/FuturosEstudiantes' },
+            { label: 'Estudiantes de pregrado', href: '/Estudiantes/Pregrado' },
+            { label: 'Estudiantes de grado', href: '/Estudiantes/Grado' },
+            { label: 'Estudiantes de posgrado', href: '/Estudiantes/Posgrado' },
+            { label: 'Aulas virtuales', href: '/Estudiantes/AulasVirtuales' },
+            { label: 'Apoyo al estudiante', href: '/Estudiantes/ApoyoEstudiante' },
+            { label: 'Educación permanente', href: '/Estudiantes/EducacionPermanente' },
+        ],
+    },
+    {
+        label: 'Funcionarios',
+        links: [
+            { label: 'Docentes', href: '/Funcionarios/Docentes' },
+            { label: 'Funcionarios TAS', href: '/Funcionarios/FuncionariosTas' },
+            { label: 'Trámites', href: '/Funcionarios/Tramites' },
+        ],
+    },
+    {
+        label: 'Egresados',
+        links: [
+            { label: 'Educación permanente', href: '/Egresados/EducacionPermanente' },
+            { label: 'Unidad de inserción laboral', href: '/Egresados/InsercionLaboral' },
+        ],
+    },
+    {
+        label: 'Empresas',
+        links: [
+            { label: 'Educación permanente', href: '/Empresas/EducacionPermanente' },
+            { label: 'Asesoramiento', href: '/Empresas/Asesoramiento' },
+            { label: 'Unidad de inserción laboral', href: '/Empresas/InsercionLaboral' },
+        ],
+    },
 ];
 
 const SiteHeader = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [openSection, setOpenSection] = useState<string | null>(null);
+
+    const toggleMobileSection = (label: string) => {
+        setOpenSection((current) => (current === label ? null : label));
+    };
 
     return (
         <div className="sticky top-4 z-20 mx-[clamp(16px,4vw,48px)]">
@@ -25,21 +84,43 @@ const SiteHeader = () => {
                     </span>
                 </a>
 
-                <nav className="hidden items-center gap-[clamp(12px,2.6vw,24px)] md:flex">
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            className="text-sm font-semibold text-fq-text transition-colors hover:text-fq-primary-hover"
-                        >
-                            {link.label}
-                        </a>
+                <nav className="hidden items-center gap-[clamp(10px,2vw,20px)] md:flex">
+                    {NAV_SECTIONS.map((section) => (
+                        <div key={section.label} className="group relative">
+                            <button
+                                type="button"
+                                className="flex items-center gap-1 rounded-fq px-1 py-2 text-sm font-semibold text-fq-text transition-colors hover:text-fq-primary-hover"
+                            >
+                                {section.label}
+                                <ChevronDown
+                                    size={14}
+                                    className="transition-transform duration-150 group-hover:rotate-180"
+                                />
+                            </button>
+                            {/* Outer bridge: starts flush at top-full (pt-1, not mt-1) so the 4px
+                                gap to the button stays part of the hoverable hit box — a margin
+                                gap here would create a dead zone that closes the menu before the
+                                pointer reaches it. */}
+                            <div className="invisible absolute top-full left-0 z-10 pt-1 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                                <div className="w-56 -translate-y-1 rounded-fq-lg border border-fq-border bg-white p-2 shadow-fq-hover transition-transform duration-150 group-hover:translate-y-0 group-focus-within:translate-y-0">
+                                    {section.links.map((link) => (
+                                        <a
+                                            key={link.href}
+                                            href={link.href}
+                                            className="block rounded-fq px-3 py-2 text-sm text-fq-body transition-colors hover:bg-fq-surface hover:text-fq-text"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     ))}
                     <a
-                        href="#carreras"
+                        href="/Contacto"
                         className="rounded-full bg-fq-primary px-5 py-2.5 font-display text-sm font-bold text-fq-text transition-colors hover:bg-fq-primary-hover"
                     >
-                        Inscribite
+                        Contacto
                     </a>
                 </nav>
 
@@ -58,24 +139,44 @@ const SiteHeader = () => {
             {menuOpen && (
                 <nav
                     id="mobile-menu"
-                    className="mt-2 flex flex-col gap-1 rounded-fq-lg border border-fq-border bg-white p-4 shadow-fq md:hidden"
+                    className="animate-slide-down absolute inset-x-0 top-full mt-2 flex max-h-[70vh] flex-col gap-1 overflow-y-auto rounded-fq-lg border border-fq-border bg-white p-4 shadow-fq md:hidden"
                 >
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            className="min-h-11 rounded-fq px-3 py-3 text-sm font-semibold text-fq-text hover:bg-fq-surface"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            {link.label}
-                        </a>
+                    {NAV_SECTIONS.map((section) => (
+                        <div key={section.label} className="border-b border-fq-border last:border-0">
+                            <button
+                                type="button"
+                                onClick={() => toggleMobileSection(section.label)}
+                                aria-expanded={openSection === section.label}
+                                className="flex min-h-11 w-full items-center justify-between rounded-fq px-3 text-sm font-semibold text-fq-text hover:bg-fq-surface"
+                            >
+                                {section.label}
+                                <ChevronDown
+                                    size={16}
+                                    className={`transition-transform ${openSection === section.label ? 'rotate-180' : ''}`}
+                                />
+                            </button>
+                            {openSection === section.label && (
+                                <div className="flex flex-col gap-1 pb-2 pl-3">
+                                    {section.links.map((link) => (
+                                        <a
+                                            key={link.href}
+                                            href={link.href}
+                                            className="min-h-11 rounded-fq px-3 py-2.5 text-sm text-fq-body hover:bg-fq-surface"
+                                            onClick={() => setMenuOpen(false)}
+                                        >
+                                            {link.label}
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     ))}
                     <a
-                        href="#carreras"
+                        href="/Contacto"
                         className="mt-2 min-h-11 rounded-full bg-fq-primary px-5 py-3 text-center font-display text-sm font-bold text-fq-text"
                         onClick={() => setMenuOpen(false)}
                     >
-                        Inscribite
+                        Contacto
                     </a>
                 </nav>
             )}
