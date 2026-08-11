@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router';
 import {
     LayoutDashboard,
     FileText,
+    Files,
     Users,
     FolderOpen,
     Settings,
@@ -15,6 +16,7 @@ import { logoutUser } from '@services/user.service';
 const NAV_ITEMS = [
     { to: '/panel/dashboard', label: 'Dashboard', Icon: LayoutDashboard },
     { to: '/panel/content', label: 'Contenido', Icon: FileText },
+    { to: '/panel/pages', label: 'Páginas', Icon: Files },
     { to: '/panel/users', label: 'Usuarios', Icon: Users },
     { to: '/panel/groups', label: 'Grupos', Icon: FolderOpen },
     { to: '/panel/settings', label: 'Configuración', Icon: Settings },

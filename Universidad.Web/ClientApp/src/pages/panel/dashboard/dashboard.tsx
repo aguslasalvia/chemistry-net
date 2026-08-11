@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Globe, FileText, User, Users } from 'lucide-react';
+import { Globe, FileText, Files, User, Users } from 'lucide-react';
 import DashboardCard from '@components/ui/dashboard-card/dashboard-card';
 import ContentHistory from '@components/ui/content-history/content-history';
 import { getContent } from '@services/content.service';
@@ -45,6 +45,12 @@ const DashboardHomePage = () => {
                     title="Ver Todo el Contenido"
                     description="Ver todo el contenido del sitio"
                     href="/panel/content"
+                />
+                <DashboardCard
+                    icon={Files}
+                    title="Páginas"
+                    description="Gestionar las páginas del sitio"
+                    href="/panel/pages"
                 />
                 <DashboardCard
                     icon={User}

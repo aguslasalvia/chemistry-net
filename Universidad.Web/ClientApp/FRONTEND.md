@@ -20,10 +20,16 @@
       route on the result (redirects to `/panel/login` if there's no session), and passes
       the resolved user down via `<Outlet context={user} />`; Content and Profile read it
       with `useOutletContext` instead of re-fetching or trusting client-side storage.
+- [x] Users page: group assignment (add/remove a group, with role) directly from the
+      Editar Usuario modal, mirroring Groups' member-list UI.
+- [x] Pages panel (list/create/edit/delete) + public `/:slug` route + navbar links
+      rewired from dead placeholder paths to real slugs.
+- [x] Content and Pages panels are scoped to the logged-in user's groups: the Grupo
+      selector in both forms only offers groups the user belongs to (or all of them if
+      they're an admin — membership in the "Administrador" group), and the lists only
+      show items from those groups, matching what the backend now enforces.
 
 ## Pending
 - [ ] Real photos for the landing (hero, institución, 6 carreras, 4 noticias, mapa) —
       `hero.webp`/`university.webp` are wired in, the rest are still `ImageSlot`
-      placeholders
-- [ ] No role/permission distinction in the UI — every logged-in user sees the full
-      panel, matching the backend's current "authenticated = allowed" model 
+      placeholders 

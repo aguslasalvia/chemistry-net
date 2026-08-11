@@ -36,6 +36,10 @@ const ContentPage = () => {
         loadData();
     }, []);
 
+    const availableGroups = currentUser.isAdmin
+        ? groups
+        : groups.filter((g) => currentUser.groups.some((cg) => cg.id === g.id));
+
     const openCreate = () => {
         setEditingItem(null);
         setFormOpen(true);
@@ -119,7 +123,7 @@ const ContentPage = () => {
                 title={editingItem ? 'Editar Contenido' : 'Nuevo Contenido'}
             >
                 <ContentForm
-                    groups={groups}
+                    groups={availableGroups}
                     initial={editingItem ?? undefined}
                     onSubmit={handleSubmit}
                     onCancel={closeForm}
