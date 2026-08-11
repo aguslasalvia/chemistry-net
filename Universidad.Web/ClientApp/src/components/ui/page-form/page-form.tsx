@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Type, Link as LinkIcon, FileText, Image as ImageIcon, Save, Plus, Loader2 } from 'lucide-react';
 import type { Page } from '@models/page';
@@ -25,6 +25,16 @@ const PageForm: React.FC<PageFormProps> = ({ groups, initial, onSubmit, onCancel
     );
     const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? '');
     const [saving, setSaving] = useState(false);
+
+    // Groups load asynchronously in the parent — if this form mounted before they
+    // arrived (or the selected one disappeared), fall back to the first available one
+    // instead of silently submitting an invalid groupId.
+    useEffect(() => {
+        if (groups.length === 0) return;
+        if (!groups.some((g) => String(g.id) === groupId)) {
+            setGroupId(String(groups[0].id));
+        }
+    }, [groups, groupId]);
 
     const handleTitleChange = (value: string) => {
         setTitle(value);
@@ -103,18 +113,24 @@ const PageForm: React.FC<PageFormProps> = ({ groups, initial, onSubmit, onCancel
 
             <div className="flex flex-col gap-2">
                 <label htmlFor="page-group" className="text-sm font-semibold text-fq-text">Grupo</label>
-                <select
-                    id="page-group"
-                    value={groupId}
-                    onChange={(e) => setGroupId(e.target.value)}
-                    className="rounded-fq border border-fq-border bg-fq-surface px-3 py-3.5 text-sm text-fq-text"
-                >
-                    {groups.map((g) => (
-                        <option key={g.id} value={g.id}>
-                            {g.name}
-                        </option>
-                    ))}
-                </select>
+                {groups.length === 0 ? (
+                    <p className="text-sm text-fq-danger">
+                        No pertenecés a ningún grupo — pedile a un administrador que te agregue a uno.
+                    </p>
+                ) : (
+                    <select
+                        id="page-group"
+                        value={groupId}
+                        onChange={(e) => setGroupId(e.target.value)}
+                        className="rounded-fq border border-fq-border bg-fq-surface px-3 py-3.5 text-sm text-fq-text"
+                    >
+                        {groups.map((g) => (
+                            <option key={g.id} value={g.id}>
+                                {g.name}
+                            </option>
+                        ))}
+                    </select>
+                )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -143,7 +159,7 @@ const PageForm: React.FC<PageFormProps> = ({ groups, initial, onSubmit, onCancel
                 </button>
                 <button
                     type="submit"
-                    disabled={saving}
+                    disabled={saving || groups.length === 0}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-fq bg-fq-primary px-6 py-3 text-sm font-semibold text-fq-text transition-colors hover:bg-fq-primary-hover disabled:cursor-not-allowed disabled:opacity-70"
                 >
                     {saving ? (

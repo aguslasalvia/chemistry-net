@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Type, Tag, FileText, Image as ImageIcon, Save, Plus, Loader2 } from 'lucide-react';
 import type { Content, ContentType } from '@models/content';
@@ -40,6 +40,16 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
     const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? '');
     const [subtitle, setSubtitle] = useState(initial?.subtitle ?? '');
     const [saving, setSaving] = useState(false);
+
+    // Groups load asynchronously in the parent — if this form mounted before they
+    // arrived (or the selected one disappeared), fall back to the first available one
+    // instead of silently submitting an invalid groupId.
+    useEffect(() => {
+        if (groups.length === 0) return;
+        if (!groups.some((g) => String(g.id) === groupId)) {
+            setGroupId(String(groups[0].id));
+        }
+    }, [groups, groupId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -141,18 +151,24 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
                 </div>
                 <div className="flex flex-col gap-2">
                     <label htmlFor="content-group" className="text-sm font-semibold text-fq-text">Grupo</label>
-                    <select
-                        id="content-group"
-                        value={groupId}
-                        onChange={(e) => setGroupId(e.target.value)}
-                        className="rounded-fq border border-fq-border bg-fq-surface px-3 py-3.5 text-sm text-fq-text"
-                    >
-                        {groups.map((g) => (
-                            <option key={g.id} value={g.id}>
-                                {g.name}
-                            </option>
-                        ))}
-                    </select>
+                    {groups.length === 0 ? (
+                        <p className="text-sm text-fq-danger">
+                            No pertenecés a ningún grupo.
+                        </p>
+                    ) : (
+                        <select
+                            id="content-group"
+                            value={groupId}
+                            onChange={(e) => setGroupId(e.target.value)}
+                            className="rounded-fq border border-fq-border bg-fq-surface px-3 py-3.5 text-sm text-fq-text"
+                        >
+                            {groups.map((g) => (
+                                <option key={g.id} value={g.id}>
+                                    {g.name}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
             </div>
 
@@ -166,7 +182,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
                 </button>
                 <button
                     type="submit"
-                    disabled={saving}
+                    disabled={saving || groups.length === 0}
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-fq bg-fq-primary px-6 py-3 text-sm font-semibold text-fq-text transition-colors hover:bg-fq-primary-hover disabled:cursor-not-allowed disabled:opacity-70"
                 >
                     {saving ? (
