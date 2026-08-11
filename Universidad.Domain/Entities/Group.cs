@@ -8,6 +8,7 @@ public class Group
     public string Description { get; set; }
     public ICollection<UserGroup>? Users { get; set; }
     public ICollection<Content>? Content { get; set; }
+    public ICollection<Page>? Pages { get; set; }
 
 
     public Group(string name, string description, ICollection<UserGroup> users, ICollection<Content> content)

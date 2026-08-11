@@ -17,6 +17,7 @@ public class UserGetAll(IUserRepository repository) : IUserGetAll
             u.Name,
             u.LastName,
             u.Email,
+            u.IsAdmin,
             u.Groups.Select(g => new GroupDto(
                 Id: g.Group.Id,
                 Name: g.Group.Name,

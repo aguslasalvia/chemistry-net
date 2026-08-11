@@ -4,5 +4,5 @@ using Universidad.Application.Dto;
 
 public interface IContentCreate
 {
-    Task<ContentDto> ExecuteAsync(CreateContentDto dto);
+    Task<ContentDto> ExecuteAsync(CreateContentDto dto, int actingUserId);
 }

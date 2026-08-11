@@ -3,46 +3,49 @@ namespace Universidad.Application.UseCases;
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
 using Universidad.Domain.Entities;
-using Universidad.Domain.Enums;
 using Universidad.Domain.Interfaces;
 
-public class ContentCreate(IContentRepository repository, IUserRepository userRepository) : IContentCreate
+public class PageCreate(IPageRepository repository, IUserRepository userRepository) : IPageCreate
 {
-    private readonly IContentRepository _repository = repository;
+    private readonly IPageRepository _repository = repository;
     private readonly IUserRepository _userRepository = userRepository;
 
-    public async Task<ContentDto> ExecuteAsync(CreateContentDto dto, int actingUserId)
+    public async Task<PageDto> ExecuteAsync(PageCreateDto dto, int actingUserId)
     {
         var actingUser = await _userRepository.GetByIdAsync(actingUserId);
         if (actingUser == null || !actingUser.CanEditGroup(dto.GroupId))
-            throw new UnauthorizedAccessException("No tenés permiso para publicar contenido en ese grupo");
+            throw new UnauthorizedAccessException("No tenés permiso para crear páginas en ese grupo");
 
-        var content = new Content
+        var existing = await _repository.GetBySlugAsync(dto.Slug);
+        if (existing != null) throw new InvalidOperationException("Ya existe una página con esa URL");
+
+        var now = DateTime.UtcNow;
+        var page = new Page
         {
             Title = dto.Title,
+            Slug = dto.Slug,
             Body = dto.Body,
             ImageUrl = dto.ImageUrl,
-            Subtitle = dto.Subtitle,
-            CreationDate = DateTime.UtcNow,
+            CreationDate = now,
+            UpdatedDate = now,
             UserId = dto.UserId,
             GroupId = dto.GroupId,
-            Type = dto.Type ?? ContentType.Default
         };
 
-        var created = await _repository.CreateAsync(content);
+        var created = await _repository.CreateAsync(page);
 
-        return new ContentDto(
+        return new PageDto(
             Id: created.Id,
             Title: created.Title,
+            Slug: created.Slug,
             Body: created.Body,
             ImageUrl: created.ImageUrl,
-            Subtitle: created.Subtitle,
             CreationDate: created.CreationDate,
+            UpdatedDate: created.UpdatedDate,
             UserId: created.UserId,
             UserName: $"{created.User.Name} {created.User.LastName}",
             GroupId: created.GroupId,
-            GroupName: created.Group.Name,
-            Type: created.Type
+            GroupName: created.Group.Name
         );
     }
 }

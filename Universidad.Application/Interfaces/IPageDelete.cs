@@ -1,6 +1,6 @@
 namespace Universidad.Application.Interfaces;
 
-public interface IContentDelete
+public interface IPageDelete
 {
     Task ExecuteAsync(int id, int actingUserId);
 }

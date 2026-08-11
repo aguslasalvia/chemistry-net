@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Universidad.Application.Interfaces;
@@ -20,12 +21,21 @@ public class ContentController(
     private readonly IContentUpdate _contentUpdate = contentUpdate;
     private readonly IContentDelete _contentDelete = contentDelete;
 
-    // Public: the landing page reads content (Novedades/Agenda/Carreras) without a session.
+    // Public: the landing page reads content (Novedades/Agenda/Carreras) without a session — unfiltered.
+    // The admin Content panel calls this same endpoint while authenticated, in which case it's scoped
+    // to the caller's groups (unless they're an admin).
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
-        var contents = await _contentGetAll.ExecuteAsync();
+        int? userId = null;
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            var idClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (int.TryParse(idClaim, out var id)) userId = id;
+        }
+
+        var contents = await _contentGetAll.ExecuteAsync(userId);
         return Ok(new { Contents = contents });
     }
 
@@ -34,8 +44,12 @@ public class ContentController(
     {
         try
         {
-            var created = await _contentCreate.ExecuteAsync(createDto);
+            var created = await _contentCreate.ExecuteAsync(createDto, GetUserId());
             return Ok(new { Content = created });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(403, ex.Message);
         }
         catch (Exception ex)
         {
@@ -48,8 +62,12 @@ public class ContentController(
     {
         try
         {
-            await _contentUpdate.ExecuteAsync(contentId, updateDto);
+            await _contentUpdate.ExecuteAsync(contentId, updateDto, GetUserId());
             return Ok();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(403, ex.Message);
         }
         catch (Exception ex)
         {
@@ -62,12 +80,18 @@ public class ContentController(
     {
         try
         {
-            await _contentDelete.ExecuteAsync(contentId);
+            await _contentDelete.ExecuteAsync(contentId, GetUserId());
             return Ok();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(403, ex.Message);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
     }
+
+    private int GetUserId() => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 }

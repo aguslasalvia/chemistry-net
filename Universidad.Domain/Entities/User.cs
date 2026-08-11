@@ -9,6 +9,11 @@ public class User
     public string PasswordHash { get; set; }
     public IEnumerable<UserGroup> Groups { get; set; }
 
+    /// <summary>Membership in the "Administrador" group grants global access — no separate admin flag/table.</summary>
+    public bool IsAdmin => Groups != null && Groups.Any(g => g.Group != null && g.Group.Name == "Administrador");
+
+    public bool CanEditGroup(int groupId) => IsAdmin || (Groups != null && Groups.Any(g => g.GroupId == groupId));
+
     public User(string name, string lastName, string email, string passwordHash, ICollection<UserGroup> groups)
     {
         Name = name;

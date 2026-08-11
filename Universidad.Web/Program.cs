@@ -18,6 +18,7 @@ internal class Program
         builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
         builder.Services.AddScoped(typeof(IContentRepository), typeof(ContentRepository));
         builder.Services.AddScoped(typeof(IGroupRepository), typeof(GroupRepository));
+        builder.Services.AddScoped(typeof(IPageRepository), typeof(PageRepository));
 
         // Use Cases Injection
         // User
@@ -44,6 +45,13 @@ internal class Program
         builder.Services.AddScoped(typeof(IContentCreate), typeof(ContentCreate));
         builder.Services.AddScoped(typeof(IContentUpdate), typeof(ContentUpdate));
         builder.Services.AddScoped(typeof(IContentDelete), typeof(ContentDelete));
+
+        // Page
+        builder.Services.AddScoped(typeof(IPageGetAll), typeof(PageGetAll));
+        builder.Services.AddScoped(typeof(IPageGetBySlug), typeof(PageGetBySlug));
+        builder.Services.AddScoped(typeof(IPageCreate), typeof(PageCreate));
+        builder.Services.AddScoped(typeof(IPageUpdate), typeof(PageUpdate));
+        builder.Services.AddScoped(typeof(IPageDelete), typeof(PageDelete));
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite("Data Source=university.db")

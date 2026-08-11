@@ -9,12 +9,17 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Group> Groups { get; set; }
     public DbSet<UserGroup> UserGroups { get; set; }
     public DbSet<Content> Contents { get; set; }
+    public DbSet<Page> Pages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasKey(u => u.Id);
         modelBuilder.Entity<Group>().HasKey(d => d.Id);
         modelBuilder.Entity<Content>().HasKey(c => c.Id);
+        modelBuilder.Entity<Page>().HasKey(p => p.Id);
+        modelBuilder.Entity<Page>().HasIndex(p => p.Slug).IsUnique();
+        modelBuilder.Entity<Page>().HasOne(p => p.User).WithMany().HasForeignKey(p => p.UserId);
+        modelBuilder.Entity<Page>().HasOne(p => p.Group).WithMany(g => g.Pages).HasForeignKey(p => p.GroupId);
 
         modelBuilder.Entity<UserGroup>().HasKey(ud => new { ud.UserId, ud.GroupId });
 

@@ -4,5 +4,5 @@ using Universidad.Application.Dto;
 
 public interface IContentGetAll
 {
-    Task<IEnumerable<ContentDto>> ExecuteAsync();
+    Task<IEnumerable<ContentDto>> ExecuteAsync(int? currentUserId);
 }

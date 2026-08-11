@@ -4,5 +4,5 @@ using Universidad.Application.Dto;
 
 public interface IContentUpdate
 {
-    Task ExecuteAsync(int id, ContentUpdateDto dto);
+    Task ExecuteAsync(int id, ContentUpdateDto dto, int actingUserId);
 }

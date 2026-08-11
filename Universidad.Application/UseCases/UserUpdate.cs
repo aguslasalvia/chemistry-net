@@ -24,6 +24,7 @@ public class UserUpdate(IUserRepository repository) : IUserUpdate
             Name: user.Name,
             LastName: user.LastName,
             Email: user.Email,
+            IsAdmin: user.IsAdmin,
             Groups: user.Groups.Select(g => new GroupDto(
                 Id: g.Group.Id,
                 Name: g.Group.Name,

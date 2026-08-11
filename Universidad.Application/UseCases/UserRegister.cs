@@ -29,6 +29,7 @@ public class UserRegister(IUserRepository repository) : IUserRegister
             Name: createdUser.Name,
             LastName: createdUser.LastName,
             Email: createdUser.Email,
+            IsAdmin: createdUser.IsAdmin,
             Groups: []
         );
     }

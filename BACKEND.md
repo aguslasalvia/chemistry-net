@@ -16,12 +16,20 @@
       `GetAll` for a client-tracked id).
 - [x] `Content.Subtitle` (nullable) — freeform label shown on the public site: duration
       for Academic content, location for Events, category tag for News.
-- [x] Seed data (`SeedData.cs`, runs once on an empty `Users` table): 1 admin user
-      (`admin@fq.edu.uy` / `admin123`), 3 groups (Noticias/Eventos/Académico), and the
-      real News/Events/Academic content that used to be hardcoded in the frontend.
+- [x] Seed data (`SeedData.cs`, runs once on an empty `Users` table): 2 users
+      (`admin@fq.edu.uy` / `admin123`, `agustin@fq.edu.uy` / `agustin`), 4 groups
+      (Administrador/Noticias/Eventos/Académico), and the real News/Events/Academic
+      content that used to be hardcoded in the frontend, plus 3 standalone pages.
+- [x] `Page` entity — standalone routable static document (Institución, Bedelía, ...),
+      separate from `Content` (feed items). Full CRUD stack mirroring Content's, public
+      `GET /api/page/by-slug/{slug}` for the `/:slug` frontend route.
+- [x] Group-scoped visibility and editing for `Content` and `Page`: `GetAll` on both
+      is filtered to the caller's groups unless they're an admin (public/anonymous
+      calls stay unfiltered). Create/Update/Delete also reject with 403 when the
+      caller isn't a member of the target group. "Admin" isn't a stored flag — it's
+      membership in the group literally named `"Administrador"` (see `User.IsAdmin`
+      in `Universidad.Domain/Entities/User.cs`), so granting/revoking admin access is
+      just adding/removing someone from that group via the existing Groups panel.
 
 ## Pending
 - [ ] Change Departments for Group in each layer
-- [ ] No role/permission distinction yet — `[Authorize]` only checks "is logged in",
-      any authenticated user can manage the whole panel. Fine for this mock's scope,
-      but worth flagging if real multi-role access control is ever needed.
