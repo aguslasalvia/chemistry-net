@@ -42,6 +42,7 @@ public class ContentRepository(AppDbContext context) : IContentRepository
         contentToUpdate.Title = content.Title;
         contentToUpdate.Body = content.Body;
         contentToUpdate.ImageUrl = content.ImageUrl;
+        contentToUpdate.Subtitle = content.Subtitle;
         contentToUpdate.Type = content.Type;
 
         await _ctx.SaveChangesAsync();

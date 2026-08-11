@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
@@ -9,10 +10,12 @@ namespace Universidad.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UserController(
       IUserLogin login,
       IUserRegister register,
       IUserGetAll getAll,
+      IUserGetById getById,
       IUserUpdate update,
       IUserDelete delete,
       IUserChangePassword changePassword
@@ -21,11 +24,31 @@ public class UserController(
     private readonly IUserLogin _userLogin = login;
     private readonly IUserRegister _userRegister = register;
     private readonly IUserGetAll _userGetAll = getAll;
+    private readonly IUserGetById _userGetById = getById;
     private readonly IUserUpdate _userUpdate = update;
     private readonly IUserDelete _userDelete = delete;
     private readonly IUserChangePassword _userChangePassword = changePassword;
 
+    [HttpGet("me")]
+    public async Task<IActionResult> Me()
+    {
+        var idClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (idClaim == null || !int.TryParse(idClaim, out var id))
+            return Unauthorized();
+
+        try
+        {
+            var user = await _userGetById.ExecuteAsync(id);
+            return Ok(new { User = user });
+        }
+        catch (InvalidOperationException)
+        {
+            return Unauthorized();
+        }
+    }
+
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginDto credentials)
     {
         if (credentials == null)

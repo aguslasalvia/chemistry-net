@@ -16,6 +16,7 @@ public class ContentUpdate(IContentRepository repository) : IContentUpdate
         content.Title = dto.Title;
         content.Body = dto.Body;
         content.ImageUrl = dto.ImageUrl;
+        content.Subtitle = dto.Subtitle;
         content.Type = dto.Type;
 
         await _repository.UpdateAsync(content);

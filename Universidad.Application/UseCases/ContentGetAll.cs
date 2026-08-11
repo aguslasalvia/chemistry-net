@@ -16,6 +16,7 @@ public class ContentGetAll(IContentRepository repository) : IContentGetAll
             Title: c.Title,
             Body: c.Body,
             ImageUrl: c.ImageUrl,
+            Subtitle: c.Subtitle,
             CreationDate: c.CreationDate,
             UserId: c.UserId,
             UserName: $"{c.User.Name} {c.User.LastName}",

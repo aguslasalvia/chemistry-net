@@ -7,6 +7,7 @@ public record ContentDto(
     string Title,
     string Body,
     string? ImageUrl,
+    string? Subtitle,
     DateTime CreationDate,
     int UserId,
     string UserName,
@@ -19,6 +20,7 @@ public record CreateContentDto(
     string Title,
     string Body,
     string? ImageUrl,
+    string? Subtitle,
     int UserId,
     int GroupId,
     ContentType? Type
@@ -28,6 +30,6 @@ public record ContentUpdateDto(
     string Title,
     string Body,
     string? ImageUrl,
+    string? Subtitle,
     ContentType? Type
 );
-

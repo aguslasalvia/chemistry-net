@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
@@ -5,6 +6,7 @@ namespace Universidad.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class GroupController(
     IGroupGetAll groupGetAll,
     IGroupGetById groupGetById,

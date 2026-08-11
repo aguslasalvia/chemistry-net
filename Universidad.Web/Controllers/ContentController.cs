@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Universidad.Application.Interfaces;
 using Universidad.Application.Dto;
@@ -6,6 +7,7 @@ namespace Universidad.Web.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ContentController(
     IContentGetAll contentGetAll,
     IContentCreate contentCreate,
@@ -18,7 +20,9 @@ public class ContentController(
     private readonly IContentUpdate _contentUpdate = contentUpdate;
     private readonly IContentDelete _contentDelete = contentDelete;
 
+    // Public: the landing page reads content (Novedades/Agenda/Carreras) without a session.
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         var contents = await _contentGetAll.ExecuteAsync();

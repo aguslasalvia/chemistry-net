@@ -10,6 +10,9 @@ public class Content
     public string Title { get; set; }
     public string Body { get; set; }        // rich HTML
     public string? ImageUrl { get; set; } = null;  // URL of image container (optional)
+    // Freeform label shown next to the title on the public site — duration for
+    // Academic content, location for Events, category tag for News. Optional.
+    public string? Subtitle { get; set; } = null;
     public DateTime CreationDate { get; set; }
     public int UserId { get; set; }         // who created the content
     public User User { get; set; }
