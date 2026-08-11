@@ -49,7 +49,7 @@
   /* Minimal motion — state feedback only */
   --animate-fade-in: fade-in 0.2s ease;
   --animate-slide-up: slide-up 0.3s ease;
-  --animate-slide-down: slide-down 0.2s ease;
+  --animate-slide-down: slide-down 0.3s ease;
   --animate-fade-up: fade-up 0.5s ease;
 }
 

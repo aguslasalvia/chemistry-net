@@ -17,6 +17,7 @@ const Institucion = () => {
             >
                 <ImageSlot
                     alt="Foto del edificio o laboratorios de la facultad"
+                    src="/university.webp"
                     className="aspect-[4/3] w-full rounded-fq-xl"
                 />
                 <div>

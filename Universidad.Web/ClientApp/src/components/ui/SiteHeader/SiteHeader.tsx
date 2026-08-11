@@ -147,8 +147,12 @@ const SiteHeader = () => {
                     id="mobile-menu"
                     className="animate-slide-down absolute inset-x-0 top-full mt-2 flex max-h-[70vh] flex-col gap-1 overflow-y-auto rounded-fq-lg border border-fq-border bg-white p-4 shadow-fq lg:hidden"
                 >
-                    {NAV_SECTIONS.map((section) => (
-                        <div key={section.label} className="border-b border-fq-border last:border-0">
+                    {NAV_SECTIONS.map((section, index) => (
+                        <div
+                            key={section.label}
+                            className="animate-fade-up border-b border-fq-border [animation-fill-mode:both] last:border-0"
+                            style={{ animationDelay: `${50 + index * 40}ms` }}
+                        >
                             <button
                                 type="button"
                                 onClick={() => toggleMobileSection(section.label)}
@@ -182,7 +186,8 @@ const SiteHeader = () => {
                     ))}
                     <a
                         href="/Contacto"
-                        className="mt-2 min-h-11 rounded-full bg-fq-primary px-5 py-3 text-center font-display text-sm font-bold text-fq-text"
+                        className="animate-fade-up mt-2 min-h-11 rounded-full bg-fq-primary px-5 py-3 text-center font-display text-sm font-bold text-fq-text [animation-fill-mode:both]"
+                        style={{ animationDelay: `${50 + NAV_SECTIONS.length * 40}ms` }}
                         onClick={() => setMenuOpen(false)}
                     >
                         Contacto
