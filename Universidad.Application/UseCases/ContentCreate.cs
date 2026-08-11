@@ -6,16 +6,20 @@ using Universidad.Domain.Entities;
 using Universidad.Domain.Enums;
 using Universidad.Domain.Interfaces;
 
-public class ContentCreate(IContentRepository repository, IUserRepository userRepository) : IContentCreate
+public class ContentCreate(IContentRepository repository, IUserRepository userRepository, IGroupRepository groupRepository) : IContentCreate
 {
     private readonly IContentRepository _repository = repository;
     private readonly IUserRepository _userRepository = userRepository;
+    private readonly IGroupRepository _groupRepository = groupRepository;
 
     public async Task<ContentDto> ExecuteAsync(CreateContentDto dto, int actingUserId)
     {
         var actingUser = await _userRepository.GetByIdAsync(actingUserId);
         if (actingUser == null || !actingUser.CanEditGroup(dto.GroupId))
             throw new UnauthorizedAccessException("No tenés permiso para publicar contenido en ese grupo");
+
+        if (await _groupRepository.GetByIdAsync(dto.GroupId) == null)
+            throw new InvalidOperationException("El grupo seleccionado no existe");
 
         var content = new Content
         {

@@ -5,16 +5,20 @@ using Universidad.Application.Dto;
 using Universidad.Domain.Entities;
 using Universidad.Domain.Interfaces;
 
-public class PageCreate(IPageRepository repository, IUserRepository userRepository) : IPageCreate
+public class PageCreate(IPageRepository repository, IUserRepository userRepository, IGroupRepository groupRepository) : IPageCreate
 {
     private readonly IPageRepository _repository = repository;
     private readonly IUserRepository _userRepository = userRepository;
+    private readonly IGroupRepository _groupRepository = groupRepository;
 
     public async Task<PageDto> ExecuteAsync(PageCreateDto dto, int actingUserId)
     {
         var actingUser = await _userRepository.GetByIdAsync(actingUserId);
         if (actingUser == null || !actingUser.CanEditGroup(dto.GroupId))
             throw new UnauthorizedAccessException("No tenés permiso para crear páginas en ese grupo");
+
+        if (await _groupRepository.GetByIdAsync(dto.GroupId) == null)
+            throw new InvalidOperationException("El grupo seleccionado no existe");
 
         var existing = await _repository.GetBySlugAsync(dto.Slug);
         if (existing != null) throw new InvalidOperationException("Ya existe una página con esa URL");
