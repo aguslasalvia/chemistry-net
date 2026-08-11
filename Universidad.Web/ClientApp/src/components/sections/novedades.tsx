@@ -1,9 +1,15 @@
-import { noticias } from '@data/home';
 import ImageSlot from '@components/ui/image-slot/image-slot';
 import { useInView } from '@hooks/use-in-view';
+import type { Content } from '@models/content';
 
-const Novedades = () => {
+interface NovedadesProps {
+    items: Content[];
+}
+
+const Novedades: React.FC<NovedadesProps> = ({ items }) => {
     const { ref, inView } = useInView<HTMLDivElement>();
+
+    if (items.length === 0) return null;
 
     return (
         <section id="novedades" className="px-[clamp(20px,5vw,64px)] py-section">
@@ -16,17 +22,19 @@ const Novedades = () => {
                 </div>
                 <h2 className="mb-9 text-h2 font-bold">Lo último de la facultad</h2>
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] items-start gap-6">
-                    {noticias.map((n) => (
+                    {items.map((n) => (
                         <a
-                            key={n.imgId}
+                            key={n.id}
                             href="https://www.fq.edu.uy"
                             className="flex flex-col overflow-hidden rounded-fq-lg border border-fq-border text-fq-text transition-[box-shadow,transform] hover:-translate-y-[3px] hover:shadow-fq-hover"
                         >
-                            <ImageSlot alt="Imagen de la noticia" className="aspect-[16/10] w-full" />
+                            <ImageSlot alt={n.title} src={n.imageUrl} className="aspect-[16/10] w-full" />
                             <div className="p-[18px]">
-                                <div className="mb-2 text-xs font-bold tracking-wide text-fq-primary-text uppercase">
-                                    {n.tag}
-                                </div>
+                                {n.subtitle && (
+                                    <div className="mb-2 text-xs font-bold tracking-wide text-fq-primary-text uppercase">
+                                        {n.subtitle}
+                                    </div>
+                                )}
                                 <div className="mb-2 font-display text-[16.5px] leading-[1.35] font-semibold">
                                     {n.title}
                                 </div>

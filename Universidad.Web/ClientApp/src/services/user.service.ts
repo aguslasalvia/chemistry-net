@@ -20,6 +20,15 @@ export const logoutUser = async (): Promise<void> => {
     await fetch('/api/user/logout', { method: 'POST' });
 };
 
+/** Resolves the logged-in user from the auth cookie, or null if there's no session. */
+export const getCurrentUser = async (): Promise<User | null> => {
+    const response = await fetch('/api/user/me');
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    return data.user;
+};
+
 export const getUsers = async (): Promise<User[]> => {
     const response = await fetch('/api/user/users');
     const data = await response.json();

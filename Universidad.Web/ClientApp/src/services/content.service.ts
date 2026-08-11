@@ -13,11 +13,12 @@ export const createContent = async (
     groupId: number,
     type: ContentType,
     imageUrl?: string,
+    subtitle?: string,
 ): Promise<Content> => {
     const response = await fetch('/api/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, body, imageUrl, userId, groupId, type }),
+        body: JSON.stringify({ title, body, imageUrl, subtitle, userId, groupId, type }),
     });
 
     if (!response.ok) {
@@ -34,11 +35,12 @@ export const updateContent = async (
     body: string,
     type: ContentType,
     imageUrl?: string,
+    subtitle?: string,
 ): Promise<void> => {
     const response = await fetch(`/api/content/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, body, imageUrl, type }),
+        body: JSON.stringify({ title, body, imageUrl, subtitle, type }),
     });
 
     if (!response.ok) {

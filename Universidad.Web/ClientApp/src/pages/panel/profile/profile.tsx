@@ -1,48 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useOutletContext } from 'react-router';
 import toast from 'react-hot-toast';
 import { User as UserIcon, Mail, KeyRound, Save, Loader2 } from 'lucide-react';
-import { getUsers, updateUser, changeUserPassword } from '@services/user.service';
-import { getCurrentUserId } from '@utils/session';
+import { updateUser, changeUserPassword } from '@services/user.service';
 import type { User } from '@models/user';
 
 const inputClasses =
     'w-full rounded-fq border border-fq-border bg-fq-surface py-3.5 pr-4 pl-11 text-sm text-fq-text placeholder:text-fq-muted/70 transition-colors focus:border-fq-primary focus:bg-white';
 
 const ProfilePage = () => {
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
+    const currentUser = useOutletContext<User>();
+    const [name, setName] = useState(currentUser.name);
+    const [lastName, setLastName] = useState(currentUser.lastName);
+    const [email, setEmail] = useState(currentUser.email);
     const [newPassword, setNewPassword] = useState('');
     const [savingInfo, setSavingInfo] = useState(false);
     const [savingPassword, setSavingPassword] = useState(false);
 
-    useEffect(() => {
-        const userId = getCurrentUserId();
-        if (!userId) {
-            setLoading(false);
-            return;
-        }
-        getUsers()
-            .then((users) => {
-                const current = users.find((u) => u.id === userId) ?? null;
-                setUser(current);
-                if (current) {
-                    setName(current.name);
-                    setLastName(current.lastName);
-                    setEmail(current.email);
-                }
-            })
-            .finally(() => setLoading(false));
-    }, []);
-
     const handleSaveInfo = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!user) return;
         setSavingInfo(true);
         try {
-            await updateUser(user.id, name.trim(), lastName.trim(), email.trim());
+            await updateUser(currentUser.id, name.trim(), lastName.trim(), email.trim());
             toast.success('Perfil actualizado');
         } catch {
             toast.error('No se pudo actualizar el perfil');
@@ -53,14 +32,13 @@ const ProfilePage = () => {
 
     const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!user) return;
         if (newPassword.length < 6) {
             toast.error('La contraseña debe tener al menos 6 caracteres');
             return;
         }
         setSavingPassword(true);
         try {
-            await changeUserPassword(user.id, newPassword);
+            await changeUserPassword(currentUser.id, newPassword);
             toast.success('Contraseña actualizada');
             setNewPassword('');
         } catch {
@@ -69,14 +47,6 @@ const ProfilePage = () => {
             setSavingPassword(false);
         }
     };
-
-    if (loading) {
-        return <p className="text-fq-muted">Cargando perfil…</p>;
-    }
-
-    if (!user) {
-        return <p className="text-fq-muted">Iniciá sesión de nuevo para ver tu perfil.</p>;
-    }
 
     return (
         <div className="flex max-w-xl flex-col gap-8">

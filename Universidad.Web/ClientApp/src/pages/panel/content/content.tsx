@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router';
 import toast from 'react-hot-toast';
 import { Plus } from 'lucide-react';
 import Modal from '@components/ui/modal/modal';
@@ -6,11 +7,12 @@ import ContentCard from '@components/ui/content-card/content-card';
 import ContentForm from '@components/ui/content-form/content-form';
 import { getContent, createContent, updateContent, deleteContent } from '@services/content.service';
 import { getGroups } from '@services/group.service';
-import { getCurrentUserId } from '@utils/session';
 import type { Content, ContentType } from '@models/content';
 import type { Group } from '@models/group';
+import type { User } from '@models/user';
 
 const ContentPage = () => {
+    const currentUser = useOutletContext<User>();
     const [items, setItems] = useState<Content[]>([]);
     const [groups, setGroups] = useState<Group[]>([]);
     const [loading, setLoading] = useState(false);
@@ -55,18 +57,14 @@ const ContentPage = () => {
         type: ContentType;
         groupId: number;
         imageUrl?: string;
+        subtitle?: string;
     }) => {
         try {
             if (editingItem) {
-                await updateContent(editingItem.id, data.title, data.body, data.type, data.imageUrl);
+                await updateContent(editingItem.id, data.title, data.body, data.type, data.imageUrl, data.subtitle);
                 toast.success('Contenido actualizado');
             } else {
-                const userId = getCurrentUserId();
-                if (!userId) {
-                    toast.error('Iniciá sesión de nuevo para publicar contenido');
-                    return;
-                }
-                await createContent(data.title, data.body, userId, data.groupId, data.type, data.imageUrl);
+                await createContent(data.title, data.body, currentUser.id, data.groupId, data.type, data.imageUrl, data.subtitle);
                 toast.success('Contenido publicado');
             }
             closeForm();

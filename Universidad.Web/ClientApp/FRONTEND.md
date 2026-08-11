@@ -11,14 +11,19 @@
 - [x] Full rebuild of the frontend on Tailwind CSS against a mockup for the public
       landing (see `## Design System` in the repo's `CLAUDE.md`) — every page/component
       listed above was rewritten from scratch, not just restyled
+- [x] Home now loads Carreras/Agenda/Novedades from the real backend (`GET /api/content`,
+      one request, filtered client-side by `type`) instead of the hardcoded arrays that
+      used to live in `data/home.ts` and `Agenda.tsx`. Stats stays static — it's not
+      modeled as Content.
+- [x] `utils/session.ts` (the `localStorage`-based "current user id" workaround) is gone
+      — replaced by `GET /api/user/me`. `PanelLayout` calls it once, gates every panel
+      route on the result (redirects to `/panel/login` if there's no session), and passes
+      the resolved user down via `<Outlet context={user} />`; Content and Profile read it
+      with `useOutletContext` instead of re-fetching or trusting client-side storage.
 
 ## Pending
-- [ ] Profile page reads the logged-in user from `localStorage` (`utils/session.ts`)
-      because there's no "current user" backend endpoint — if one gets added
-      (e.g. `GET /api/user/me`), Profile/Content-authorship should switch to it
-      instead of trusting client-side storage
-- [ ] `[Authorize]` on admin endpoints (needs a seed admin user + frontend route guard
-      first, or the panel becomes unusable with no way to log in) — unchanged from
-      before, still not done
 - [ ] Real photos for the landing (hero, institución, 6 carreras, 4 noticias, mapa) —
-      currently `ImageSlot` placeholders 
+      `hero.webp`/`university.webp` are wired in, the rest are still `ImageSlot`
+      placeholders
+- [ ] No role/permission distinction in the UI — every logged-in user sees the full
+      panel, matching the backend's current "authenticated = allowed" model 

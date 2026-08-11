@@ -5,6 +5,7 @@ export interface Content {
     title: string;
     body: string;
     imageUrl?: string;
+    subtitle?: string;
     creationDate: string;
     userId: number;
     userName: string;

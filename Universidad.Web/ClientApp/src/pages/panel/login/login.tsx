@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { Mail, Lock, Loader2, LogIn } from 'lucide-react';
 import Logo from '@components/ui/logo/logo';
 import { loginUser } from '@services/user.service';
-import { setCurrentUserId } from '@utils/session';
 
 const inputClasses =
     'w-full rounded-fq border border-fq-border bg-fq-surface py-3.5 pr-4 pl-11 text-sm text-fq-text placeholder:text-fq-muted/70 transition-colors focus:border-fq-primary focus:bg-white';
@@ -25,8 +24,7 @@ const Login = () => {
 
         setLoading(true);
         try {
-            const user = await loginUser(email.trim(), password);
-            setCurrentUserId(user.id);
+            await loginUser(email.trim(), password);
             navigate('/panel/dashboard');
         } catch (err) {
             toast.error(err instanceof Error ? err.message : 'No se pudo iniciar sesión');

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { Type, FileText, Image as ImageIcon, Save, Plus, Loader2 } from 'lucide-react';
+import { Type, Tag, FileText, Image as ImageIcon, Save, Plus, Loader2 } from 'lucide-react';
 import type { Content, ContentType } from '@models/content';
 import type { Group } from '@models/group';
 
@@ -13,9 +13,17 @@ interface ContentFormProps {
         type: ContentType;
         groupId: number;
         imageUrl?: string;
+        subtitle?: string;
     }) => Promise<void>;
     onCancel: () => void;
 }
+
+const SUBTITLE_HINT: Record<ContentType, string> = {
+    News: 'Ej: Investigación, Enseñanza, Internacional',
+    Events: 'Ej: Aula Magna, Edificio central',
+    Academic: 'Ej: Grado · 5 años',
+    Default: '',
+};
 
 const TYPES: ContentType[] = ['News', 'Events', 'Academic', 'Default'];
 
@@ -30,6 +38,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
         initial ? String(initial.groupId) : groups[0] ? String(groups[0].id) : '',
     );
     const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? '');
+    const [subtitle, setSubtitle] = useState(initial?.subtitle ?? '');
     const [saving, setSaving] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -46,6 +55,7 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
                 type,
                 groupId: Number(groupId),
                 imageUrl: imageUrl.trim() || undefined,
+                subtitle: subtitle.trim() || undefined,
             });
         } finally {
             setSaving(false);
@@ -77,6 +87,22 @@ const ContentForm: React.FC<ContentFormProps> = ({ groups, initial, onSubmit, on
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         className={`${inputClasses} resize-none`}
+                    />
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <label htmlFor="content-subtitle" className="text-sm font-semibold text-fq-text">
+                    Subtítulo (opcional)
+                </label>
+                <div className="relative flex items-start">
+                    <Tag className="pointer-events-none absolute top-3.5 left-3.5 text-fq-muted" size={18} />
+                    <input
+                        id="content-subtitle"
+                        value={subtitle}
+                        onChange={(e) => setSubtitle(e.target.value)}
+                        placeholder={SUBTITLE_HINT[type]}
+                        className={inputClasses}
                     />
                 </div>
             </div>
